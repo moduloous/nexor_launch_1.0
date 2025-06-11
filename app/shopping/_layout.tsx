@@ -10,6 +10,33 @@ export default function ShoppingLayout() {
         }} 
       />
       <Stack.Screen 
+        name="shop" 
+        options={{ 
+          headerShown: false, 
+          title: 'Shop', 
+          headerStyle: { backgroundColor: '#fff' }, 
+          headerShadowVisible: false, 
+        }} 
+      />
+      <Stack.Screen 
+        name="search" 
+        options={{ 
+          headerShown: false, 
+          title: 'Search', 
+          headerStyle: { backgroundColor: '#fff' }, 
+          headerShadowVisible: false, 
+        }} 
+      />
+      <Stack.Screen 
+        name="wishlist" 
+        options={{ 
+          headerShown: false, 
+          title: 'Wishlist', 
+          headerStyle: { backgroundColor: '#fff' }, 
+          headerShadowVisible: false, 
+        }} 
+      />
+      <Stack.Screen 
         name="topwear" 
         options={{ 
           headerShown: true,

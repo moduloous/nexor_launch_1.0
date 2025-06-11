@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
   Text,
@@ -9,10 +9,12 @@ import {
   StatusBar,
   Platform,
   Image,
+  Animated,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { LinearGradient } from 'expo-linear-gradient';
 
 interface Service {
   id: string;
@@ -38,7 +40,7 @@ const services: Service[] = [
     name: 'Grocery', 
     icon: 'cart',
     image: require('../assets/images/Colorful_Fruit_Display-removebg-preview.png'),
-    href: '/grocery2' 
+    href: '/grocery' 
   },
   { 
     id: '2', 
@@ -131,10 +133,57 @@ const products = [
   { id: '1', name: 'Peri-Peri Potato Fries', description: 'Thick, crispy potato wedges seasoned with zesty peri-peri spi...', price: 80, oldPrice: 150, discount: 56, image: require('../assets/images/menu/perifries.jpeg'), bestseller: true },
   { id: '2', name: 'Grilled Chicken Club Sandwich', description: 'Flame-grilled chicken, bacon, lettuce, tomato & mayo on toasted bread...', price: 179, oldPrice: 249, discount: 43, image: require('../assets/images/menu/sandwitch.jpeg') },
   { id: '3', name: 'Vietnamese Iced Latte', description: 'Bold Robusta coffee blended with sweetened condensed milk, served chilled over ice...', price: 199, oldPrice: 249, discount: 20, image: require('../assets/images/menu/WhatsApp Image 2025-04-30 at 10.15.03 PM.jpeg') },
-  { id: '4', name: 'Masala Chaas', description: '450 ml', price: 99, oldPrice: 119, discount: 16 },
+  { id: '4', name: 'Masala Chaas', description: '450 ml', price: 99, oldPrice: 119, discount: 16, image: require('../assets/images/menu/chicken pasta.jpeg') },
   { id: '5', name: 'Tiramisu', description: '1 Piece', price: 119, oldPrice: 309, discount: 61 },
   { id: '6', name: 'Adrak Chai', description: '250 ml', price: 129, oldPrice: 154, discount: 16 },
 ];
+
+const marqueeTexts: string[] = [
+  "Use Grocery section for larger monthly orders at great prices.",
+  "Use Quick Commerce section for fast deliveries of essentials"
+];
+
+const TextMarquee = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const fadeAnim = useRef(new Animated.Value(1)).current;
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // Fade out
+      Animated.timing(fadeAnim, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: true,
+      }).start(() => {
+        // Change text
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % marqueeTexts.length);
+        // Fade in
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 500,
+          useNativeDriver: true,
+        }).start();
+      });
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <View style={styles.marqueeContainer}>
+      <Animated.Text 
+        style={[
+          styles.marqueeText,
+          {
+            opacity: fadeAnim,
+          }
+        ]}
+      >
+        {marqueeTexts[currentIndex]}
+      </Animated.Text>
+    </View>
+  );
+};
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -304,6 +353,9 @@ export default function HomeScreen() {
           {renderPagination()}
         </View>
 
+        {/* Text Marquee */}
+        <TextMarquee />
+
         {/* Recently Visited Section */}
         <View style={styles.recentSection}>
           <Text style={styles.sectionTitle}>What's brewing in your head?</Text>
@@ -312,6 +364,53 @@ export default function HomeScreen() {
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.simpleProductScroll}>
           {products.map(renderProductCard)}
         </ScrollView>
+
+        {/* Resort Banner */}
+        <View style={styles.resortBannerContainer}>
+          <Image 
+            source={require('../shopping/assets/Deskresortdreams.webp')}
+            style={styles.resortBanner}
+            resizeMode="cover"
+          />
+          <View style={styles.bannerOverlay}>
+            <Text style={styles.bannerSubtitle}>SHOP RESORT DREAMS</Text>
+          </View>
+        </View>
+
+        {/* Split Fashion Banner */}
+        <View style={styles.splitFashionContainer}>
+          <View style={styles.splitFashionLeft}>
+            <Image 
+              source={require('../shopping/assets/spbanner.webp')}
+              style={styles.splitFashionImage}
+              resizeMode="cover"
+            />
+            <View style={styles.bannerOverlay}>
+              <Text style={styles.bannerTitle}>NEW IN TOPS</Text>
+              <Text style={styles.bannerSubtitle}>SHOP NEW IN TOPS</Text>
+            </View>
+          </View>
+          <View style={styles.splitFashionRight}>
+            <Image 
+              source={require('../shopping/assets/homemen.jpg')}
+              style={styles.splitFashionImage}
+              resizeMode="cover"
+            />
+            <View style={styles.bannerOverlay}>
+              <Text style={styles.bannerTitle}>NEW IN SHIRTS</Text>
+              <Text style={styles.bannerSubtitle}>SHOP NEW SHIRTS</Text>
+            </View>
+          </View>
+        </View>
+        
+        {/* Going Out Shopping Banner */}
+        <View style={styles.goingOutBannerContainer}>
+          <Image 
+            source={{ uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/banners/going%20out%20shopping%20banner.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5X2E5MGQ1MTlhLTFlZmMtNGJjNS04YTM1LTljZTlkY2I0NWQ2OSJ9.eyJ1cmwiOiJiYW5uZXJzL2dvaW5nIG91dCBzaG9wcGluZyBiYW5uZXIuanBnIiwiaWF0IjoxNzQ4Njk3MjY5LCJleHAiOjE3ODAyMzMyNjl9.4CX_TAkgsB_VwBpzZw-d9vzTh_VAzbGSqws5ZYTOk-I' }}
+            style={styles.goingOutBanner}
+            resizeMode="cover"
+          />
+        </View>
         
         {/* Add bottom padding for tab bar */}
         <View style={styles.bottomPadding} />
@@ -574,4 +673,104 @@ const styles = StyleSheet.create({
     borderRadius: 3.5,
     backgroundColor: '#228B22',
   },
+  resortBannerContainer: {
+    marginHorizontal: 16,
+    marginTop: 8,
+    marginBottom: 16,
+    height: 210,
+  },
+  resortBanner: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 8,
+    alignSelf: 'flex-start',
+  },
+  splitFashionContainer: {
+    flexDirection: 'row',
+    marginHorizontal: 16,
+    marginTop: 8,
+    marginBottom: 16,
+    height: 300,
+  },
+  splitFashionLeft: {
+    flex: 1,
+    marginRight: 4,
+    borderRadius: 8,
+    overflow: 'hidden',
+  },
+  splitFashionRight: {
+    flex: 1,
+    marginLeft: 4,
+    borderRadius: 8,
+    overflow: 'hidden',
+  },
+  splitFashionImage: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 8,
+  },
+  bannerOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'transparent',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    paddingRight: 24,
+    paddingBottom: 24,
+  },
+  bannerTitle: {
+    color: '#fff',
+    fontSize: 18,
+    fontFamily: 'Urbanist-Bold',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    textShadowColor: 'rgba(0,0,0,0.7)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 4,
+    fontStyle: 'italic',
+  },
+  bannerSubtitle: {
+    color: '#fff',
+    fontSize: 10,
+    fontFamily: 'Urbanist-Bold',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    textShadowColor: 'rgba(0,0,0,0.7)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 4,
+    borderBottomWidth: 2,
+    borderBottomColor: '#fff',
+    paddingBottom: 2,
+    fontStyle: 'italic',
+  },
+  marqueeContainer: {
+    backgroundColor: '#f5f5f5',
+    paddingVertical: 10,
+    marginHorizontal: 16,
+    marginTop: 8,
+    marginBottom: 4,
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  marqueeText: {
+    fontSize: 13,
+    color: '#000',
+    fontFamily: 'Urbanist-Bold',
+    textAlign: 'center',
+    paddingHorizontal: 12,
+  },
+  goingOutBannerContainer: {
+    marginHorizontal: 16,
+    marginTop: 8,
+    marginBottom: 16,
+    height: 350, // Increased height further
+  },
+  goingOutBanner: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 8,
+    alignSelf: 'flex-start',
+  }
 }); 

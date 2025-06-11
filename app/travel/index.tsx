@@ -7,12 +7,14 @@ import {
   TouchableOpacity,
   TextInput,
   Image,
-  SafeAreaView,
   Platform,
   StatusBar,
+  Pressable,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { router } from 'expo-router';
+import { ArrowLeft } from 'lucide-react-native';
+import { router, useRouter } from 'expo-router';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface TravelType {
   id: string;
@@ -100,6 +102,7 @@ const upcomingTrips: Trip[] = [
 ];
 
 export default function TravelScreen() {
+  const nav = useRouter();
   const handleNavigation = (route: string) => {
     try {
       router.push(route as any);
@@ -109,8 +112,24 @@ export default function TravelScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+    <>
+      <SafeAreaView style={{ backgroundColor: '#fff' }}>
+        <View style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          paddingTop: 16,
+          paddingHorizontal: 16,
+          paddingBottom: 8,
+          backgroundColor: '#fff',
+          borderBottomWidth: 1,
+          borderBottomColor: '#eee'
+        }}>
+          <Pressable onPress={() => nav.back()}>
+            <ArrowLeft size={24} color="#000" />
+          </Pressable>
+          <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 8 }}>Travel</Text>
+        </View>
+      </SafeAreaView>
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
         {/* Search Bar */}
         <View style={styles.searchContainer}>
@@ -184,16 +203,11 @@ export default function TravelScreen() {
           ))}
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: '#fff',
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
-  },
   container: {
     flex: 1,
     backgroundColor: '#f8f9fa',

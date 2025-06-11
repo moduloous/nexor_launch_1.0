@@ -3,7 +3,7 @@ import { Stack } from 'expo-router';
 export default function RidesLayout() {
   return (
     <Stack screenOptions={{
-      headerShown: true,
+      headerShown: false,
       animation: 'slide_from_right'
     }}>
       <Stack.Screen 

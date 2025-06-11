@@ -6,7 +6,7 @@ export default function StaysLayout() {
       <Stack.Screen 
         name="index" 
         options={{ 
-          headerShown: true,
+          headerShown: false,
           title: "Stays",
           headerTitleStyle: {
             fontSize: 20,

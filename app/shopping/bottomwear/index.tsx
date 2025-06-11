@@ -566,13 +566,6 @@ export default function BottomwearScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Stack.Screen
-        name="bottomwear/index"
-        options={{
-          headerShown: false,
-        }}
-      />
-      
       <View style={styles.header}>
         <View style={styles.headerLeft}>
           <Pressable 

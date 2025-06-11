@@ -1,7 +1,8 @@
 import { View, Text, StyleSheet, ScrollView, Pressable, Image, TextInput } from 'react-native';
-import { MapPin, Search, Clock, FileText, TestTube2, Stethoscope, ChevronRight, Camera } from 'lucide-react-native';
-import { router } from 'expo-router';
+import { MapPin, Search, Clock, FileText, TestTube2, Stethoscope, ChevronRight, Camera, ArrowLeft } from 'lucide-react-native';
+import { router, useRouter } from 'expo-router';
 import React from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const mainServices = [
   {
@@ -53,7 +54,7 @@ const categorySections = [
       {
         id: 'skin-care',
         name: 'Skin Care',
-        image: { uri: 'https://images.unsplash.com/photo-1556229162-5c63ed9c4f31?w=500&h=500&fit=crop' },
+        image: require('./assets/skincare.png'),
         products: [
           'Cetaphil Gentle Cleanser',
           'Neutrogena Moisturizer',
@@ -64,7 +65,7 @@ const categorySections = [
       {
         id: 'men-grooming',
         name: 'Men Grooming',
-        image: { uri: 'https://images.unsplash.com/photo-1581071436020-5f50a61b84be?w=500&h=500&fit=crop' },
+        image: require('./assets/mengrooming.png'),
         products: [
           'Gillette Fusion Razor',
           'Old Spice Deodorant',
@@ -75,7 +76,7 @@ const categorySections = [
       {
         id: 'women-care',
         name: 'Women Care',
-        image: { uri: 'https://images.unsplash.com/photo-1617897903246-719242758050?w=500&h=500&fit=crop' },
+        image: require('./assets/womencare.png'),
         products: [
           'Dove Beauty Bar',
           'Nivea Body Lotion',
@@ -91,7 +92,7 @@ const categorySections = [
       {
         id: 'monitoring',
         name: 'Health Monitors',
-        image: { uri: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=500&h=500&fit=crop' },
+        image: require('./assets/healthmoniter.jpg'),
         products: [
           'Omron BP Monitor',
           'Dr Trust Oximeter',
@@ -102,7 +103,7 @@ const categorySections = [
       {
         id: 'first-aid',
         name: 'First Aid',
-        image: { uri: 'https://images.unsplash.com/photo-1603398938378-e54eab446dde?w=500&h=500&fit=crop' },
+        image: require('./assets/firstaid.webp'),
         products: [
           'Band-Aid Pack',
           'Dettol Antiseptic',
@@ -113,7 +114,7 @@ const categorySections = [
       {
         id: 'medical-devices',
         name: 'Medical Devices',
-        image: { uri: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&h=500&fit=crop' },
+        image: require('./assets/medicaldevices.jpg'),
         products: [
           'Dr Morepen Nebulizer',
           'Omron Thermometer',
@@ -202,6 +203,7 @@ const categorySections = [
 ];
 
 export default function MedicineScreen() {
+  const nav = useRouter();
   const handleServicePress = (serviceId: string) => {
     // For now, we'll just log the service press until we create the service screens
     console.log('Service pressed:', serviceId);
@@ -212,125 +214,142 @@ export default function MedicineScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.locationBar}>
-          <MapPin size={20} color="#ff6b6b" />
-          <View style={styles.locationInfo}>
-            <Text style={styles.locationLabel}>DELIVERY TO</Text>
-            <Text style={styles.locationText}>Home - 123 Main St, City</Text>
+    <>
+      <SafeAreaView style={{ backgroundColor: '#fff' }}>
+        <View style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          paddingTop: 16,
+          paddingHorizontal: 16,
+          paddingBottom: 8,
+          backgroundColor: '#fff',
+          borderBottomWidth: 1,
+          borderBottomColor: '#eee'
+        }}>
+          <Pressable onPress={() => nav.back()}>
+            <ArrowLeft size={24} color="#000" />
+          </Pressable>
+          <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 8 }}>Medicines</Text>
+        </View>
+      </SafeAreaView>
+      <View style={styles.container}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={styles.locationBar}>
+            <MapPin size={20} color="#ff6b6b" />
+            <View style={styles.locationInfo}>
+              <Text style={styles.locationLabel}>DELIVERY TO</Text>
+              <Text style={styles.locationText}>Home - Bangalore</Text>
+            </View>
+            <ChevronRight size={20} color="#333" />
           </View>
-          <ChevronRight size={20} color="#333" />
-        </View>
-      </View>
 
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.searchContainer}>
-          <View style={styles.searchBar}>
-            <Search size={20} color="#666" />
-            <TextInput 
-              placeholder="Search medicines & health products"
-              style={styles.searchInput}
-            />
-          </View>
-        </View>
-
-        <View style={styles.servicesContainer}>
-          {mainServices.map((service) => (
-            <Pressable 
-              key={service.id} 
-              style={styles.serviceCard}
-              onPress={() => handleServicePress(service.id)}
-            >
-              <View style={[styles.serviceIcon, { backgroundColor: service.color + '15' }]}>
-                <service.icon size={24} color={service.color} />
-                {service.badge && (
-                  <View style={styles.serviceBadge}>
-                    <Clock size={12} color="#fff" />
-                    <Text style={styles.serviceBadgeText}>{service.badge}</Text>
-                  </View>
-                )}
-              </View>
-              <Text style={styles.serviceName}>{service.name}</Text>
-              <Text style={styles.serviceDescription}>{service.description}</Text>
-              {service.offer && (
-                <Text style={[styles.serviceOffer, { color: service.color }]}>
-                  {service.offer}
-                </Text>
-              )}
-            </Pressable>
-          ))}
-        </View>
-
-        <Pressable style={styles.prescriptionCard}>
-          <View style={styles.prescriptionLeft}>
-            <FileText size={24} color="#ff6b6b" />
-            <View>
-              <Text style={styles.prescriptionTitle}>Order with Prescription</Text>
-              <Text style={styles.prescriptionDescription}>Upload prescription & order medicines</Text>
+          <View style={styles.searchContainer}>
+            <View style={styles.searchBar}>
+              <Search size={20} color="#666" />
+              <TextInput 
+                placeholder="Search medicines & health products"
+                style={styles.searchInput}
+              />
             </View>
           </View>
-          <Pressable style={styles.uploadButton}>
-            <Camera size={20} color="#ff6b6b" />
-            <Text style={styles.uploadButtonText}>Upload</Text>
-          </Pressable>
-        </Pressable>
 
-        <ScrollView 
-          horizontal 
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.adsContainer}
-        >
-          {advertisements.map((ad) => (
-            <Pressable 
-              key={ad.id} 
-              style={[styles.adCard, { backgroundColor: ad.backgroundColor }]}
-            >
-              <View style={styles.adContent}>
-                <Text style={styles.adTitle}>{ad.title}</Text>
-                <Text style={styles.adDescription}>{ad.description}</Text>
-                <Pressable style={styles.adButton}>
-                  <Text style={styles.adButtonText}>Book Now</Text>
-                </Pressable>
+          <View style={styles.servicesContainer}>
+            {mainServices.map((service) => (
+              <Pressable 
+                key={service.id} 
+                style={styles.serviceCard}
+                onPress={() => handleServicePress(service.id)}
+              >
+                <View style={[styles.serviceIcon, { backgroundColor: service.color + '15' }]}>
+                  <service.icon size={24} color={service.color} />
+                  {service.badge && (
+                    <View style={styles.serviceBadge}>
+                      <Clock size={12} color="#fff" />
+                      <Text style={styles.serviceBadgeText}>{service.badge}</Text>
+                    </View>
+                  )}
+                </View>
+                <Text style={styles.serviceName}>{service.name}</Text>
+                <Text style={styles.serviceDescription}>{service.description}</Text>
+                {service.offer && (
+                  <Text style={[styles.serviceOffer, { color: service.color }]}>
+                    {service.offer}
+                  </Text>
+                )}
+              </Pressable>
+            ))}
+          </View>
+
+          <Pressable style={styles.prescriptionCard}>
+            <View style={styles.prescriptionLeft}>
+              <FileText size={24} color="#ff6b6b" />
+              <View>
+                <Text style={styles.prescriptionTitle}>Order with Prescription</Text>
+                <Text style={styles.prescriptionDescription}>Upload prescription & order medicines</Text>
               </View>
-              <Image source={ad.image} style={styles.adImage} />
+            </View>
+            <Pressable style={styles.uploadButton}>
+              <Camera size={20} color="#ff6b6b" />
+              <Text style={styles.uploadButtonText}>Upload</Text>
             </Pressable>
+          </Pressable>
+
+          <ScrollView 
+            horizontal 
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.adsContainer}
+          >
+            {advertisements.map((ad) => (
+              <Pressable 
+                key={ad.id} 
+                style={[styles.adCard, { backgroundColor: ad.backgroundColor }]}
+              >
+                <View style={styles.adContent}>
+                  <Text style={styles.adTitle}>{ad.title}</Text>
+                  <Text style={styles.adDescription}>{ad.description}</Text>
+                  <Pressable style={styles.adButton}>
+                    <Text style={styles.adButtonText}>Book Now</Text>
+                  </Pressable>
+                </View>
+                <Image source={ad.image} style={styles.adImage} />
+              </Pressable>
+            ))}
+          </ScrollView>
+
+          {categorySections.map((section) => (
+            <View key={section.title} style={styles.categorySection}>
+              <Text style={styles.sectionTitle}>{section.title}</Text>
+              <View style={styles.categoriesRow}>
+                {section.categories.map((category) => (
+                  <Pressable 
+                    key={category.id} 
+                    style={styles.categoryCard}
+                    onPress={() => handleCategoryPress(category.id)}
+                  >
+                    <View style={styles.categoryImageContainer}>
+                      <Image 
+                        source={category.image} 
+                        style={styles.categoryImage}
+                        resizeMode="cover"
+                      />
+                    </View>
+                    <Text style={styles.categoryName} numberOfLines={2}>
+                      {category.name}
+                    </Text>
+                    <Text style={styles.productsCount}>
+                      {category.products.length} Products
+                    </Text>
+                    <Text style={styles.categoryOffer}>
+                      {category.offer}
+                    </Text>
+                  </Pressable>
+                ))}
+              </View>
+            </View>
           ))}
         </ScrollView>
-
-        {categorySections.map((section) => (
-          <View key={section.title} style={styles.categorySection}>
-            <Text style={styles.sectionTitle}>{section.title}</Text>
-            <View style={styles.categoriesRow}>
-              {section.categories.map((category) => (
-                <Pressable 
-                  key={category.id} 
-                  style={styles.categoryCard}
-                  onPress={() => handleCategoryPress(category.id)}
-                >
-                  <View style={styles.categoryImageContainer}>
-                    <Image 
-                      source={category.image} 
-                      style={styles.categoryImage}
-                      resizeMode="cover"
-                    />
-                  </View>
-                  <Text style={styles.categoryName} numberOfLines={2}>
-                    {category.name}
-                  </Text>
-                  <Text style={styles.productsCount}>
-                    {category.products.length} Products
-                  </Text>
-                  <Text style={styles.categoryOffer}>
-                    {category.offer}
-                  </Text>
-                </Pressable>
-              ))}
-            </View>
-          </View>
-        ))}
-      </ScrollView>
-    </View>
+      </View>
+    </>
   );
 }
 
@@ -338,13 +357,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-  },
-  header: {
-    paddingTop: 48,
-    paddingHorizontal: 16,
-    paddingBottom: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
   },
   locationBar: {
     flexDirection: 'row',
@@ -358,14 +370,16 @@ const styles = StyleSheet.create({
     fontSize: 11,
     color: '#666',
     fontWeight: '500',
+    fontFamily: 'Urbanist-SemiBold',
   },
   locationText: {
     fontSize: 15,
     color: '#333',
     fontWeight: '500',
+    fontFamily: 'Urbanist-SemiBold',
   },
   searchContainer: {
-    padding: 16,
+    padding: 12,
   },
   searchBar: {
     height: 48,
@@ -380,9 +394,10 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 15,
     color: '#333',
+    fontFamily: 'Urbanist-Regular',
   },
   servicesContainer: {
-    padding: 16,
+    padding: 12,
     flexDirection: 'row',
     gap: 12,
   },
@@ -419,6 +434,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: '#fff',
     fontWeight: '600',
+    fontFamily: 'Urbanist-Bold',
   },
   serviceName: {
     fontSize: 14,
@@ -426,20 +442,23 @@ const styles = StyleSheet.create({
     color: '#333',
     marginBottom: 4,
     textAlign: 'center',
+    fontFamily: 'Urbanist-Bold',
   },
   serviceDescription: {
     fontSize: 12,
     color: '#666',
     textAlign: 'center',
     marginBottom: 4,
+    fontFamily: 'Urbanist-Regular',
   },
   serviceOffer: {
     fontSize: 11,
     fontWeight: '600',
+    fontFamily: 'Urbanist-Bold',
   },
   prescriptionCard: {
-    margin: 16,
-    padding: 16,
+    margin: 12,
+    padding: 12,
     backgroundColor: '#fff',
     borderRadius: 12,
     borderWidth: 1,
@@ -452,32 +471,37 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 12,
+    flex: 1,
   },
   prescriptionTitle: {
     fontSize: 16,
     fontWeight: '600',
     color: '#333',
     marginBottom: 4,
+    fontFamily: 'Urbanist-Bold',
   },
   prescriptionDescription: {
     fontSize: 13,
     color: '#666',
+    fontFamily: 'Urbanist-Regular',
   },
   uploadButton: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
     paddingVertical: 8,
-    paddingHorizontal: 16,
+    paddingHorizontal: 12,
     backgroundColor: '#fff',
     borderWidth: 1,
     borderColor: '#ff6b6b',
     borderRadius: 6,
+    marginLeft: 8,
   },
   uploadButtonText: {
     fontSize: 14,
     fontWeight: '600',
     color: '#ff6b6b',
+    fontFamily: 'Urbanist-Bold',
   },
   adsContainer: {
     paddingHorizontal: 12,
@@ -500,11 +524,13 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#333',
     marginBottom: 8,
+    fontFamily: 'Urbanist-Bold',
   },
   adDescription: {
     fontSize: 14,
     color: '#666',
     marginBottom: 16,
+    fontFamily: 'Urbanist-Regular',
   },
   adButton: {
     alignSelf: 'flex-start',
@@ -522,6 +548,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '600',
     color: '#333',
+    fontFamily: 'Urbanist-Bold',
   },
   adImage: {
     width: 120,
@@ -537,6 +564,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#333',
     marginBottom: 16,
+    fontFamily: 'Urbanist-Bold',
   },
   categoriesRow: {
     flexDirection: 'row',
@@ -570,16 +598,19 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 4,
     lineHeight: 18,
+    fontFamily: 'Urbanist-SemiBold',
   },
   productsCount: {
     fontSize: 11,
     color: '#666',
     marginBottom: 4,
+    fontFamily: 'Urbanist-Regular',
   },
   categoryOffer: {
     fontSize: 12,
     color: '#ff6b6b',
     fontWeight: '500',
     textAlign: 'center',
+    fontFamily: 'Urbanist-SemiBold',
   },
 }); 

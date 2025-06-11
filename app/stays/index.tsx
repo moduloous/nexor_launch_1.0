@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity, Image, Dimensions, Platform } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity, Image, Dimensions, Platform, Pressable } from 'react-native';
 import { useRouter } from 'expo-router';
-import { MapPin, Search, Calendar, Users, Filter, Star, TrendingUp, Navigation, Building2, Home, Hotel, Users2, Palmtree, Building } from 'lucide-react-native';
+import { MapPin, Search, Calendar, Users, Filter, Star, TrendingUp, Navigation, Building2, Home, Hotel, Users2, Palmtree, Building, ArrowLeft } from 'lucide-react-native';
 import { Stay, stays } from './data';
 import { Ionicons } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 // Types for our accommodations
 type AccommodationType = Stay['type'];
@@ -54,151 +55,170 @@ export default function StaysScreen() {
   const filteredStays = selectedType ? stays.filter(stay => stay.type === selectedType) : stays;
 
   return (
-    <ScrollView style={styles.container}>
-      {/* Search Section */}
-      <View style={styles.searchSection}>
-        <View style={styles.searchBar}>
-          <Ionicons name="search" size={20} color="#666" />
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Search stays..."
-            placeholderTextColor="#666"
-          />
+    <>
+      <SafeAreaView style={{ backgroundColor: '#fff' }}>
+        <View style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          paddingTop: 16,
+          paddingHorizontal: 16,
+          paddingBottom: 8,
+          backgroundColor: '#fff',
+          borderBottomWidth: 1,
+          borderBottomColor: '#eee'
+        }}>
+          <Pressable onPress={() => router.back()}>
+            <ArrowLeft size={24} color="#000" />
+          </Pressable>
+          <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 8 }}>Stays</Text>
         </View>
-        
-        <View style={styles.dateGuestRow}>
-          <TouchableOpacity style={styles.dateButton}>
-            <Calendar size={20} color="#666" />
-            <Text style={styles.buttonText}>Check in - Check out</Text>
-          </TouchableOpacity>
+      </SafeAreaView>
+      <ScrollView style={styles.container}>
+        {/* Search Section */}
+        <View style={styles.searchSection}>
+          <View style={styles.searchBar}>
+            <Ionicons name="search" size={20} color="#666" />
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Search stays..."
+              placeholderTextColor="#666"
+            />
+          </View>
           
-          <TouchableOpacity style={styles.guestButton}>
-            <Users size={20} color="#666" />
-            <Text style={styles.buttonText}>2 guests</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      {/* Categories */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Categories</Text>
-        <ScrollView 
-          horizontal 
-          showsHorizontalScrollIndicator={false}
-          style={styles.categoriesScroll}
-        >
-          {categories.map((category) => {
-            const Icon = category.icon;
-            return (
-              <TouchableOpacity
-                key={category.id}
-                style={[
-                  styles.categoryCard,
-                  selectedType === category.id && styles.selectedCategory
-                ]}
-                onPress={() => setSelectedType(category.id as string)}
-              >
-                <View style={[styles.categoryIcon, { backgroundColor: category.color }]}>
-                  <Icon size={24} color="#fff" />
-                </View>
-                <Text style={styles.categoryTitle}>{category.title}</Text>
-                <Text style={styles.categoryDescription}>{category.description}</Text>
-              </TouchableOpacity>
-            );
-          })}
-        </ScrollView>
-      </View>
-
-      {/* Trending Stays */}
-      <View style={styles.section}>
-        <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>Trending Stays</Text>
-          <TrendingUp size={20} color="#FF6B6B" />
-        </View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {stays.filter(stay => stay.trending).map((stay) => (
-            <TouchableOpacity
-              key={stay.id}
-              style={[styles.dealCard, { width: screenWidth * 0.8 }]}
-              onPress={() => router.push(`/stays/${stay.id}`)}
-            >
-              <Image
-                source={{ uri: stay.image }}
-                style={styles.dealImage}
-                resizeMode="cover"
-              />
-              <View style={styles.dealInfo}>
-                <Text style={styles.dealTitle}>{stay.title}</Text>
-                <Text style={styles.dealLocation}>{stay.location}</Text>
-                <View style={styles.ratingRow}>
-                  <Star size={16} color="#FFD700" fill="#FFD700" />
-                  <Text style={styles.ratingText}>{stay.rating}</Text>
-                </View>
-                <Text style={styles.dealPrice}>{stay.price}</Text>
-              </View>
+          <View style={styles.dateGuestRow}>
+            <TouchableOpacity style={styles.dateButton}>
+              <Calendar size={20} color="#666" />
+              <Text style={styles.buttonText}>Check in - Check out</Text>
             </TouchableOpacity>
-          ))}
-        </ScrollView>
-      </View>
-
-      {/* Near You */}
-      <View style={styles.section}>
-        <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>Near You</Text>
-          <Navigation size={20} color="#4ECDC4" />
-        </View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {stays.filter(stay => stay.distance).map((stay) => (
-            <TouchableOpacity
-              key={stay.id}
-              style={[styles.nearbyCard, { width: screenWidth * 0.7 }]}
-              onPress={() => router.push(`/stays/${stay.id}`)}
-            >
-              <Image
-                source={{ uri: stay.image }}
-                style={styles.nearbyImage}
-                resizeMode="cover"
-              />
-              <View style={styles.nearbyInfo}>
-                <Text style={styles.nearbyTitle}>{stay.title}</Text>
-                <View style={styles.nearbyDetails}>
-                  <View style={styles.nearbyLocation}>
-                    <MapPin size={14} color="#666" />
-                    <Text style={styles.nearbyDistance}>{stay.distance}</Text>
-                  </View>
-                  <Text style={styles.nearbyPrice}>{stay.price}</Text>
-                </View>
-              </View>
+            
+            <TouchableOpacity style={styles.guestButton}>
+              <Users size={20} color="#666" />
+              <Text style={styles.buttonText}>2 guests</Text>
             </TouchableOpacity>
-          ))}
-        </ScrollView>
-      </View>
+          </View>
+        </View>
 
-      {/* Filtered Stays Section */}
-      {selectedType && (
+        {/* Categories */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>{selectedType}</Text>
-          {filteredStays.map((stay) => (
-            <TouchableOpacity
-              key={stay.id}
-              style={styles.stayCard}
-              onPress={() => router.push(`/stays/${stay.id}`)}
-            >
-              <Image source={{ uri: stay.image }} style={styles.stayImage} />
-              <View style={styles.stayInfo}>
-                <Text style={styles.stayTitle}>{stay.title}</Text>
-                <Text style={styles.stayLocation}>{stay.location}</Text>
-                <View style={styles.stayRating}>
-                  <Star size={16} color="#FFD700" fill="#FFD700" />
-                  <Text style={styles.ratingText}>{stay.rating}</Text>
-                </View>
-                <Text style={styles.stayPrice}>{stay.price}</Text>
-              </View>
-            </TouchableOpacity>
-          ))}
+          <Text style={styles.sectionTitle}>Categories</Text>
+          <ScrollView 
+            horizontal 
+            showsHorizontalScrollIndicator={false}
+            style={styles.categoriesScroll}
+          >
+            {categories.map((category) => {
+              const Icon = category.icon;
+              return (
+                <TouchableOpacity
+                  key={category.id}
+                  style={[
+                    styles.categoryCard,
+                    selectedType === category.id && styles.selectedCategory
+                  ]}
+                  onPress={() => setSelectedType(category.id as string)}
+                >
+                  <View style={[styles.categoryIcon, { backgroundColor: category.color }]}>
+                    <Icon size={24} color="#fff" />
+                  </View>
+                  <Text style={styles.categoryTitle}>{category.title}</Text>
+                  <Text style={styles.categoryDescription}>{category.description}</Text>
+                </TouchableOpacity>
+              );
+            })}
+          </ScrollView>
         </View>
-      )}
-    </ScrollView>
+
+        {/* Trending Stays */}
+        <View style={styles.section}>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>Trending Stays</Text>
+            <TrendingUp size={20} color="#FF6B6B" />
+          </View>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {stays.filter(stay => stay.trending).map((stay) => (
+              <TouchableOpacity
+                key={stay.id}
+                style={[styles.dealCard, { width: screenWidth * 0.8 }]}
+                onPress={() => router.push(`/stays/${stay.id}`)}
+              >
+                <Image
+                  source={{ uri: stay.image }}
+                  style={styles.dealImage}
+                  resizeMode="cover"
+                />
+                <View style={styles.dealInfo}>
+                  <Text style={styles.dealTitle}>{stay.title}</Text>
+                  <Text style={styles.dealLocation}>{stay.location}</Text>
+                  <View style={styles.ratingRow}>
+                    <Star size={16} color="#FFD700" fill="#FFD700" />
+                    <Text style={styles.ratingText}>{stay.rating}</Text>
+                  </View>
+                  <Text style={styles.dealPrice}>{stay.price}</Text>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
+
+        {/* Near You */}
+        <View style={styles.section}>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>Near You</Text>
+            <Navigation size={20} color="#4ECDC4" />
+          </View>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {stays.filter(stay => stay.distance).map((stay) => (
+              <TouchableOpacity
+                key={stay.id}
+                style={[styles.nearbyCard, { width: screenWidth * 0.7 }]}
+                onPress={() => router.push(`/stays/${stay.id}`)}
+              >
+                <Image
+                  source={{ uri: stay.image }}
+                  style={styles.nearbyImage}
+                  resizeMode="cover"
+                />
+                <View style={styles.nearbyInfo}>
+                  <Text style={styles.nearbyTitle}>{stay.title}</Text>
+                  <View style={styles.nearbyDetails}>
+                    <View style={styles.nearbyLocation}>
+                      <MapPin size={14} color="#666" />
+                      <Text style={styles.nearbyDistance}>{stay.distance}</Text>
+                    </View>
+                    <Text style={styles.nearbyPrice}>{stay.price}</Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
+
+        {/* Filtered Stays Section */}
+        {selectedType && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>{selectedType}</Text>
+            {filteredStays.map((stay) => (
+              <TouchableOpacity
+                key={stay.id}
+                style={styles.stayCard}
+                onPress={() => router.push(`/stays/${stay.id}`)}
+              >
+                <Image source={{ uri: stay.image }} style={styles.stayImage} />
+                <View style={styles.stayInfo}>
+                  <Text style={styles.stayTitle}>{stay.title}</Text>
+                  <Text style={styles.stayLocation}>{stay.location}</Text>
+                  <View style={styles.stayRating}>
+                    <Star size={16} color="#FFD700" fill="#FFD700" />
+                    <Text style={styles.ratingText}>{stay.rating}</Text>
+                  </View>
+                  <Text style={styles.stayPrice}>{stay.price}</Text>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </View>
+        )}
+      </ScrollView>
+    </>
   );
 }
 

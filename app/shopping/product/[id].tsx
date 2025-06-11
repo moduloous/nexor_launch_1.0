@@ -10,7 +10,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
-import { ChevronLeft, Heart, ShoppingBag, Share2 } from 'lucide-react-native';
+import { ArrowLeft, Heart, ShoppingBag, Share2 } from 'lucide-react-native';
 
 const { width } = Dimensions.get('window');
 
@@ -41,65 +41,75 @@ type SkortProduct = BaseProduct & {
   reviews: number;
 };
 
-type Product = DressProduct | SweaterProduct | SkortProduct;
+type JeansProduct = BaseProduct & {
+  originalPrice: number;
+  details: string[];
+  care: string;
+};
+
+type Product = DressProduct | SweaterProduct | SkortProduct | JeansProduct;
 
 const products: Record<number, Product> = {
   1: {
     id: 1,
-    name: 'Elegant Bowknot Backless A-Line',
-    price: 2499,
+    name: 'Ery Wide Leg Mid Rise Jeans',
+    price: 5700,
+    originalPrice: 9500,
     images: [
-      require('../assets/Elegant Bowknot Backless A-Line.jpg'),
+      require('../assets/Ery Wide Leg Mid Rise Jeans.webp'),
     ],
-    color: 'Black',
-    description: 'Turn heads this season with this high-end summer graduation dress featuring a flattering square neckline, elegant bowknot back, and a sexy backless design.',
+    color: 'Blue',
     details: [
-      'Square neckline',
-      'Bowknot back detail',
-      'Backless design',
-      'A-line silhouette',
-      'Mini length',
-      'Perfect for graduation, date nights, and parties'
-    ]
+      'Jeans',
+      'Mid rise waist',
+      'Wide leg fit',
+      'Denim fabric',
+      '100% Cotton',
+      'Model wears size S',
+      'Inseam of size S (in): 30.71',
+      'Model height is 5\'9'
+    ],
+    care: 'Machine wash at maximum 30ºC, do not bleach, tumble dry low, iron at a maximum of 110ºC, do not dry clean'
   },
   2: {
     id: 2,
-    name: 'Knit Bow Cropped Sweater',
-    price: 1400,
-    originalPrice: 6900,
+    name: 'Varsity Cropped Sweater',
+    price: 3000,
+    originalPrice: 7500,
     images: [
-      require('../assets/Knit Bow Cropped Sweater.webp'),
+      require('../assets/Varsity Cropped Sweater.webp'),
     ],
     color: 'Cream',
-    rating: 4.9,
-    reviews: 35
+    details: [
+      'Sweater',
+      'Cropped fit',
+      'Knit graphic',
+      'Acrylic',
+      'Model wears size S',
+      'Model height is 5\'6'
+    ],
+    care: 'Machine wash at maximum 30ºC, do not bleach, do not tumble dry, iron at a maximum of 110ºC, do not dry clean'
   },
   3: {
     id: 3,
-    name: 'Asymmetric Layered Lace Mesh Mini Skort',
-    price: 3300,
-    originalPrice: 6600,
+    name: 'Contrast Layered Look Halter Mini Dress',
+    price: 2400,
+    originalPrice: 4000,
     images: [
-      require('../assets/Asymmetric Layered Lace Mesh Mini Skort.webp'),
-      require('../assets/Asymmetric Layered Lace Mesh Mini Skort(1).webp'),
-      require('../assets/Asymmetric Layered Lace Mesh Mini Skort(2).webp'),
-      require('../assets/Asymmetric Layered Lace Mesh Mini Skort(3).webp'),
-      require('../assets/Asymmetric Layered Lace Mesh Mini Skort(4).webp'),
+      require('../assets/Contrast Layered Look Halter Mini Dress.webp'),
     ],
-    color: 'sage',
+    color: 'Black',
     details: [
-      'Mini skort',
-      'Ruched waistband',
-      'Asymmetric hem',
-      'Layered design',
-      'Lace & mesh fabric',
-      'Polyester',
+      'Mini dress',
+      'Adjustable straps',
+      'Contrast halter tie closure',
+      'Contrast trim',
+      'Layered look',
+      'Cotton, Spandex',
       'Model wears size S',
-      'Model height is 5\'9'
+      'Model height is 5\'10'
     ],
-    care: 'Machine wash at maximum 30ºC, do not bleach, do not tumble dry, iron at a maximum of 110ºC, do not dry clean',
-    rating: 4.8,
-    reviews: 42
+    care: 'Machine wash at maximum 30ºC, wash with similar colors, do not bleach, do not tumble dry, iron at a maximum of 110ºC, do not dry clean'
   }
 };
 
@@ -137,26 +147,29 @@ export default function ProductDetailScreen() {
         }}
       />
 
-      <ScrollView style={styles.scrollView}>
-        {/* Header */}
-        <View style={styles.header}>
+      {/* Fixed Top Navigation Bar */}
+      <View style={styles.topNavBar}>
+        <View style={styles.leftSection}>
           <Pressable onPress={() => router.back()} style={styles.iconButton}>
-            <ChevronLeft size={24} color="#000" />
+            <ArrowLeft size={24} color="#000" />
           </Pressable>
-          <View style={styles.headerRight}>
-            <Pressable style={styles.iconButton} onPress={() => setIsLiked(!isLiked)}>
-              <Heart 
-                size={24} 
-                color={isLiked ? '#FF4081' : '#000'}
-                fill={isLiked ? '#FF4081' : 'none'}
-              />
-            </Pressable>
-            <Pressable style={styles.iconButton}>
-              <Share2 size={24} color="#000" />
-            </Pressable>
-          </View>
+          <Text style={styles.navTitle}>Summer Collection</Text>
         </View>
+        <View style={styles.headerRight}>
+          <Pressable style={styles.iconButton} onPress={() => setIsLiked(!isLiked)}>
+            <Heart 
+              size={24} 
+              color={isLiked ? '#000' : '#000'}
+              fill={isLiked ? '#000' : 'none'}
+            />
+          </Pressable>
+          <Pressable style={styles.iconButton}>
+            <Share2 size={24} color="#000" />
+          </Pressable>
+        </View>
+      </View>
 
+      <ScrollView style={styles.scrollView}>
         {/* Image Gallery */}
         <ScrollView
           horizontal
@@ -178,19 +191,6 @@ export default function ProductDetailScreen() {
           ))}
         </ScrollView>
 
-        {/* Image Pagination Dots */}
-        <View style={styles.paginationDots}>
-          {product.images.map((_, index) => (
-            <View
-              key={index}
-              style={[
-                styles.dot,
-                index === currentImageIndex && styles.activeDot,
-              ]}
-            />
-          ))}
-        </View>
-
         {/* Product Info */}
         <View style={styles.productInfo}>
           <Text style={styles.productName}>{product.name}</Text>
@@ -208,57 +208,211 @@ export default function ProductDetailScreen() {
             </View>
           )}
 
-          {isSkortProduct(product) && (
-            <>
-              <View style={styles.sizeSection}>
-                <Text style={styles.sectionTitle}>Size</Text>
-                <View style={styles.sizeButtons}>
-                  {['XS', 'S', 'M', 'L', 'XL'].map((size) => (
-                    <Pressable
-                      key={size}
-                      style={[
-                        styles.sizeButton,
-                        selectedSize === size && styles.sizeButtonActive,
-                      ]}
-                      onPress={() => setSelectedSize(size)}
-                    >
-                      <Text style={[
-                        styles.sizeButtonText,
-                        selectedSize === size && styles.sizeButtonTextActive,
-                      ]}>
-                        {size}
-                      </Text>
-                    </Pressable>
-                  ))}
-                </View>
-                <Pressable style={styles.sizeChartButton}>
-                  <Text style={styles.sizeChartText}>Size Chart</Text>
+          <View style={styles.sizeSection}>
+            <Text style={styles.sectionTitle}>Size</Text>
+            <View style={styles.sizeButtons}>
+              {['XS', 'S', 'M', 'L', 'XL'].map((size) => (
+                <Pressable
+                  key={size}
+                  style={[
+                    styles.sizeButton,
+                    selectedSize === size && styles.sizeButtonActive,
+                  ]}
+                  onPress={() => setSelectedSize(size)}
+                >
+                  <Text style={[
+                    styles.sizeButtonText,
+                    selectedSize === size && styles.sizeButtonTextActive,
+                  ]}>
+                    {size}
+                  </Text>
                 </Pressable>
+              ))}
+            </View>
+          </View>
+
+          {product.id === 2 && (
+            <>
+              <View style={styles.additionalImageContainer}>
+                <Image
+                  source={require('./assets/Varsity Cropped Sweater 2.webp')}
+                  style={styles.additionalImage}
+                  resizeMode="cover"
+                />
               </View>
 
-              <View style={styles.deliverySection}>
-                <Text style={styles.sectionTitle}>Estimated delivery</Text>
-                <Text style={styles.deliveryText}>April 25th</Text>
+              {('details' in product) && (
+                <View style={styles.detailsSection}>
+                  <Text style={styles.sectionTitle}>Product Details</Text>
+                  <View style={styles.detailsList}>
+                    {product.details.map((detail: string, index: number) => (
+                      <Text key={index} style={styles.detailItem}>• {detail}</Text>
+                    ))}
+                  </View>
+                </View>
+              )}
+
+              {('care' in product) && (
+                <View style={styles.careSection}>
+                  <Text style={styles.sectionTitle}>Item care</Text>
+                  <Text style={styles.careText}>{product.care}</Text>
+                </View>
+              )}
+
+              <View style={styles.additionalImageContainer}>
+                <Image
+                  source={require('./assets/Varsity Cropped Sweater 1.webp')}
+                  style={styles.additionalImage}
+                  resizeMode="cover"
+                />
+              </View>
+
+              <View style={styles.additionalImageContainer}>
+                <Image
+                  source={require('./assets/Varsity Cropped Sweater 3.jpg')}
+                  style={styles.additionalImage}
+                  resizeMode="cover"
+                />
+              </View>
+
+              <View style={styles.additionalImageContainer}>
+                <Image
+                  source={require('./assets/Varsity Cropped Sweater 4.webp')}
+                  style={styles.additionalImage}
+                  resizeMode="cover"
+                />
               </View>
             </>
           )}
 
-          {('details' in product) && (
-            <View style={styles.detailsSection}>
-              <Text style={styles.sectionTitle}>Product Details</Text>
-              <View style={styles.detailsList}>
-                {product.details.map((detail: string, index: number) => (
-                  <Text key={index} style={styles.detailItem}>• {detail}</Text>
-                ))}
+          {product.id === 3 && (
+            <>
+              <View style={styles.additionalImageContainer}>
+                <Image
+                  source={require('./assets/Contrast Layered Look Halter Mini Dress 1.webp')}
+                  style={styles.additionalImage}
+                  resizeMode="cover"
+                />
               </View>
-            </View>
+
+              {('details' in product) && (
+                <View style={styles.detailsSection}>
+                  <Text style={styles.sectionTitle}>Product Details</Text>
+                  <View style={styles.detailsList}>
+                    {product.details.map((detail: string, index: number) => (
+                      <Text key={index} style={styles.detailItem}>• {detail}</Text>
+                    ))}
+                  </View>
+                </View>
+              )}
+
+              {('care' in product) && (
+                <View style={styles.careSection}>
+                  <Text style={styles.sectionTitle}>Item care</Text>
+                  <Text style={styles.careText}>{product.care}</Text>
+                </View>
+              )}
+
+              <View style={styles.additionalImageContainer}>
+                <Image
+                  source={require('./assets/Contrast Layered Look Halter Mini Dress 3.webp')}
+                  style={styles.additionalImage}
+                  resizeMode="cover"
+                />
+              </View>
+
+              <View style={styles.additionalImageContainer}>
+                <Image
+                  source={require('./assets/Contrast Layered Look Halter Mini Dress 2.webp')}
+                  style={styles.additionalImage}
+                  resizeMode="cover"
+                />
+              </View>
+
+              <View style={styles.additionalImageContainer}>
+                <Image
+                  source={require('./assets/Contrast Layered Look Halter Mini Dress 4.webp')}
+                  style={styles.additionalImage}
+                  resizeMode="cover"
+                />
+              </View>
+            </>
           )}
 
-          {isSkortProduct(product) && (
-            <View style={styles.careSection}>
-              <Text style={styles.sectionTitle}>Item care</Text>
-              <Text style={styles.careText}>{product.care}</Text>
-            </View>
+          {product.id === 1 && (
+            <>
+              <View style={styles.additionalImageContainer}>
+                <Image
+                  source={require('./assets/Ery Wide Leg Mid Rise Jeans 1.jpg')}
+                  style={styles.additionalImage}
+                  resizeMode="cover"
+                />
+              </View>
+
+              {('details' in product) && (
+                <View style={styles.detailsSection}>
+                  <Text style={styles.sectionTitle}>Product Details</Text>
+                  <View style={styles.detailsList}>
+                    {product.details.map((detail: string, index: number) => (
+                      <Text key={index} style={styles.detailItem}>• {detail}</Text>
+                    ))}
+                  </View>
+                </View>
+              )}
+
+              {('care' in product) && (
+                <View style={styles.careSection}>
+                  <Text style={styles.sectionTitle}>Item care</Text>
+                  <Text style={styles.careText}>{product.care}</Text>
+                </View>
+              )}
+
+              <View style={styles.additionalImageContainer}>
+                <Image
+                  source={require('./assets/Ery Wide Leg Mid Rise Jeans 2.webp')}
+                  style={styles.additionalImage}
+                  resizeMode="cover"
+                />
+              </View>
+
+              <View style={styles.additionalImageContainer}>
+                <Image
+                  source={require('./assets/Ery Wide Leg Mid Rise Jeans 3.jpg')}
+                  style={styles.additionalImage}
+                  resizeMode="cover"
+                />
+              </View>
+
+              <View style={styles.additionalImageContainer}>
+                <Image
+                  source={require('./assets/Ery Wide Leg Mid Rise Jeans 4.webp')}
+                  style={styles.additionalImage}
+                  resizeMode="cover"
+                />
+              </View>
+            </>
+          )}
+
+          {product.id !== 1 && product.id !== 2 && product.id !== 3 && (
+            <>
+              {('details' in product) && (
+                <View style={styles.detailsSection}>
+                  <Text style={styles.sectionTitle}>Product Details</Text>
+                  <View style={styles.detailsList}>
+                    {product.details.map((detail: string, index: number) => (
+                      <Text key={index} style={styles.detailItem}>• {detail}</Text>
+                    ))}
+                  </View>
+                </View>
+              )}
+
+              {('care' in product) && (
+                <View style={styles.careSection}>
+                  <Text style={styles.sectionTitle}>Item care</Text>
+                  <Text style={styles.careText}>{product.care}</Text>
+                </View>
+              )}
+            </>
           )}
 
           {isDressProduct(product) && (
@@ -286,51 +440,46 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  topNavBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 8,
+    paddingVertical: 12,
+    backgroundColor: '#fff',
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+    marginTop: 40,
+  },
+  leftSection: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  navTitle: {
+    fontSize: 22,
+    fontWeight: '600',
+    color: '#000',
+  },
   scrollView: {
     flex: 1,
-  },
-  header: {
-    position: 'absolute',
-    top: 48,
-    left: 0,
-    right: 0,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 16,
-    zIndex: 1,
   },
   headerRight: {
     flexDirection: 'row',
     gap: 16,
   },
   iconButton: {
-    width: 40,
-    height: 40,
+    width: 36,
+    height: 36,
     backgroundColor: 'rgba(255,255,255,0.9)',
-    borderRadius: 20,
+    borderRadius: 18,
     justifyContent: 'center',
     alignItems: 'center',
+    marginLeft: -4,
   },
   productImage: {
     width: width,
-    height: width * 1.3,
-  },
-  paginationDots: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingVertical: 16,
-    gap: 8,
-  },
-  dot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: '#ddd',
-  },
-  activeDot: {
-    backgroundColor: '#FF4081',
-    width: 24,
+    height: width * 1.5,
   },
   productInfo: {
     padding: 16,
@@ -349,7 +498,7 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 20,
     fontWeight: '600',
-    color: '#FF4081',
+    color: '#000',
   },
   originalPrice: {
     fontSize: 16,
@@ -394,14 +543,6 @@ const styles = StyleSheet.create({
   sizeButtonTextActive: {
     color: '#fff',
   },
-  sizeChartButton: {
-    alignSelf: 'flex-start',
-  },
-  sizeChartText: {
-    color: '#666',
-    fontSize: 14,
-    textDecorationLine: 'underline',
-  },
   deliverySection: {
     marginBottom: 24,
   },
@@ -433,7 +574,7 @@ const styles = StyleSheet.create({
     borderTopColor: '#eee',
   },
   addToCartButton: {
-    backgroundColor: '#FF4081',
+    backgroundColor: '#000',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -453,5 +594,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#666',
     lineHeight: 24,
+  },
+  additionalImageContainer: {
+    marginBottom: 24,
+    borderRadius: 8,
+    overflow: 'hidden',
+  },
+  additionalImage: {
+    width: '100%',
+    height: width * 1.5,
   },
 }); 

@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, Pressable, TextInput, ScrollView, Dimensions, Platform, Alert } from 'react-native';
+import { View, Text, StyleSheet, Pressable, TextInput, ScrollView, Dimensions, Platform, Alert, Image } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE, MapViewProps } from 'react-native-maps';
-import { MapPin, Search, Navigation, Clock, Car, ChevronRight, X } from 'lucide-react-native';
-import { router } from 'expo-router';
+import { MapPin, Search, Navigation, Clock, Car, ChevronRight, X, ArrowLeft } from 'lucide-react-native';
+import { router, useRouter } from 'expo-router';
 import * as Location from 'expo-location';
 import { GooglePlacesAutocomplete, GooglePlacesAutocompleteRef } from 'react-native-google-places-autocomplete';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 // Add crypto polyfill
 import 'react-native-get-random-values';
@@ -353,43 +354,118 @@ export default function RidesScreen() {
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   });
+  const nav = useRouter();
 
   return (
-    <View style={styles.container}>
-      <MapView
-        style={styles.map}
-        initialRegion={region}
-        provider={PROVIDER_GOOGLE}
-      >
-        <Marker coordinate={region} />
-      </MapView>
-      <Pressable 
-        style={styles.backButton}
-        onPress={() => router.back()}
-      >
-        <X size={24} color="#333" />
-      </Pressable>
-      <View style={styles.searchContainer}>
-        <View style={styles.locationInputs}>
-          <View style={styles.inputContainer}>
-            <MapPin size={20} color="#333" />
+    <>
+      <SafeAreaView style={{ backgroundColor: '#fff' }}>
+        <View style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          paddingTop: 16,
+          paddingHorizontal: 16,
+          paddingBottom: 8,
+          backgroundColor: '#fff',
+          borderBottomWidth: 1,
+          borderBottomColor: '#eee'
+        }}>
+          <Pressable onPress={() => nav.back()}>
+            <ArrowLeft size={24} color="#000" />
+          </Pressable>
+          <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 8, fontFamily: 'Urbanist' }}>Rides</Text>
+        </View>
+        <View style={{ paddingHorizontal: 16, paddingTop: 16, backgroundColor: '#fff' }}>
+          <View style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            backgroundColor: '#f5f5f5',
+            borderRadius: 20,
+            paddingHorizontal: 16,
+            height: 44,
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.06,
+            shadowRadius: 6,
+            elevation: 2,
+          }}>
+            <MapPin size={20} color="#888" style={{ marginRight: 8 }} />
             <TextInput
-              style={styles.input}
-              placeholder="Where from?"
-              placeholderTextColor="#666"
-            />
-          </View>
-          <View style={styles.inputDivider} />
-          <View style={styles.inputContainer}>
-            <Navigation size={20} color="#333" />
-            <TextInput
-              style={styles.input}
-              placeholder="Where to?"
+              style={{ flex: 1, fontSize: 16, color: '#333', backgroundColor: 'transparent', fontFamily: 'Urbanist' }}
+              placeholder="drop location"
               placeholderTextColor="#666"
             />
           </View>
         </View>
-      </View>
-    </View>
+      </SafeAreaView>
+      <ScrollView style={{ paddingHorizontal: 16, paddingTop: 16 }} showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 56 }}>
+        <View style={{
+          height: height * 0.4, // About half the screen height
+          borderRadius: 20,
+          overflow: 'hidden',
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 4 },
+          shadowOpacity: 0.10,
+          shadowRadius: 12,
+          elevation: 4,
+        }}>
+          <MapView
+            style={{ flex: 1 }}
+            initialRegion={region}
+            provider={PROVIDER_GOOGLE}
+          >
+            <Marker coordinate={region} />
+          </MapView>
+        </View>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 24 }}>
+          {[
+            { label: 'parcel delivery', iconType: 'image', iconUrl: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/rides/parcel_image-removebg-preview.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5X2E5MGQ1MTlhLTFlZmMtNGJjNS04YTM1LTljZTlkY2I0NWQ2OSJ9.eyJ1cmwiOiJyaWRlcy9wYXJjZWxfaW1hZ2UtcmVtb3ZlYmctcHJldmlldy5wbmciLCJpYXQiOjE3NDc4NTM4MDIsImV4cCI6MTc3OTM4OTgwMn0.ahRj9-imcoh2loeUyG4IE3CJJ6wpVBXELkEgdxupGOg' },
+            { label: 'auto', iconType: 'image', iconUrl: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/rides/Auto%20Rickshaw.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5X2E5MGQ1MTlhLTFlZmMtNGJjNS04YTM1LTljZTlkY2I0NWQ2OSJ9.eyJ1cmwiOiJyaWRlcy9BdXRvIFJpY2tzaGF3LnBuZyIsImlhdCI6MTc0Nzg1NDExOSwiZXhwIjoxNzc5MzkwMTE5fQ.YAkKXX54XqiwAXcsujDIii1rJHT-zAF9OsSsPZhZ0RU' },
+            { label: 'cab', iconType: 'image', iconUrl: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/rides/cab.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5X2E5MGQ1MTlhLTFlZmMtNGJjNS04YTM1LTljZTlkY2I0NWQ2OSJ9.eyJ1cmwiOiJyaWRlcy9jYWIucG5nIiwiaWF0IjoxNzQ3ODU0NTQxLCJleHAiOjE3NzkzOTA1NDF9.9Rig8KbR_RBkxGXG1o5uGnBtjMcltGMMHHlJ129qLb0' },
+            { label: 'bike', iconType: 'image', iconUrl: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/rides/bike.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5X2E5MGQ1MTlhLTFlZmMtNGJjNS04YTM1LTljZTlkY2I0NWQ2OSJ9.eyJ1cmwiOiJyaWRlcy9iaWtlLnBuZyIsImlhdCI6MTc0Nzg1NDkzNCwiZXhwIjoxNzc5MzkwOTM0fQ.PfgdMDpVgxJlUh6asUCXeIwIgXiGM7ngdmnPPLJL2BM' }
+          ].map((item, i) => (
+            <View key={i} style={{ alignItems: 'center', flex: 1 }}>
+              <Pressable
+                style={{
+                  width: 70,
+                  height: 70,
+                  borderRadius: 16,
+                  backgroundColor: '#f5f5f5',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  shadowColor: '#000',
+                  shadowOffset: { width: 0, height: 2 },
+                  shadowOpacity: 0.06,
+                  shadowRadius: 4,
+                  elevation: 2,
+                }}
+                onPress={() => {}}
+              >
+                <Image
+                  source={{ uri: item.iconUrl }}
+                  style={{ width: item.label === 'bike' ? 40 : 54, height: item.label === 'bike' ? 40 : 54, resizeMode: 'contain', borderRadius: 12, alignSelf: 'center' }}
+                />
+              </Pressable>
+              <Text style={{ marginTop: 8, fontSize: 18, color: '#333', textAlign: 'center', fontFamily: 'Urbanist' }}>{item.label.charAt(0).toUpperCase() + item.label.slice(1)}</Text>
+            </View>
+          ))}
+        </View>
+        <Text style={{ fontWeight: 'bold', fontSize: 28, marginTop: 32, marginBottom: 16, color: '#222', fontFamily: 'Urbanist', letterSpacing: 2, textAlign: 'center' }}>
+          BOOK PREMIUM RIDES WITH
+        </Text>
+        {/* Premium Rides Cards - stacked vertically, no inner scroll */}
+        <View style={{ marginBottom: 20 }}>
+          <View style={{ backgroundColor: '#fff', borderRadius: 18, elevation: 5, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.12, shadowRadius: 8, marginBottom: 20, padding: 20, alignItems: 'center' }}>
+            <Text style={{ fontFamily: 'Urbanist', fontWeight: 'bold', fontSize: 20, color: '#1a1a1a', marginBottom: 8, letterSpacing: 1 }}>Nexor Black</Text>
+            <Text style={{ fontFamily: 'Urbanist', fontSize: 15, color: '#444', textAlign: 'center' }}>Experience luxury rides with top-rated drivers and premium vehicles for your special occasions.</Text>
+          </View>
+          <View style={{ backgroundColor: '#fff', borderRadius: 18, elevation: 5, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.12, shadowRadius: 8, marginBottom: 20, padding: 0, alignItems: 'center', overflow: 'hidden' }}>
+            <Image
+              source={{ uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/rides/Daichikotsu.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5X2E5MGQ1MTlhLTFlZmMtNGJjNS04YTM1LTljZTlkY2I0NWQ2OSJ9.eyJ1cmwiOiJyaWRlcy9EYWljaGlrb3RzdS5wbmciLCJpYXQiOjE3NDgwOTcxMTUsImV4cCI6MTc3OTYzMzExNX0.G2zza6p3Lvfxgnd5gHzico8Wmv_ECJkQRM8BIBUbvxY' }}
+              style={{ width: '100%', height: 140, resizeMode: 'cover' }}
+            />
+          </View>
+        </View>
+      </ScrollView>
+    </>
   );
 } 

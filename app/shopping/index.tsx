@@ -10,9 +10,12 @@ import {
   TextInput,
   Animated,
   PanResponder,
+  Modal,
 } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { Search, Heart, ShoppingBag, ChevronLeft, Filter } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type QuickPick = {
   id: string;
@@ -45,30 +48,27 @@ const categories = [
 const trendingProducts: Product[] = [
   {
     id: 1,
-    name: 'Elegant Bowknot Backless A-Line',
-    price: 2499,
-    image: require('./assets/Elegant Bowknot Backless A-Line.jpg'),
+    name: 'Ery Wide Leg Mid Rise Jeans',
+    price: 5700,
+    originalPrice: 9500,
+    image: require('./assets/Ery Wide Leg Mid Rise Jeans.webp'),
     category: 'dresses',
   },
   {
     id: 2,
-    name: 'Knit Bow Cropped Sweater',
-    price: 1400,
-    originalPrice: 6900,
-    image: require('./assets/Knit Bow Cropped Sweater.webp'),
+    name: 'Varsity Cropped Sweater',
+    price: 3000,
+    originalPrice: 7500,
+    image: require('./assets/Varsity Cropped Sweater.webp'),
     category: 'dresses',
-    rating: 4.9,
-    reviews: 35,
   },
   {
     id: 3,
-    name: 'Asymmetric Layered Lace Mesh Mini Skort',
-    price: 3300,
-    originalPrice: 6600,
-    image: require('./assets/Asymmetric Layered Lace Mesh Mini Skort.webp'),
+    name: 'Contrast Layered Look Halter Mini Dress',
+    price: 2400,
+    originalPrice: 4000,
+    image: require('./assets/Contrast Layered Look Halter Mini Dress.webp'),
     category: 'skirts',
-    rating: 4.8,
-    reviews: 42,
   },
 ];
 
@@ -194,6 +194,9 @@ export default function ShoppingScreen() {
   const [searchQuery, setSearchQuery] = useState('');
   const [likedProducts, setLikedProducts] = useState<string[]>([]);
   const swipeAnim = useRef(new Animated.Value(0)).current;
+  const [isSearchModalVisible, setSearchModalVisible] = useState(false);
+  const [searchText, setSearchText] = useState('');
+  const insets = useSafeAreaInsets();
 
   const handleProductPress = (product: any) => {
     router.push({
@@ -232,6 +235,9 @@ export default function ShoppingScreen() {
                 } else if (pick.id === 'bottomwear') {
                   console.log("Navigating to bottomwear");
                   router.push("/shopping/bottomwear");
+                } else if (pick.id === 'dresses') {
+                  console.log("Navigating to dresses");
+                  router.push("/shopping/dresses");
                 }
               }}
             >
@@ -258,12 +264,12 @@ export default function ShoppingScreen() {
     const products = selectedCategory === 'men' ? mensTrendingProducts : trendingProducts;
     return (
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Trending Now</Text>
-        <View style={styles.productsGrid}>
-          {products.map(product => (
+        <Text style={styles.sectionTitle}>TRENDING NOW - SUMMER COLLECTION</Text>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.trendingScroll}>
+          {products.map((product, idx) => (
             <Pressable 
               key={product.id}
-              style={styles.productCard}
+              style={[styles.productCard, idx === 0 && { marginLeft: 8 }]}
               onPress={() => handleProductPress(product)}
             >
               <View style={styles.productImageContainer}>
@@ -277,16 +283,6 @@ export default function ShoppingScreen() {
                   />
                 )}
               </View>
-              <Pressable 
-                style={styles.likeButton}
-                onPress={() => toggleLike(product.id.toString())}
-              >
-                <Heart 
-                  size={20} 
-                  color={likedProducts.includes(product.id.toString()) ? '#FF4081' : '#fff'}
-                  fill={likedProducts.includes(product.id.toString()) ? '#FF4081' : 'none'}
-                />
-              </Pressable>
               {product.discount && (
                 <View style={styles.discountTag}>
                   <Text style={styles.discountText}>{product.discount}% OFF</Text>
@@ -309,7 +305,7 @@ export default function ShoppingScreen() {
               </View>
             </Pressable>
           ))}
-        </View>
+        </ScrollView>
       </View>
     );
   };
@@ -329,11 +325,11 @@ export default function ShoppingScreen() {
         </Pressable>
         <Text style={styles.headerTitle}>Shopping</Text>
         <View style={styles.headerRight}>
-          <Pressable style={styles.iconButton}>
-            <Search size={24} color="#fff" />
+          <Pressable style={styles.iconButton} accessibilityLabel="Cart" accessibilityRole="button" onPress={() => {}}>
+            <Ionicons name="cart-outline" size={24} color="#fff" />
           </Pressable>
-          <Pressable style={styles.iconButton}>
-            <Filter size={24} color="#fff" />
+          <Pressable style={styles.iconButton} accessibilityLabel="Profile" accessibilityRole="button" onPress={() => {}}>
+            <Ionicons name="person-outline" size={24} color="#fff" />
           </Pressable>
         </View>
       </View>
@@ -381,12 +377,153 @@ export default function ShoppingScreen() {
           </View>
         </View>
 
+        {/* Remote Banner - Inserted between Summer Collection and Quick Picks */}
+        <View style={styles.remoteBannerContainer}>
+          <Image
+            source={{ uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/banners/banner.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5X2E5MGQ1MTlhLTFlZmMtNGJjNS04YTM1LTljZTlkY2I0NWQ2OSJ9.eyJ1cmwiOiJiYW5uZXJzL2Jhbm5lci5qcGciLCJpYXQiOjE3NDg0NDg2ODYsImV4cCI6MTc3OTk4NDY4Nn0.OYO-rMGFe-JHrZol1Z0XKlm1sVb9ZA6fOiz1fBI6Wgw' }}
+            style={styles.remoteBannerImage}
+            resizeMode="cover"
+            accessible
+            accessibilityLabel="Promotional Banner"
+          />
+        </View>
+
         {/* Quick Picks Section */}
         {renderQuickPicks()}
 
         {/* Trending Products */}
         {renderTrendingProducts()}
+
+        {/* Resort Dream Collection Section */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Resort Dream Collection</Text>
+          <Image
+            source={require('./assets/Resort.webp')}
+            style={styles.resortBanner}
+            resizeMode="cover"
+          />
+        </View>
+
+        {/* Outer Wear Section */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Outer Wear</Text>
+          <View style={styles.splitOuterWearContainer}>
+            <Pressable style={styles.splitOuterWearHalf} onPress={() => router.push('/shopping/hoodies')} accessibilityRole="button" accessibilityLabel="Shop Hoodies">
+              <Image
+                source={require('./assets/hoodies.webp')}
+                style={styles.splitOuterWearImage}
+                resizeMode="cover"
+              />
+              <View style={styles.outerWearOverlay}>
+                <Text style={styles.outerWearText}>SHOP HOODIES</Text>
+              </View>
+            </Pressable>
+            <View style={styles.splitOuterWearHalf}>
+              <Image
+                source={require('./assets/jackets.webp')}
+                style={styles.splitOuterWearImage}
+                resizeMode="cover"
+              />
+              <View style={styles.outerWearOverlay}>
+                <Text style={styles.outerWearText}>SHOP JACKETS</Text>
+              </View>
+            </View>
+          </View>
+        </View>
       </ScrollView>
+
+      {/* Bottom Navigation Bar */}
+      <View style={[styles.bottomNavBar, { paddingBottom: insets.bottom }]} accessibilityRole="tablist" accessible>
+        <Pressable style={styles.bottomNavItem} accessibilityRole="tab" accessibilityLabel="Home" onPress={() => router.push('/shopping')}>
+          <Ionicons name="flash-outline" size={26} color="#fff" />
+          <Text style={styles.bottomNavLabel}>Home</Text>
+        </Pressable>
+        <Pressable style={styles.bottomNavItem} accessibilityRole="tab" accessibilityLabel="Shop" onPress={() => router.push('/shopping/shop')}>
+          <Ionicons name="shirt-outline" size={26} color="#fff" />
+          <Text style={styles.bottomNavLabel}>Shop</Text>
+        </Pressable>
+        <Pressable style={styles.bottomNavItem} accessibilityRole="tab" accessibilityLabel="Search" onPress={() => router.push('/shopping/search')}>
+          <Ionicons name="search-outline" size={26} color="#fff" />
+          <Text style={styles.bottomNavLabel}>Search</Text>
+        </Pressable>
+        <Pressable style={styles.bottomNavItem} accessibilityRole="tab" accessibilityLabel="Wishlist" onPress={() => router.push('/shopping/wishlist')}>
+          <Ionicons name="heart-outline" size={26} color="#fff" />
+          <Text style={styles.bottomNavLabel}>Wishlist</Text>
+        </Pressable>
+      </View>
+
+      {/* Full-screen search modal */}
+      <Modal
+        visible={isSearchModalVisible}
+        animationType="slide"
+        transparent={false}
+        onRequestClose={() => setSearchModalVisible(false)}
+      >
+        <View style={{ flex: 1, backgroundColor: '#121212', paddingTop: 60 }}>
+          <Text style={{
+            fontSize: 22,
+            fontWeight: 'bold',
+            textAlign: 'center',
+            marginBottom: 24,
+            fontFamily: 'Urbanist-Bold',
+            color: '#fff',
+          }}>
+            SEARCH RESULTS
+          </Text>
+          <View style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginHorizontal: 16,
+            backgroundColor: '#232323',
+            borderRadius: 16,
+            paddingHorizontal: 16,
+            marginBottom: 24,
+          }}>
+            <TextInput
+              placeholder="Search"
+              placeholderTextColor="#888"
+              value={searchText}
+              onChangeText={setSearchText}
+              style={{
+                flex: 1,
+                fontSize: 16,
+                paddingVertical: 12,
+                backgroundColor: 'transparent',
+                color: '#fff',
+              }}
+              autoFocus
+            />
+            <Search size={22} color="#fff" />
+          </View>
+          <ScrollView contentContainerStyle={{ paddingHorizontal: 16 }}>
+            <Text style={{
+              fontSize: 18,
+              fontWeight: 'bold',
+              marginBottom: 16,
+              fontFamily: 'Urbanist-Bold',
+              color: '#fff',
+            }}>
+              BEST SELLERS
+            </Text>
+            {/* Product grid removed for now */}
+          </ScrollView>
+          <Pressable
+            onPress={() => setSearchModalVisible(false)}
+            style={{
+              position: 'absolute',
+              top: 60,
+              right: 24,
+              backgroundColor: '#232323',
+              borderRadius: 20,
+              padding: 8,
+            }}
+            accessibilityRole="button"
+            accessibilityLabel="Close search"
+          >
+            <Text style={{ fontSize: 18, color: '#fff' }}>✕</Text>
+          </Pressable>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -412,6 +549,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '600',
     color: '#fff',
+    fontFamily: 'Urbanist-Bold',
   },
   headerRight: {
     flexDirection: 'row',
@@ -447,10 +585,12 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 14,
     fontWeight: '500',
+    fontFamily: 'Urbanist-SemiBold',
   },
   categoryTextActive: {
     color: '#fff',
     fontWeight: '600',
+    fontFamily: 'Urbanist-Bold',
   },
   featuredBanner: {
     marginHorizontal: 16,
@@ -480,12 +620,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 4,
     textAlign: 'left',
+    fontFamily: 'Urbanist-Bold',
   },
   bannerSubtitle: {
     color: '#fff',
     fontSize: 16,
     marginBottom: 8,
     textAlign: 'left',
+    fontFamily: 'Urbanist-Regular',
   },
   shopNowButton: {
     backgroundColor: '#fff',
@@ -498,15 +640,17 @@ const styles = StyleSheet.create({
     color: '#121212',
     fontWeight: '600',
     fontSize: 14,
+    fontFamily: 'Urbanist-Bold',
   },
   section: {
     padding: 16,
   },
   sectionTitle: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: '600',
     marginBottom: 16,
+    fontFamily: 'Urbanist-Bold',
   },
   productsGrid: {
     flexDirection: 'row',
@@ -515,14 +659,20 @@ const styles = StyleSheet.create({
   },
   productCard: {
     width: (Dimensions.get('window').width - 48) / 2,
-    borderRadius: 12,
-    backgroundColor: '#2D2D2D',
+    borderRadius: 16,
+    backgroundColor: '#1E1E1E',
     overflow: 'hidden',
+    marginRight: 16,
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
   },
   productImageContainer: {
     width: '100%',
-    height: 250,
-    backgroundColor: '#404040',
+    height: 280,
+    backgroundColor: '#2D2D2D',
     justifyContent: 'center',
     alignItems: 'center',
     overflow: 'hidden',
@@ -530,7 +680,7 @@ const styles = StyleSheet.create({
   productImage: {
     width: '100%',
     height: '100%',
-    borderRadius: 12,
+    borderRadius: 16,
     resizeMode: 'cover',
   },
   productEmoji: {
@@ -550,27 +700,32 @@ const styles = StyleSheet.create({
     top: 12,
     left: 12,
     backgroundColor: '#FF4081',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 4,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 8,
   },
   discountText: {
     color: '#fff',
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: '600',
+    fontFamily: 'Urbanist-Bold',
   },
   productInfo: {
-    padding: 12,
+    padding: 16,
+    backgroundColor: '#1E1E1E',
   },
   productName: {
     color: '#fff',
-    fontSize: 14,
-    marginBottom: 4,
+    fontSize: 15,
+    marginBottom: 8,
+    fontFamily: 'Urbanist-SemiBold',
+    lineHeight: 20,
   },
   productPrice: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '600',
+    fontFamily: 'Urbanist-Bold',
   },
   quickPicksTitle: {
     color: '#808080',
@@ -578,6 +733,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginBottom: 16,
     letterSpacing: 1,
+    fontFamily: 'Urbanist-Bold',
   },
   quickPicksScroll: {
     marginLeft: -16,
@@ -604,6 +760,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     textAlign: 'center',
     fontWeight: '500',
+    fontFamily: 'Urbanist-SemiBold',
   },
   quickPickImage: {
     width: '100%',
@@ -619,11 +776,13 @@ const styles = StyleSheet.create({
     color: '#FFD700',
     fontSize: 14,
     fontWeight: '600',
+    fontFamily: 'Urbanist-Bold',
   },
   reviewsText: {
     color: '#666',
     fontSize: 12,
     marginLeft: 4,
+    fontFamily: 'Urbanist-Regular',
   },
   priceContainer: {
     flexDirection: 'row',
@@ -631,8 +790,99 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   originalPrice: {
-    color: '#666',
-    fontSize: 14,
+    color: '#808080',
+    fontSize: 15,
     textDecorationLine: 'line-through',
+    fontFamily: 'Urbanist-Regular',
+    marginLeft: 8,
+  },
+  trendingScroll: {
+    paddingLeft: 0,
+    paddingRight: 0,
+  },
+  resortBanner: {
+    width: '100%',
+    height: 300,
+    borderRadius: 12,
+    marginTop: 12,
+  },
+  splitOuterWearContainer: {
+    flexDirection: 'row',
+    height: 200,
+    marginTop: 12,
+    gap: 8,
+  },
+  splitOuterWearHalf: {
+    flex: 1,
+    borderRadius: 12,
+    overflow: 'hidden',
+  },
+  splitOuterWearImage: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 12,
+  },
+  outerWearOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.18)',
+  },
+  outerWearText: {
+    color: '#fff',
+    fontSize: 18,
+    fontFamily: 'Urbanist-Bold',
+    textTransform: 'uppercase',
+    textAlign: 'center',
+    textShadowColor: 'rgba(0,0,0,0.7)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 4,
+    letterSpacing: 1,
+  },
+  remoteBannerContainer: {
+    marginHorizontal: 16,
+    height: 180,
+    borderRadius: 16,
+    overflow: 'hidden',
+    marginBottom: 8,
+    backgroundColor: '#232323',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  remoteBannerImage: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 16,
+  },
+  bottomNavBar: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    backgroundColor: '#181818',
+    borderTopWidth: 1,
+    borderTopColor: '#232323',
+    height: 76,
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 8,
+  },
+  bottomNavItem: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+  },
+  bottomNavLabel: {
+    color: '#fff',
+    fontSize: 12,
+    marginTop: 2,
+    fontFamily: 'Urbanist-SemiBold',
   },
 }); 
