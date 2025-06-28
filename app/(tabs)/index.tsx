@@ -67,7 +67,7 @@ const services: Service[] = [
     id: '5', 
     name: 'Stays', 
     icon: 'custom',
-    image: require('../assets/images/resort.png'),
+    image: { uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/stays.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpY29ucy9zdGF5cy5wbmciLCJpYXQiOjE3NTA5NTE1MDksImV4cCI6MTc4MjQ4NzUwOX0.GoAR-jmF73YUc22337eS5TROTaOHCR_Du_Yn2mcUO1M' },
     href: '/stays' 
   },
   { 
@@ -133,9 +133,9 @@ const products = [
   { id: '1', name: 'Peri-Peri Potato Fries', description: 'Thick, crispy potato wedges seasoned with zesty peri-peri spi...', price: 80, oldPrice: 150, discount: 56, image: require('../assets/images/menu/perifries.jpeg'), bestseller: true },
   { id: '2', name: 'Grilled Chicken Club Sandwich', description: 'Flame-grilled chicken, bacon, lettuce, tomato & mayo on toasted bread...', price: 179, oldPrice: 249, discount: 43, image: require('../assets/images/menu/sandwitch.jpeg') },
   { id: '3', name: 'Vietnamese Iced Latte', description: 'Bold Robusta coffee blended with sweetened condensed milk, served chilled over ice...', price: 199, oldPrice: 249, discount: 20, image: require('../assets/images/menu/WhatsApp Image 2025-04-30 at 10.15.03 PM.jpeg') },
-  { id: '4', name: 'Masala Chaas', description: '450 ml', price: 99, oldPrice: 119, discount: 16, image: require('../assets/images/menu/chicken pasta.jpeg') },
-  { id: '5', name: 'Tiramisu', description: '1 Piece', price: 119, oldPrice: 309, discount: 61 },
-  { id: '6', name: 'Adrak Chai', description: '250 ml', price: 129, oldPrice: 154, discount: 16 },
+  { id: '4', name: 'Mixed Veg Pasta', description: 'A delightful medley of fresh vegetables and perfectly cooked pasta tossed in a rich, flavorful sauce.', price: 99, oldPrice: 119, discount: 16, image:'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/10-minfood/WhatsApp%20Image%202025-06-12%20at%209.37.35%20AM.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTBkNTE5YS0xZWZjLTRiYzUtOGEzNS05Y2U5ZGNiNDVkNjkiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiIxMC1taW5mb29kL1doYXRzQXBwIEltYWdlIDIwMjUtMDYtMTIgYXQgOS4zNy4zNSBBTS5qcGVnIiwiaWF0IjoxNzQ5NzAzODEyLCJleHAiOjE3ODEyMzk4MTJ9.9HzNeNSKuDRfxmZALIx7NFjoi9JoJLI60K2CmuuHPwE' },
+  { id: '5', name: 'Marble Cake', description: 'A beautiful swirl of rich chocolate and buttery vanilla batters, moist and perfectly balanced in flavor.', price: 119, oldPrice: 309, discount: 61, image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/10-minfood/WhatsApp%20Image%202025-06-12%20at%209.37.35%20AM%20(2).jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTBkNTE5YS0xZWZjLTRiYzUtOGEzNS05Y2U5ZGNiNDVkNjkiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiIxMC1taW5mb29kL1doYXRzQXBwIEltYWdlIDIwMjUtMDYtMTIgYXQgOS4zNy4zNSBBTSAoMikuanBlZyIsImlhdCI6MTc0OTcwMzg3MSwiZXhwIjoxNzgxMjM5ODcxfQ.S9XGsNAd19ms4LWNiy_nRU6IFHyYb3at94l_X4PwfP8' },
+  { id: '6', name: 'Cold cofee', description: 'A creamy, chilled indulgence made with freshly brewed coffee, rich milk, and sweetness, whipped with ice for a frothy finish.', price: 129, oldPrice: 154, discount: 16,image:'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/10-minfood/WhatsApp%20Image%202025-06-12%20at%209.37.35%20AM%20(1).jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hOTBkNTE5YS0xZWZjLTRiYzUtOGEzNS05Y2U5ZGNiNDVkNjkiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiIxMC1taW5mb29kL1doYXRzQXBwIEltYWdlIDIwMjUtMDYtMTIgYXQgOS4zNy4zNSBBTSAoMSkuanBlZyIsImlhdCI6MTc0OTcwMzkyOSwiZXhwIjoxNzgxMjM5OTI5fQ.KTpFy_ejpZwiP6L-N-ZPwhIGuwrMLDqrO7boCp2nomk' },
 ];
 
 const marqueeTexts: string[] = [
@@ -267,7 +267,11 @@ export default function HomeScreen() {
   const renderProductCard = (item: any) => (
     <View key={item.id} style={styles.simpleProductCard}>
       {item.image && (
-        <Image source={item.image} style={styles.simpleProductImage} resizeMode="cover" />
+        <Image 
+          source={typeof item.image === 'string' ? { uri: item.image } : item.image}
+          style={styles.simpleProductImage}
+          resizeMode="cover" 
+        />
       )}
       <View style={{flexDirection: 'row', alignItems: 'center', alignSelf: 'flex-start', marginBottom: 2}}>
         <View style={styles.simpleDiscountBadge}>

@@ -10,6 +10,7 @@ import {
   Pressable,
   ScrollView,
   Modal,
+  Platform,
 } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -48,6 +49,7 @@ export default function HoodiesScreen() {
   const [previewImageUri, setPreviewImageUri] = useState<string | null>(null);
   const [zoomed, setZoomed] = useState(false);
   const lastTap = useRef<number>(0);
+  const [imageError, setImageError] = useState<{ [key: string]: boolean }>({});
 
   useEffect(() => {
     async function fetchHoodies() {
@@ -169,6 +171,13 @@ export default function HoodiesScreen() {
     };
   };
 
+  function getImageSource(uri: string | undefined) {
+    if (!uri || imageError[String(uri)]) {
+      return require('../../assets/images/placeholder.png');
+    }
+    return { uri };
+  }
+
   const renderCard = () => {
     if (!hoodiesProducts.length) return null;
     const safeIndex = currentIndex % hoodiesProducts.length;
@@ -178,18 +187,12 @@ export default function HoodiesScreen() {
       <Animated.View style={[styles.card, getCardStyle()]} {...panResponder.panHandlers}>
         <ScrollView style={styles.cardContent} showsVerticalScrollIndicator={false} bounces={false}>
           <View style={styles.imageContainer}>
-            {product.image && product.image.uri ? (
-              <Image
-                source={{ uri: product.image.uri }}
-                style={styles.productImage}
-                resizeMode="cover"
-                onError={() => console.log('Image failed to load:', product.image.uri)}
-              />
-            ) : (
-              <View style={[styles.productImage, { justifyContent: 'center', alignItems: 'center', backgroundColor: '#eee' }]}> 
-                <Text>No image</Text>
-              </View>
-            )}
+            <Image
+              source={getImageSource(product.image?.uri)}
+              style={styles.productImage}
+              resizeMode="cover"
+              onError={() => setImageError(prev => ({ ...prev, [String(product.image?.uri)]: true }))}
+            />
           </View>
           <View style={styles.productInfo}>
             <View style={styles.nameRow}>
@@ -217,12 +220,11 @@ export default function HoodiesScreen() {
               </View>
             </View>
             {/* Preview Section */}
-            {product.firstImage && product.firstImage.uri ? (
+            {product.firstImage && (
               <View style={styles.section}>
                 <View style={styles.imageContainer}>
                   <Pressable
                     onPress={() => {
-                      console.log('Preview image pressed', product.firstImage?.uri);
                       setPreviewImageUri(product.firstImage?.uri || null);
                       setPreviewModalVisible(true);
                     }}
@@ -231,14 +233,15 @@ export default function HoodiesScreen() {
                     style={{ flex: 1 }}
                   >
                     <Image
-                      source={{ uri: product.firstImage.uri }}
+                      source={getImageSource(product.firstImage?.uri)}
                       style={[styles.productImage, { borderRadius: 16 }]}
                       resizeMode="cover"
+                      onError={() => setImageError(prev => ({ ...prev, [String(product.firstImage?.uri)]: true }))}
                     />
                   </Pressable>
                 </View>
               </View>
-            ) : null}
+            )}
             {/* Product Details */}
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>Product Details</Text>
@@ -254,7 +257,7 @@ export default function HoodiesScreen() {
               ))}
             </View>
             {/* 2nd Image Preview */}
-            {product.secondImage && product.secondImage.uri ? (
+            {product.secondImage && (
               <View style={styles.section}>
                 <View style={styles.imageContainer}>
                   <Pressable
@@ -267,16 +270,17 @@ export default function HoodiesScreen() {
                     style={{ flex: 1 }}
                   >
                     <Image
-                      source={{ uri: product.secondImage.uri }}
+                      source={getImageSource(product.secondImage?.uri)}
                       style={[styles.productImage, { borderRadius: 16 }]}
                       resizeMode="cover"
+                      onError={() => setImageError(prev => ({ ...prev, [String(product.secondImage?.uri)]: true }))}
                     />
                   </Pressable>
                 </View>
               </View>
-            ) : null}
+            )}
             {/* 3rd Image Preview */}
-            {product.thirdImage && product.thirdImage.uri ? (
+            {product.thirdImage && (
               <View style={styles.section}>
                 <View style={styles.imageContainer}>
                   <Pressable
@@ -289,16 +293,17 @@ export default function HoodiesScreen() {
                     style={{ flex: 1 }}
                   >
                     <Image
-                      source={{ uri: product.thirdImage.uri }}
+                      source={getImageSource(product.thirdImage?.uri)}
                       style={[styles.productImage, { borderRadius: 16 }]}
                       resizeMode="cover"
+                      onError={() => setImageError(prev => ({ ...prev, [String(product.thirdImage?.uri)]: true }))}
                     />
                   </Pressable>
                 </View>
               </View>
-            ) : null}
+            )}
             {/* 4th Image Preview */}
-            {product.fourthImage && product.fourthImage.uri ? (
+            {product.fourthImage && (
               <View style={styles.section}>
                 <View style={styles.imageContainer}>
                   <Pressable
@@ -311,14 +316,15 @@ export default function HoodiesScreen() {
                     style={{ flex: 1 }}
                   >
                     <Image
-                      source={{ uri: product.fourthImage.uri }}
+                      source={getImageSource(product.fourthImage?.uri)}
                       style={[styles.productImage, { borderRadius: 16 }]}
                       resizeMode="cover"
+                      onError={() => setImageError(prev => ({ ...prev, [String(product.fourthImage?.uri)]: true }))}
                     />
                   </Pressable>
                 </View>
               </View>
-            ) : null}
+            )}
             {/* Add to Bag Button */}
             <Pressable style={styles.addToBagButton} onPress={() => {}}>
               <ShoppingBag size={24} color="#fff" />

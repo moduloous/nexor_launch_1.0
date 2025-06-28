@@ -30,49 +30,49 @@ const categories: Record<string, CategorySection> = {
       {
         id: 1,
         name: 'Vegetables',
-        image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/fresh-vegetables-6.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5X2E5MGQ1MTlhLTFlZmMtNGJjNS04YTM1LTljZTlkY2I0NWQ2OSJ9.eyJ1cmwiOiJpY29ucy9mcmVzaC12ZWdldGFibGVzLTYud2VicCIsImlhdCI6MTc0NzU5MjYxOSwiZXhwIjoxNzc5MTI4NjE5fQ.20WMAsE4XBjq-2CjfzN6ztlIlP2W1PBNqh-8qytnx9g',
+        image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/fresh-vegetables-6.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpY29ucy9mcmVzaC12ZWdldGFibGVzLTYud2VicCIsImlhdCI6MTc1MTAxOTI5NCwiZXhwIjoxNzgyNTU1Mjk0fQ.pcVsMQcJNOgrh8zvDrOUo7SNrFriiR_Zmo8yv8wPljA',
         type: 'large',
       },
       {
         id: 2,
         name: 'Fruits',
-        image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/fresh-fruits-6.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5X2E5MGQ1MTlhLTFlZmMtNGJjNS04YTM1LTljZTlkY2I0NWQ2OSJ9.eyJ1cmwiOiJpY29ucy9mcmVzaC1mcnVpdHMtNi5wbmciLCJpYXQiOjE3NDc1OTE4NDYsImV4cCI6MTc3OTEyNzg0Nn0.5whsG0Ic84KtZnA5EN5HJ1MjlT-0q_DinGB_CKQBXlg',
+        image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/fresh-fruits-6.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpY29ucy9mcmVzaC1mcnVpdHMtNi5wbmciLCJpYXQiOjE3NTEwMTkzNDIsImV4cCI6MTc4MjU1NTM0Mn0.lV4TK1a2eRtIKPYni7BpGVNXGqGwnKe8ArrOiWzofdo',
         type: 'large',
       },
       {
         id: 3,
         name: 'Atta, Rice & Dal',
-        image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/rice-atta-dals.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5X2E5MGQ1MTlhLTFlZmMtNGJjNS04YTM1LTljZTlkY2I0NWQ2OSJ9.eyJ1cmwiOiJpY29ucy9yaWNlLWF0dGEtZGFscy53ZWJwIiwiaWF0IjoxNzQ3NTkyODEwLCJleHAiOjE3NzkxMjg4MTB9.4mTvLbGbDvoymiGOUTdkfOHWSUXG5FyhZacD8p3nxao',
+        image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/rice-atta-dals.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpY29ucy9yaWNlLWF0dGEtZGFscy53ZWJwIiwiaWF0IjoxNzUxMDE5MzgxLCJleHAiOjE3ODI1NTUzODF9.sQW9wVxU4So20EAdK0M6VcAvI5rBCJIpKvUDO2AB3PM',
         type: 'large',
       },
       {
         id: 4,
         name: 'Oil, Ghee & Masala',
-        image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/edible-oil-ghee.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5X2E5MGQ1MTlhLTFlZmMtNGJjNS04YTM1LTljZTlkY2I0NWQ2OSJ9.eyJ1cmwiOiJpY29ucy9lZGlibGUtb2lsLWdoZWUud2VicCIsImlhdCI6MTc0NzU5MzUzMSwiZXhwIjoxNzc5MTI5NTMxfQ.HJ1Wvdj-4Yxt8oF8GvPogkIwnLyc6xTHAHH4IZjlD-g',
+        image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/edible-oil-ghee.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpY29ucy9lZGlibGUtb2lsLWdoZWUud2VicCIsImlhdCI6MTc1MTAxOTQ0NCwiZXhwIjoxNzgyNTU1NDQ0fQ.aAI24BIFsQdRNUHqsWsKxNGN0Sq0ZoQgDFBwDadLis8',
         type: 'large',
       },
       {
         id: 5,
         name: 'Dairy, Bread & Eggs',
-        image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/dairy-eggs-bread.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5X2E5MGQ1MTlhLTFlZmMtNGJjNS04YTM1LTljZTlkY2I0NWQ2OSJ9.eyJ1cmwiOiJpY29ucy9kYWlyeS1lZ2dzLWJyZWFkLndlYnAiLCJpYXQiOjE3NDc1OTMxMTYsImV4cCI6MTc3OTEyOTExNn0.CJC5XyUFlhZIjOxEde7ui5YEm1W4Tpi_vu1do4Aiir8',
+        image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/dairy-eggs-bread.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpY29ucy9kYWlyeS1lZ2dzLWJyZWFkLndlYnAiLCJpYXQiOjE3NTEwMTk0NjUsImV4cCI6MTc4MjU1NTQ2NX0.Qy_hH8W9lTuC9JjbmhoxE_BVpWjpv6ceYjUJtU95wM0',
         type: 'large',
       },
       {
         id: 6,
         name: 'Tea, Coffee & more',
-        image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/tea-coffee-more.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5X2E5MGQ1MTlhLTFlZmMtNGJjNS04YTM1LTljZTlkY2I0NWQ2OSJ9.eyJ1cmwiOiJpY29ucy90ZWEtY29mZmVlLW1vcmUud2VicCIsImlhdCI6MTc0NzU5NjIwOSwiZXhwIjoxNzc5MTMyMjA5fQ.BbW4HVLVwNLg6l1ArkGrhU2l--Ln3lQgmsoO_Rng3mU',
+        image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/tea-coffee-more.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpY29ucy90ZWEtY29mZmVlLW1vcmUud2VicCIsImlhdCI6MTc1MTAxOTQ5OSwiZXhwIjoxNzgyNTU1NDk5fQ.jpk5XGW6RSbhwliISAJf97_8OBv1qoXkpuDa8Y-hX30',
         type: 'large',
       },
       {
         id: 7,
         name: 'Ready to Eat & Cook',
-        image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/ready-to-eat-cook.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5X2E5MGQ1MTlhLTFlZmMtNGJjNS04YTM1LTljZTlkY2I0NWQ2OSJ9.eyJ1cmwiOiJpY29ucy9yZWFkeS10by1lYXQtY29vay53ZWJwIiwiaWF0IjoxNzQ3NTk1NDMyLCJleHAiOjE3NzkxMzE0MzJ9.sWP0mrXZ6760OlHhzDyhUeGUhIJk8wi9TsPCDXAyjVk',
+        image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/ready-to-eat-cook.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpY29ucy9yZWFkeS10by1lYXQtY29vay53ZWJwIiwiaWF0IjoxNzUxMDE5NTEwLCJleHAiOjE3ODI1NTU1MTB9.zfZi3Ctq2uOezuCjohiEolW6PYOZwLtrAdKEQM2sXvc',
         type: 'large',
       },
       {
         id: 8,
         name: 'Chicken, Meat & Fish',
-        image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/Meatigo-Frozen-Chicken-Curry-Cuts-removebg-preview.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5X2E5MGQ1MTlhLTFlZmMtNGJjNS04YTM1LTljZTlkY2I0NWQ2OSJ9.eyJ1cmwiOiJpY29ucy9NZWF0aWdvLUZyb3plbi1DaGlja2VuLUN1cnJ5LUN1dHMtcmVtb3ZlYmctcHJldmlldy5wbmciLCJpYXQiOjE3NDc1OTMzNDcsImV4cCI6MTc3OTEyOTM0N30.9RXMkTCwoMgmdTYekXp6y3bY4ACszpoqfhX5WL02Y_Q',
+        image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/Meatigo-Frozen-Chicken-Curry-Cuts-removebg-preview.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpY29ucy9NZWF0aWdvLUZyb3plbi1DaGlja2VuLUN1cnJ5LUN1dHMtcmVtb3ZlYmctcHJldmlldy5wbmciLCJpYXQiOjE3NTEwMTk2MzUsImV4cCI6MTc4MjU1NTYzNX0.3C8kkuBiy7EDGxw2s6uEUTro2GlFJU4AA6iZDZFc-WM',
         type: 'large',
       }
     ],
@@ -80,14 +80,14 @@ const categories: Record<string, CategorySection> = {
   snacksDrinks: {
     title: 'Snacks & Drinks',
     items: [
-      { id: 1, name: 'Chips & Namkeens', image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/chips%20and%20namkkeen.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5X2E5MGQ1MTlhLTFlZmMtNGJjNS04YTM1LTljZTlkY2I0NWQ2OSJ9.eyJ1cmwiOiJpY29ucy9jaGlwcyBhbmQgbmFta2tlZW4ud2VicCIsImlhdCI6MTc0NzU5NTU3MSwiZXhwIjoxNzc5MTMxNTcxfQ.gMOh_2iX6gpc0MyIwSSdUDuXUyAlWxGheXlo6THKPs8', type: 'large' },
-      { id: 2, name: 'Drinks & Juices', image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/cold-drinks-juices.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5X2E5MGQ1MTlhLTFlZmMtNGJjNS04YTM1LTljZTlkY2I0NWQ2OSJ9.eyJ1cmwiOiJpY29ucy9jb2xkLWRyaW5rcy1qdWljZXMud2VicCIsImlhdCI6MTc0NzU5NTc3NywiZXhwIjoxNzc5MTMxNzc3fQ.t8rY4H0N-AXkqe-0SC32p7b0wJkJbgCOM3fCmX_pxbY', type: 'large' },
-      { id: 3, name: 'Sweets & Chocolates', image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/sweet-tooth.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5X2E5MGQ1MTlhLTFlZmMtNGJjNS04YTM1LTljZTlkY2I0NWQ2OSJ9.eyJ1cmwiOiJpY29ucy9zd2VldC10b290aC53ZWJwIiwiaWF0IjoxNzQ3NTk1ODYyLCJleHAiOjE3NzkxMzE4NjJ9.2zBumTi2jFzqTH_JcX40TXzWgHyL23R8A7bFrylcAwI', type: 'large' },
-      { id: 4, name: 'Ice Creams', image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/ice-creams.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5X2E5MGQ1MTlhLTFlZmMtNGJjNS04YTM1LTljZTlkY2I0NWQ2OSJ9.eyJ1cmwiOiJpY29ucy9pY2UtY3JlYW1zLndlYnAiLCJpYXQiOjE3NDc1OTYwMTgsImV4cCI6MTc3OTEzMjAxOH0.FJ0q4oejrEbmyat6w8nn3Wf3BC82JkSnDtPqNW9bbVc', type: 'large' },
-      { id: 5, name: 'Instant & Frozen', image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/instant-frozen.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5X2E5MGQ1MTlhLTFlZmMtNGJjNS04YTM1LTljZTlkY2I0NWQ2OSJ9.eyJ1cmwiOiJpY29ucy9pbnN0YW50LWZyb3plbi53ZWJwIiwiaWF0IjoxNzQ3NTk2MDg3LCJleHAiOjE3NzkxMzIwODd9.Bhxr7njtUdbWcE4c25yWkchWNuQbIApAS9oHZ-QlMLg', type: 'large' },
-      { id: 6, name: 'Mayonnaise & Sauces', image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/mayonnaise-sauces.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5X2E5MGQ1MTlhLTFlZmMtNGJjNS04YTM1LTljZTlkY2I0NWQ2OSJ9.eyJ1cmwiOiJpY29ucy9tYXlvbm5haXNlLXNhdWNlcy53ZWJwIiwiaWF0IjoxNzQ3NTk2MTU4LCJleHAiOjE3NzkxMzIxNTh9.edvOtKcMVMyDK2TEVBfLgGz38DyzJIdjc9NL0JJGgPE', type: 'large' },
-      { id: 7, name: ' & Biscuits', image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/chips%20ad%20biscuits.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5X2E5MGQ1MTlhLTFlZmMtNGJjNS04YTM1LTljZTlkY2I0NWQ2OSJ9.eyJ1cmwiOiJpY29ucy9jaGlwcyBhZCBiaXNjdWl0cy53ZWJwIiwiaWF0IjoxNzQ3NTk2Mjg5LCJleHAiOjE3NzkxMzIyODl9.KHKYaHJx8kESXSpNuqQdCiec5aYlz3TIV9sXgw7vJK4', type: 'large' },
-      { id: 8, name: 'Regional Snacks', image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/indian-snacks.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5X2E5MGQ1MTlhLTFlZmMtNGJjNS04YTM1LTljZTlkY2I0NWQ2OSJ9.eyJ1cmwiOiJpY29ucy9pbmRpYW4tc25hY2tzLndlYnAiLCJpYXQiOjE3NDc1OTY0MDgsImV4cCI6MTc3OTEzMjQwOH0.5QUNnCcZk8uZKgNW_2zfYuxnW82fE1db8b_g0ivryHQ', type: 'large' },
+      { id: 1, name: 'Chips & Namkeens', image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/chips%20and%20namkkeen.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpY29ucy9jaGlwcyBhbmQgbmFta2tlZW4ud2VicCIsImlhdCI6MTc1MTAxOTY2NCwiZXhwIjoxNzgyNTU1NjY0fQ._Roob-rvuV_0EtWo_wbKNVcUqgOxX6i8VU7S2p11zdY', type: 'large' },
+      { id: 2, name: 'Drinks & Juices', image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/cold-drinks-juices.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpY29ucy9jb2xkLWRyaW5rcy1qdWljZXMud2VicCIsImlhdCI6MTc1MTAxOTY4NCwiZXhwIjoxNzgyNTU1Njg0fQ.GZ_l7k6ePc1dcAlihKCYtgJNSHV965xOsHVO3z7Uvto', type: 'large' },
+      { id: 3, name: 'Sweets & Chocolates', image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/sweet-tooth.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpY29ucy9zd2VldC10b290aC53ZWJwIiwiaWF0IjoxNzUxMDE5NzA1LCJleHAiOjE3ODI1NTU3MDV9.3nYjMtiH4GsVdd3bq0jD89QaTCobEAT-OtkmldKpUhQ', type: 'large' },
+      { id: 4, name: 'Ice Creams', image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/ice-creams.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpY29ucy9pY2UtY3JlYW1zLndlYnAiLCJpYXQiOjE3NTEwMTk3MzIsImV4cCI6MTc4MjU1NTczMn0.IoerD6moL0U1ToiI7yQkjF_qZ-n1iXVrj2VkGD0i2vs', type: 'large' },
+      { id: 5, name: 'Instant & Frozen', image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/instant-frozen.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpY29ucy9pbnN0YW50LWZyb3plbi53ZWJwIiwiaWF0IjoxNzUxMDE5NzUyLCJleHAiOjE3ODI1NTU3NTJ9.1h2l1aDmE5LoNUnEkywTVBD0kL59uJycXqtC-GzBa0Q', type: 'large' },
+      { id: 6, name: 'Mayonnaise & Sauces', image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/mayonnaise-sauces.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpY29ucy9tYXlvbm5haXNlLXNhdWNlcy53ZWJwIiwiaWF0IjoxNzUxMDE5Nzc3LCJleHAiOjE3ODI1NTU3Nzd9.l_QCyjzJ7fHjuLkUG0YFxhDNY8h76dVy25LOrQRUVMQ', type: 'large' },
+      { id: 7, name: 'Chips & Biscuits', image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/chips%20ad%20biscuits.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpY29ucy9jaGlwcyBhZCBiaXNjdWl0cy53ZWJwIiwiaWF0IjoxNzUxMDE5MTU4LCJleHAiOjE3ODI1NTUxNTh9.HOYYTa-BBy2QJ3WHvKBQNK7EsgBUQkqM5Ouu4UlB20M', type: 'large' },
+      { id: 8, name: 'Regional Snacks', image: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/indian-snacks.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpY29ucy9pbmRpYW4tc25hY2tzLndlYnAiLCJpYXQiOjE3NTEwMTk4MzcsImV4cCI6MTc4MjU1NTgzN30.RrQObkHEbCYRkRZfCWYP4AZ7PI2XKiwjVJiAiqbc380', type: 'large' },
     ],
   },
 };
@@ -125,7 +125,7 @@ export default function GroceryScreen() {
           style={styles.promoBanner}
         >
           <Image
-            source={{ uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/ice%20cream%20banner.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5X2E5MGQ1MTlhLTFlZmMtNGJjNS04YTM1LTljZTlkY2I0NWQ2OSJ9.eyJ1cmwiOiJpY29ucy9pY2UgY3JlYW0gYmFubmVyLnBuZyIsImlhdCI6MTc0NzU5ODAwOSwiZXhwIjoxNzc5MTM0MDA5fQ.iQBa2hG6-ZZk62pE8MTAuPXVZ8JM2QHCKZE7hHB-uRk' }}
+            source={{ uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/ice%20cream%20banner.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpY29ucy9pY2UgY3JlYW0gYmFubmVyLnBuZyIsImlhdCI6MTc1MTAyMDQwMCwiZXhwIjoxNzgyNTU2NDAwfQ.t3zgnTQZaAD5U6lIKy76Zps62XiLX84ZOMjdIk3EMNA' }}
             style={{
               width: '100%',
               height: 175,
@@ -221,7 +221,7 @@ export default function GroceryScreen() {
           backgroundColor: 'transparent',
         }}>
           <Image
-            source={{ uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/BANNEROFFERSCANTMISS1.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5X2E5MGQ1MTlhLTFlZmMtNGJjNS04YTM1LTljZTlkY2I0NWQ2OSJ9.eyJ1cmwiOiJpY29ucy9CQU5ORVJPRkZFUlNDQU5UTUlTUzEucG5nIiwiaWF0IjoxNzQ3NTk2NzEwLCJleHAiOjE3NzkxMzI3MTB9.-M78KaisloV9QgUuwtDiAApo-HjmfZ-3IXProfVghHU' }}
+            source={{ uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/BANNEROFFERSCANTMISS1.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpY29ucy9CQU5ORVJPRkZFUlNDQU5UTUlTUzEucG5nIiwiaWF0IjoxNzUxMDIwMDU1LCJleHAiOjE3ODI1NTYwNTV9.jyrB4vmZdh37RsCeKRRb8ckaD2iIc5onbhXWHfEdFL0' }}
             style={{
               width: width - (SCREEN_PADDING * 2),
               height: 100,
@@ -235,12 +235,12 @@ export default function GroceryScreen() {
         {/* Two vertical banners side by side */}
         <View style={{ flexDirection: 'row', width: '100%', height: 180, marginTop: 4, gap: 10, paddingHorizontal: SCREEN_PADDING, paddingBottom: 16 }}>
           <Image
-            source={{ uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/BANNEROFFERSCANTMISS2NEW.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5X2E5MGQ1MTlhLTFlZmMtNGJjNS04YTM1LTljZTlkY2I0NWQ2OSJ9.eyJ1cmwiOiJpY29ucy9CQU5ORVJPRkZFUlNDQU5UTUlTUzJORVcucG5nIiwiaWF0IjoxNzQ3NzY3MDI0LCJleHAiOjE3NzkzMDMwMjR9.dzpH0KKBYuUqkIl3goWap0eS6g6dWsLJ6omiLoKRNL8' }}
+            source={{ uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/BANNEROFFERSCANTMISS2NEW.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpY29ucy9CQU5ORVJPRkZFUlNDQU5UTUlTUzJORVcucG5nIiwiaWF0IjoxNzUxMDE5OTcyLCJleHAiOjE3ODI1NTU5NzJ9.E8EEpDQUrk9A4VI9uIqpZa6UVZbnPolqEtFD_TQHpTY' }}
             style={{ flex: 1, borderRadius: 16 }}
             resizeMode="cover"
           />
           <Image
-            source={{ uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/banner.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InN0b3JhZ2UtdXJsLXNpZ25pbmcta2V5X2E5MGQ1MTlhLTFlZmMtNGJjNS04YTM1LTljZTlkY2I0NWQ2OSJ9.eyJ1cmwiOiJpY29ucy9iYW5uZXIucG5nIiwiaWF0IjoxNzQ3NzY3MTY0LCJleHAiOjE3NzkzMDMxNjR9.ujYL2Z4ppF-F42It0t6WCQ2f9_vVAeUWEuHAT9R284Q' }}
+            source={{ uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/banner.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpY29ucy9iYW5uZXIucG5nIiwiaWF0IjoxNzUxMDE5OTg5LCJleHAiOjE3ODI1NTU5ODl9.I9_jJqrkOukd1PgbJiJPHSHDjd7bU18hx-imUo_Vkqk' }}
             style={{ flex: 1, borderRadius: 16 }}
             resizeMode="cover"
           />
