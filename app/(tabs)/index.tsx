@@ -15,6 +15,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useTheme } from '../contexts/ThemeContext';
+import { Svg, Defs, RadialGradient, Rect, Stop } from 'react-native-svg';
+import { useWindowDimensions } from 'react-native';
 
 interface Service {
   id: string;
@@ -88,7 +91,7 @@ const services: Service[] = [
     id: '8', 
     name: 'Events', 
     icon: 'custom',
-    image: require('../assets/images/events.png'),
+    image: { uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/banners/Events.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJiYW5uZXJzL0V2ZW50cy5wbmciLCJpYXQiOjE3NTE4MTA1NDEsImV4cCI6MTc4MzM0NjU0MX0.3ys4aUAubLALlnwfeOMRwChZg9q5XeDW4MktjTl_lQM' },
     href: '/events' 
   },
   { 
@@ -143,7 +146,7 @@ const marqueeTexts: string[] = [
   "Use Quick Commerce section for fast deliveries of essentials"
 ];
 
-const TextMarquee = () => {
+const TextMarquee = ({ textColor = '#000', backgroundColor = 'transparent' }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const fadeAnim = useRef(new Animated.Value(1)).current;
 
@@ -170,12 +173,13 @@ const TextMarquee = () => {
   }, []);
 
   return (
-    <View style={styles.marqueeContainer}>
+    <View style={[styles.marqueeContainer, { backgroundColor }]}>
       <Animated.Text 
         style={[
           styles.marqueeText,
           {
             opacity: fadeAnim,
+            color: textColor,
           }
         ]}
       >
@@ -188,6 +192,9 @@ const TextMarquee = () => {
 export default function HomeScreen() {
   const router = useRouter();
   const [activeSlide, setActiveSlide] = React.useState(0);
+  const { isDark, theme, toggleTheme } = useTheme();
+  const { width } = useWindowDimensions();
+  const gradientHeight = 350;
 
   const renderServiceItem = (item: any) => (
     <TouchableOpacity
@@ -217,7 +224,7 @@ export default function HomeScreen() {
           <Ionicons name={item.icon} size={32} color="#2196F3" />
         </View>
       )}
-      <Text style={styles.serviceName}>{item.name}</Text>
+      <Text style={[styles.serviceName, { color: theme.text }]}>{item.name}</Text>
     </TouchableOpacity>
   );
 
@@ -251,13 +258,17 @@ export default function HomeScreen() {
   );
 
   const renderPagination = () => (
-    <View style={styles.paginationContainer}>
+    <View style={[styles.paginationContainer, { backgroundColor: isDark ? '#111' : '#fff', borderRadius: 16, paddingVertical: 6, marginTop: 12 }]}> 
       {deals.map((_, i) => (
         <View
           key={i}
           style={[
             styles.paginationDot,
-            { backgroundColor: i === activeSlide ? '#2196F3' : '#D1D1D1' }
+            {
+              backgroundColor: i === activeSlide
+                ? (isDark ? '#fff' : '#2196F3')
+                : (isDark ? '#444' : '#D1D1D1'),
+            },
           ]}
         />
       ))}
@@ -299,34 +310,68 @@ export default function HomeScreen() {
   );
 
   return (
-    <SafeAreaView style={styles.container} edges={['top', 'right', 'left']}>
-      <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]} edges={['top', 'right', 'left']}>
+      {isDark && (
+        <Svg
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width,
+            height: gradientHeight,
+            zIndex: -1,
+          }}
+        >
+          <Defs>
+            <RadialGradient
+              id="grad"
+              cx="18%" cy="6%"
+              rx="120%" ry="100%"
+              fx="18%" fy="6%"
+              gradientUnits="userSpaceOnUse"
+            >
+              <Stop offset="0%" stopColor="#FF6B9D" stopOpacity="0.8" />
+              <Stop offset="40%" stopColor="#8B5CF6" stopOpacity="0.6" />
+              <Stop offset="70%" stopColor="#1A1A2E" stopOpacity="0.9" />
+              <Stop offset="100%" stopColor="#000000" stopOpacity="1" />
+            </RadialGradient>
+          </Defs>
+          <Rect
+            x="0"
+            y="0"
+            width={width}
+            height={gradientHeight}
+            fill="url(#grad)"
+          />
+        </Svg>
+      )}
+      <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} backgroundColor={theme.background} />
       {/* Header */}
-      <View style={styles.header}>
+      <View style={[styles.header, { backgroundColor: isDark ? 'transparent' : theme.card }]}>
         <TouchableOpacity style={styles.locationButton}>
-          <Ionicons name="location-outline" size={24} color="black" />
-          <Text style={styles.locationText}>Bengaluru</Text>
+          <Ionicons name="location-outline" size={24} color={theme.text} />
+          <Text style={[styles.locationText, { color: theme.text }]}>Bengaluru</Text>
         </TouchableOpacity>
         <View style={styles.headerRight}>
           <TouchableOpacity style={styles.iconButton}>
-            <Ionicons name="notifications-outline" size={24} color="black" />
+            <Ionicons name="notifications-outline" size={24} color={theme.text} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.iconButton} onPress={toggleTheme}>
+            <Ionicons name="moon-outline" size={24} color={theme.text} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.iconButton}>
-            <Ionicons name="moon-outline" size={24} color="black" />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.iconButton}>
-            <Ionicons name="cart-outline" size={24} color="black" />
+            <Ionicons name="cart-outline" size={24} color={theme.text} />
           </TouchableOpacity>
         </View>
       </View>
 
       {/* Search Bar */}
-      <View style={styles.searchContainer}>
-        <Ionicons name="search-outline" size={20} color="gray" />
+      <View style={[styles.searchContainer, { backgroundColor: isDark ? '#222' : '#F5F5F5' }]}>
+        <Ionicons name="search-outline" size={20} color={theme.placeholder} />
         <TextInput
-          style={styles.searchInput}
+          style={[styles.searchInput, { color: theme.text }]}
           placeholder="Search"
-          placeholderTextColor="gray"
+          placeholderTextColor={theme.placeholder}
         />
       </View>
 
@@ -338,7 +383,7 @@ export default function HomeScreen() {
 
         {/* Deals Section */}
         <View style={styles.dealsSection}>
-          <Text style={styles.sectionTitle}>Today's Deals !</Text>
+          <Text style={[styles.sectionTitle, { color: theme.text }]}>Today's Deals !</Text>
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -358,11 +403,22 @@ export default function HomeScreen() {
         </View>
 
         {/* Text Marquee */}
-        <TextMarquee />
+        <View style={{
+          backgroundColor: 'transparent',
+          borderRadius: 20,
+          marginHorizontal: 16,
+          marginTop: 0,
+          marginBottom: 4,
+          paddingVertical: 8,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+          <TextMarquee textColor={isDark ? '#fff' : '#000'} backgroundColor={isDark ? '#000' : '#fff'} />
+        </View>
 
         {/* Recently Visited Section */}
         <View style={styles.recentSection}>
-          <Text style={styles.sectionTitle}>What's brewing in your head?</Text>
+          <Text style={[styles.sectionTitle, { color: theme.text }]}>What's brewing in your head?</Text>
         </View>
         {/* Simple Product Card Section */}
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.simpleProductScroll}>
@@ -501,6 +557,7 @@ const styles = StyleSheet.create({
   dealsSection: {
     marginTop: 16,
     paddingHorizontal: 16,
+    marginBottom: 0,
   },
   sectionTitle: {
     fontSize: 20,
@@ -562,7 +619,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 4,
   },
   recentSection: {
-    marginTop: 24,
+    marginTop: 0,
+    marginBottom: 8,
     paddingHorizontal: 16,
   },
   bottomPadding: {
@@ -749,12 +807,11 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
   },
   marqueeContainer: {
-    backgroundColor: '#f5f5f5',
-    paddingVertical: 10,
+    paddingVertical: 4,
     marginHorizontal: 16,
     marginTop: 8,
     marginBottom: 4,
-    borderRadius: 20,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -763,7 +820,6 @@ const styles = StyleSheet.create({
     color: '#000',
     fontFamily: 'Urbanist-Bold',
     textAlign: 'center',
-    paddingHorizontal: 12,
   },
   goingOutBannerContainer: {
     marginHorizontal: 16,
