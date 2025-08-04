@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Platform, Dimensions } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { MapPin, Star, Wifi, Coffee, Car, Utensils, Key, Users, Calendar, CreditCard, Gift, ChevronLeft, ChevronRight, Heart } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { Stay, stays } from '../data';
 
 interface Review {
@@ -13,7 +13,7 @@ interface Review {
 }
 
 interface HouseRule {
-  icon: any;
+  icon: keyof typeof Ionicons.glyphMap;
   title: string;
   description: string;
 }
@@ -37,19 +37,19 @@ const reviews: Review[] = [
 
 const houseRules: HouseRule[] = [
   {
-    icon: Key,
-    title: "Check-in",
-    description: "After 2:00 PM"
+    icon: 'key',
+    title: 'Check-in',
+    description: 'After 2:00 PM'
   },
   {
-    icon: Users,
-    title: "Guests",
-    description: "Max 4 people"
+    icon: 'people',
+    title: 'Guests',
+    description: 'Max 4 people'
   },
   {
-    icon: Coffee,
-    title: "Smoking",
-    description: "Not allowed"
+    icon: 'cafe',
+    title: 'Smoking',
+    description: 'Not allowed'
   }
 ];
 
@@ -97,17 +97,17 @@ export default function StayDetailScreen() {
         />
         <View style={styles.imageControls}>
           <TouchableOpacity onPress={prevImage} style={styles.imageButton}>
-            <ChevronLeft size={24} color="#fff" />
+            <Ionicons name="chevron-back" size={24} color="#fff" />
           </TouchableOpacity>
           <TouchableOpacity onPress={nextImage} style={styles.imageButton}>
-            <ChevronRight size={24} color="#fff" />
+            <Ionicons name="chevron-forward" size={24} color="#fff" />
           </TouchableOpacity>
         </View>
         <TouchableOpacity 
           style={styles.wishlistButton}
           onPress={() => setIsWishlisted(!isWishlisted)}
         >
-          <Heart 
+          <Ionicons name="heart" 
             size={24} 
             color={isWishlisted ? '#FF6B6B' : '#fff'} 
             fill={isWishlisted ? '#FF6B6B' : 'none'} 
@@ -131,11 +131,11 @@ export default function StayDetailScreen() {
         <View style={styles.header}>
           <Text style={styles.title}>{stay.title}</Text>
           <View style={styles.locationRow}>
-            <MapPin size={16} color="#666" />
+            <Ionicons name="location" size={16} color="#666" />
             <Text style={styles.location}>{stay.location}</Text>
           </View>
           <View style={styles.ratingRow}>
-            <Star size={16} color="#FFD700" fill="#FFD700" />
+            <Ionicons name="star" size={16} color="#FFD700" fill="#FFD700" />
             <Text style={styles.rating}>{stay.rating}</Text>
             <Text style={styles.reviewCount}>({reviews.length} reviews)</Text>
           </View>
@@ -150,9 +150,9 @@ export default function StayDetailScreen() {
           <View style={styles.amenitiesGrid}>
             {stay.amenities.map((amenity: string, index: number) => (
               <View key={index} style={styles.amenityItem}>
-                {amenity.includes('WiFi') && <Wifi size={20} color="#666" />}
-                {amenity.includes('Parking') && <Car size={20} color="#666" />}
-                {amenity.includes('Restaurant') && <Utensils size={20} color="#666" />}
+                {amenity.includes('WiFi') && <Ionicons name="wifi" size={20} color="#666" />}
+                {amenity.includes('Parking') && <Ionicons name="car" size={20} color="#666" />}
+                {amenity.includes('Restaurant') && <Ionicons name="restaurant" size={20} color="#666" />}
                 <Text style={styles.amenityText}>{amenity}</Text>
               </View>
             ))}
@@ -164,7 +164,7 @@ export default function StayDetailScreen() {
           <Text style={styles.sectionTitle}>House Rules</Text>
           {houseRules.map((rule, index) => (
             <View key={index} style={styles.ruleItem}>
-              <rule.icon size={20} color="#666" />
+              <Ionicons name={rule.icon} size={20} color="#666" />
               <View style={styles.ruleText}>
                 <Text style={styles.ruleTitle}>{rule.title}</Text>
                 <Text style={styles.ruleDescription}>{rule.description}</Text>
@@ -181,7 +181,7 @@ export default function StayDetailScreen() {
               <View style={styles.reviewHeader}>
                 <Text style={styles.reviewUser}>{review.user}</Text>
                 <View style={styles.ratingRow}>
-                  <Star size={14} color="#FFD700" fill="#FFD700" />
+                  <Ionicons name="star" size={14} color="#FFD700" fill="#FFD700" />
                   <Text style={styles.reviewRating}>{review.rating}</Text>
                 </View>
               </View>
@@ -197,7 +197,7 @@ export default function StayDetailScreen() {
           <View style={styles.paymentMethods}>
             {paymentMethods.map((method, index) => (
               <View key={index} style={styles.paymentMethod}>
-                <CreditCard size={20} color="#666" />
+                <Ionicons name="card" size={20} color="#666" />
                 <Text style={styles.paymentText}>{method}</Text>
               </View>
             ))}
@@ -208,7 +208,7 @@ export default function StayDetailScreen() {
         <View style={styles.section}>
           <View style={styles.offerHeader}>
             <Text style={styles.sectionTitle}>Special Offers</Text>
-            <Gift size={20} color="#FF6B6B" />
+            <Ionicons name="gift" size={20} color="#FF6B6B" />
           </View>
           <View style={styles.offerCard}>
             <Text style={styles.offerTitle}>Early Bird Discount</Text>

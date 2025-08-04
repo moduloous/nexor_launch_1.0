@@ -1,22 +1,32 @@
 import { View, Text, StyleSheet, ScrollView, Pressable, Image, TextInput } from 'react-native';
-import { MapPin, Search, Clock, FileText, TestTube2, Stethoscope, ChevronRight, Camera, ArrowLeft } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { router, useRouter } from 'expo-router';
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const mainServices = [
+interface MainService {
+  id: string;
+  name: string;
+  description: string;
+  icon: keyof typeof Ionicons.glyphMap;
+  color: string;
+  offer?: string;
+  badge?: string;
+}
+
+const mainServices: MainService[] = [
   {
     id: 'pharmacy',
     name: 'Pharmacy',
     description: 'Medicines & health products',
-    icon: FileText,
+    icon: 'document-text-outline',
     color: '#ff6b6b'
   },
   {
     id: 'lab',
     name: 'Lab Tests',
     description: 'Book tests & checkups',
-    icon: TestTube2,
+    icon: 'flask-outline',
     color: '#4dabf7',
     offer: 'Up to 60% off'
   },
@@ -24,7 +34,7 @@ const mainServices = [
     id: 'doctor',
     name: 'Consult Doctor',
     description: '24/7 online consultation',
-    icon: Stethoscope,
+    icon: 'medkit-outline',
     color: '#51cf66',
     badge: '24x7'
   }
@@ -227,7 +237,7 @@ export default function MedicineScreen() {
           borderBottomColor: '#eee'
         }}>
           <Pressable onPress={() => nav.back()}>
-            <ArrowLeft size={24} color="#000" />
+            <Ionicons name="arrow-back-outline" size={24} color="#000" />
           </Pressable>
           <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 8 }}>Medicines</Text>
         </View>
@@ -235,17 +245,17 @@ export default function MedicineScreen() {
       <View style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.locationBar}>
-            <MapPin size={20} color="#ff6b6b" />
+            <Ionicons name="location-outline" size={20} color="#ff6b6b" />
             <View style={styles.locationInfo}>
               <Text style={styles.locationLabel}>DELIVERY TO</Text>
               <Text style={styles.locationText}>Home - Bangalore</Text>
             </View>
-            <ChevronRight size={20} color="#333" />
+            <Ionicons name="chevron-forward-outline" size={20} color="#333" />
           </View>
 
           <View style={styles.searchContainer}>
             <View style={styles.searchBar}>
-              <Search size={20} color="#666" />
+              <Ionicons name="search-outline" size={20} color="#666" />
               <TextInput 
                 placeholder="Search medicines & health products"
                 style={styles.searchInput}
@@ -261,10 +271,10 @@ export default function MedicineScreen() {
                 onPress={() => handleServicePress(service.id)}
               >
                 <View style={[styles.serviceIcon, { backgroundColor: service.color + '15' }]}>
-                  <service.icon size={24} color={service.color} />
+                  <Ionicons name={service.icon} size={24} color={service.color} />
                   {service.badge && (
                     <View style={styles.serviceBadge}>
-                      <Clock size={12} color="#fff" />
+                      <Ionicons name="time-outline" size={12} color="#fff" />
                       <Text style={styles.serviceBadgeText}>{service.badge}</Text>
                     </View>
                   )}
@@ -282,14 +292,14 @@ export default function MedicineScreen() {
 
           <Pressable style={styles.prescriptionCard}>
             <View style={styles.prescriptionLeft}>
-              <FileText size={24} color="#ff6b6b" />
+              <Ionicons name="document-text-outline" size={24} color="#ff6b6b" />
               <View>
                 <Text style={styles.prescriptionTitle}>Order with Prescription</Text>
                 <Text style={styles.prescriptionDescription}>Upload prescription & order medicines</Text>
               </View>
             </View>
             <Pressable style={styles.uploadButton}>
-              <Camera size={20} color="#ff6b6b" />
+              <Ionicons name="camera-outline" size={20} color="#ff6b6b" />
               <Text style={styles.uploadButtonText}>Upload</Text>
             </Pressable>
           </Pressable>

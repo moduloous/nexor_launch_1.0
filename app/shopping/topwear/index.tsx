@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Heart, Star, User, Search, MessageCircle, ShoppingBag, ChevronLeft, Filter, List, ArrowLeft } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
@@ -392,7 +392,7 @@ export default function TopwearScreen() {
               style={styles.cardLikeButton}
               onPress={handleLike}
             >
-              <Heart size={24} color="#FF4B6A" fill="#FF4B6A" />
+              <Ionicons name="heart" size={24} color="#FF4B6A" />
             </Pressable>
           </View>
           
@@ -687,7 +687,7 @@ export default function TopwearScreen() {
             )}
 
             <Pressable style={styles.addToBagButton}>
-              <ShoppingBag size={24} color="#fff" />
+              <Ionicons name="cart" size={24} color="#fff" />
               <Text style={styles.addToBagText}>Add to Bag</Text>
             </Pressable>
           </View>
@@ -710,7 +710,7 @@ export default function TopwearScreen() {
             style={styles.headerButton}
             onPress={() => router.back()}
           >
-            <ArrowLeft size={24} color="#000" />
+            <Ionicons name="arrow-back" size={24} color="#000" />
           </Pressable>
           <Text style={styles.headerTitle}>Top Wear</Text>
         </View>
@@ -719,14 +719,14 @@ export default function TopwearScreen() {
             style={styles.headerButton}
             onPress={toggleLikedProducts}
           >
-            <List size={24} color="#000" />
+            <Ionicons name="list" size={24} color="#000" />
           </Pressable>
           <Pressable 
             style={styles.headerButton}
             onPress={goToPreviousProduct}
             disabled={currentIndex === 0}
           >
-            <ChevronLeft size={24} color={currentIndex === 0 ? '#ccc' : '#000'} />
+            <Ionicons name="chevron-back" size={24} color={currentIndex === 0 ? '#ccc' : '#000'} />
           </Pressable>
         </View>
       </View>

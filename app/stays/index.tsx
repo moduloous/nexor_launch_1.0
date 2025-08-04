@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity, Image, Dimensions, Platform, Pressable } from 'react-native';
 import { useRouter } from 'expo-router';
-import { MapPin, Search, Calendar, Users, Filter, Star, TrendingUp, Navigation, Building2, Home, Hotel, Users2, Palmtree, Building, ArrowLeft } from 'lucide-react-native';
 import { Stay, stays } from './data';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -9,40 +8,46 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 // Types for our accommodations
 type AccommodationType = Stay['type'];
 
-const categories = [
+const categories: Array<{
+  id: string;
+  title: string;
+  description: string;
+  icon: keyof typeof Ionicons.glyphMap;
+  color: string;
+}> = [
   {
     id: 'Hotels',
     title: 'Hotels',
     description: 'Luxury & Budget',
-    icon: Hotel,
+    icon: 'home',
     color: '#FF6B6B',
   },
   {
     id: 'Hostels',
     title: 'Hostels & PGs',
     description: 'For students & professionals',
-    icon: Users2,
+    icon: 'people',
     color: '#4ECDC4',
   },
   {
     id: 'Homestays',
     title: 'Homestays',
     description: 'Airbnb-style rentals',
-    icon: Home,
+    icon: 'home',
     color: '#45B7D1',
   },
   {
     id: 'CoLiving',
     title: 'Co-Living',
     description: 'Long-term stays',
-    icon: Building2,
+    icon: 'home',
     color: '#96CEB4',
   },
   {
     id: 'Resorts',
     title: 'Resorts & Villas',
     description: 'Premium experiences',
-    icon: Palmtree,
+    icon: 'trending-up',
     color: '#FFD93D',
   },
 ];
@@ -68,7 +73,7 @@ export default function StaysScreen() {
           borderBottomColor: '#eee'
         }}>
           <Pressable onPress={() => router.back()}>
-            <ArrowLeft size={24} color="#000" />
+            <Ionicons name="arrow-back" size={24} color="#000" />
           </Pressable>
           <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 8 }}>Stays</Text>
         </View>
@@ -87,12 +92,12 @@ export default function StaysScreen() {
           
           <View style={styles.dateGuestRow}>
             <TouchableOpacity style={styles.dateButton}>
-              <Calendar size={20} color="#666" />
+              <Ionicons name="calendar" size={20} color="#666" />
               <Text style={styles.buttonText}>Check in - Check out</Text>
             </TouchableOpacity>
             
             <TouchableOpacity style={styles.guestButton}>
-              <Users size={20} color="#666" />
+              <Ionicons name="people" size={20} color="#666" />
               <Text style={styles.buttonText}>2 guests</Text>
             </TouchableOpacity>
           </View>
@@ -107,7 +112,6 @@ export default function StaysScreen() {
             style={styles.categoriesScroll}
           >
             {categories.map((category) => {
-              const Icon = category.icon;
               return (
                 <TouchableOpacity
                   key={category.id}
@@ -118,7 +122,7 @@ export default function StaysScreen() {
                   onPress={() => setSelectedType(category.id as string)}
                 >
                   <View style={[styles.categoryIcon, { backgroundColor: category.color }]}>
-                    <Icon size={24} color="#fff" />
+                    <Ionicons name={category.icon} size={24} color="#fff" />
                   </View>
                   <Text style={styles.categoryTitle}>{category.title}</Text>
                   <Text style={styles.categoryDescription}>{category.description}</Text>
@@ -132,7 +136,7 @@ export default function StaysScreen() {
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionTitle}>Trending Stays</Text>
-            <TrendingUp size={20} color="#FF6B6B" />
+            <Ionicons name="trending-up" size={20} color="#FF6B6B" />
           </View>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {stays.filter(stay => stay.trending).map((stay) => (
@@ -150,7 +154,7 @@ export default function StaysScreen() {
                   <Text style={styles.dealTitle}>{stay.title}</Text>
                   <Text style={styles.dealLocation}>{stay.location}</Text>
                   <View style={styles.ratingRow}>
-                    <Star size={16} color="#FFD700" fill="#FFD700" />
+                    <Ionicons name="star" size={16} color="#FFD700" />
                     <Text style={styles.ratingText}>{stay.rating}</Text>
                   </View>
                   <Text style={styles.dealPrice}>{stay.price}</Text>
@@ -164,7 +168,7 @@ export default function StaysScreen() {
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionTitle}>Near You</Text>
-            <Navigation size={20} color="#4ECDC4" />
+            <Ionicons name="navigate" size={20} color="#4ECDC4" />
           </View>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {stays.filter(stay => stay.distance).map((stay) => (
@@ -182,7 +186,7 @@ export default function StaysScreen() {
                   <Text style={styles.nearbyTitle}>{stay.title}</Text>
                   <View style={styles.nearbyDetails}>
                     <View style={styles.nearbyLocation}>
-                      <MapPin size={14} color="#666" />
+                      <Ionicons name="location" size={14} color="#666" />
                       <Text style={styles.nearbyDistance}>{stay.distance}</Text>
                     </View>
                     <Text style={styles.nearbyPrice}>{stay.price}</Text>
@@ -208,7 +212,7 @@ export default function StaysScreen() {
                   <Text style={styles.stayTitle}>{stay.title}</Text>
                   <Text style={styles.stayLocation}>{stay.location}</Text>
                   <View style={styles.stayRating}>
-                    <Star size={16} color="#FFD700" fill="#FFD700" />
+                    <Ionicons name="star" size={16} color="#FFD700" />
                     <Text style={styles.ratingText}>{stay.rating}</Text>
                   </View>
                   <Text style={styles.stayPrice}>{stay.price}</Text>

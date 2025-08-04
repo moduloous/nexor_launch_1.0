@@ -13,8 +13,12 @@
         "NSLocationWhenInUseUsageDescription": "This app needs access to your location to show nearby rides.",
         "NSLocationAlwaysUsageDescription": "This app needs access to your location to show nearby rides.",
         "UIBackgroundModes": [
+          "location",
           "location"
         ]
+      },
+      "runtimeVersion": {
+        "policy": "appVersion"
       }
     },
     "android": {
@@ -33,7 +37,8 @@
           "apiKey": "YOUR_GOOGLE_MAPS_API_KEY"
         }
       },
-      "package": "com.cheezzz.boltexponativewind"
+      "package": "com.cheezzz.boltexponativewind",
+      "runtimeVersion": "1.0.0"
     },
     "web": {
       "bundler": "metro",
@@ -51,6 +56,15 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "6faa7e4b-24c7-4782-b70c-de372b88144b"
+      }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/6faa7e4b-24c7-4782-b70c-de372b88144b"
     }
   }
 }

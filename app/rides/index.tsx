@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, Pressable, TextInput, ScrollView, Dimensions, Platform, Alert, Image } from 'react-native';
-import MapView, { Marker, PROVIDER_GOOGLE, MapViewProps } from 'react-native-maps';
-import { MapPin, Search, Navigation, Clock, Car, ChevronRight, X, ArrowLeft } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { router, useRouter } from 'expo-router';
 import * as Location from 'expo-location';
 import { GooglePlacesAutocomplete, GooglePlacesAutocompleteRef } from 'react-native-google-places-autocomplete';
@@ -356,6 +355,14 @@ export default function RidesScreen() {
   });
   const nav = useRouter();
 
+  let MapView, Marker, PROVIDER_GOOGLE;
+  if (Platform.OS !== 'web') {
+    const maps = require('react-native-maps');
+    MapView = maps.default;
+    Marker = maps.Marker;
+    PROVIDER_GOOGLE = maps.PROVIDER_GOOGLE;
+  }
+
   return (
     <>
       <SafeAreaView style={{ backgroundColor: '#fff' }}>
@@ -370,7 +377,7 @@ export default function RidesScreen() {
           borderBottomColor: '#eee'
         }}>
           <Pressable onPress={() => nav.back()}>
-            <ArrowLeft size={24} color="#000" />
+            <Ionicons name="arrow-back-outline" size={24} color="#000" />
           </Pressable>
           <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 8, fontFamily: 'Urbanist' }}>Rides</Text>
         </View>
@@ -388,7 +395,7 @@ export default function RidesScreen() {
             shadowRadius: 6,
             elevation: 2,
           }}>
-            <MapPin size={20} color="#888" style={{ marginRight: 8 }} />
+            <Ionicons name="location-outline" size={20} color="#888" style={{ marginRight: 8 }} />
             <TextInput
               style={{ flex: 1, fontSize: 16, color: '#333', backgroundColor: 'transparent', fontFamily: 'Urbanist' }}
               placeholder="drop location"
@@ -408,13 +415,19 @@ export default function RidesScreen() {
           shadowRadius: 12,
           elevation: 4,
         }}>
-          <MapView
-            style={{ flex: 1 }}
-            initialRegion={region}
-            provider={PROVIDER_GOOGLE}
-          >
-            <Marker coordinate={region} />
-          </MapView>
+          {Platform.OS === 'web' ? (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#eee' }}>
+              <Text style={{ color: '#888', fontSize: 18, padding: 20 }}>Map is unavailable on web</Text>
+            </View>
+          ) : (
+            <MapView
+              style={{ flex: 1 }}
+              initialRegion={region}
+              provider={PROVIDER_GOOGLE}
+            >
+              <Marker coordinate={region} />
+            </MapView>
+          )}
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 24 }}>
           {[

@@ -1,6 +1,6 @@
 import { Stack } from 'expo-router';
 import { View, Text, Pressable } from 'react-native';
-import { ArrowLeft } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 
 export default function MedicinesLayout() {
@@ -27,7 +27,7 @@ export default function MedicinesLayout() {
               borderBottomColor: '#eee'
             }}>
               <Pressable onPress={() => router.back()}>
-                <ArrowLeft size={24} color="#000" />
+                <Ionicons name="arrow-back" size={24} color="#000" />
               </Pressable>
               <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 8 }}>Medicines</Text>
             </View>

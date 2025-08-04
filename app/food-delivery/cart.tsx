@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, Platform, StatusBar } from 'react-native';
 import { useRouter } from 'expo-router';
-import { ArrowLeft, ShoppingBag } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { useCart } from './context/CartContext';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -26,14 +26,14 @@ export default function CartScreen() {
     <View style={[styles.container, { paddingTop: insets.top }]}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-          <ArrowLeft size={24} color="#000" />
+          <Ionicons name="arrow-back" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Cart</Text>
       </View>
 
       {items.length === 0 ? (
         <View style={styles.emptyCart}>
-          <ShoppingBag size={64} color="#ccc" />
+          <Ionicons name="cart" size={64} color="#ccc" />
           <Text style={styles.emptyCartText}>Your cart is empty</Text>
           <TouchableOpacity 
             style={styles.browseButton}

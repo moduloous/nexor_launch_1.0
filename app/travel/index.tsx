@@ -12,7 +12,6 @@ import {
   Pressable,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { ArrowLeft } from 'lucide-react-native';
 import { router, useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -125,7 +124,7 @@ export default function TravelScreen() {
           borderBottomColor: '#eee'
         }}>
           <Pressable onPress={() => nav.back()}>
-            <ArrowLeft size={24} color="#000" />
+            <Ionicons name="arrow-back" size={24} color="#000" />
           </Pressable>
           <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 8 }}>Travel</Text>
         </View>

@@ -18,6 +18,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useTheme } from '../contexts/ThemeContext';
 import { Svg, Defs, RadialGradient, Rect, Stop } from 'react-native-svg';
 import { useWindowDimensions } from 'react-native';
+import BeamsBackground from '../components/BeamsBackground';
 
 interface Service {
   id: string;
@@ -310,7 +311,21 @@ export default function HomeScreen() {
   );
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]} edges={['top', 'right', 'left']}>
+    <View style={[styles.container, { backgroundColor: theme.background }]}>
+      {/* Beams Background - Show on both light and dark modes */}
+      <BeamsBackground
+        beamWidth={3}
+        beamHeight={25}
+        beamNumber={8}
+        lightColor={isDark ? "#FF6B9D" : "#4A90E2"}
+        speed={0.8}
+        noiseIntensity={2.0}
+        scale={0.4}
+        rotation={0}
+        style={styles.beamsContainer}
+      />
+      
+      {/* Original gradient for dark mode */}
       {isDark && (
         <Svg
           style={{
@@ -319,7 +334,7 @@ export default function HomeScreen() {
             left: 0,
             width,
             height: gradientHeight,
-            zIndex: -1,
+            zIndex: 1,
           }}
         >
           <Defs>
@@ -345,8 +360,10 @@ export default function HomeScreen() {
           />
         </Svg>
       )}
-      <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} backgroundColor={theme.background} />
-      {/* Header */}
+      
+      <SafeAreaView style={styles.safeArea} edges={['top', 'right', 'left']}>
+        <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} backgroundColor={theme.background} />
+        {/* Header */}
       <View style={[styles.header, { backgroundColor: isDark ? 'transparent' : theme.card }]}>
         <TouchableOpacity style={styles.locationButton}>
           <Ionicons name="location-outline" size={24} color={theme.text} />
@@ -475,7 +492,8 @@ export default function HomeScreen() {
         {/* Add bottom padding for tab bar */}
         <View style={styles.bottomPadding} />
       </ScrollView>
-    </SafeAreaView>
+      </SafeAreaView>
+    </View>
   );
 }
 
@@ -483,6 +501,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  safeArea: {
+    flex: 1,
+    zIndex: 2,
+  },
+  beamsContainer: {
+    zIndex: 0,
   },
   scrollView: {
     flex: 1,

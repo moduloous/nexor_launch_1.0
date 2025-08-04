@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Heart, ArrowLeft, ShoppingBag, List } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
@@ -327,7 +327,7 @@ export default function HoodiesScreen() {
             )}
             {/* Add to Bag Button */}
             <Pressable style={styles.addToBagButton} onPress={() => {}}>
-              <ShoppingBag size={24} color="#fff" />
+              <Ionicons name="cart" size={24} color="#fff" />
               <Text style={styles.addToBagText}>Add to Bag</Text>
             </Pressable>
             <View style={{ height: 32 }} />
@@ -367,7 +367,7 @@ export default function HoodiesScreen() {
       <View style={styles.header}>
         <View style={styles.headerLeft}>
           <Pressable onPress={() => router.back()} style={styles.headerButton}>
-            <ArrowLeft size={24} color="#000" />
+            <Ionicons name="arrow-back" size={24} color="#000" />
           </Pressable>
           <Text style={styles.headerTitle}>Hoodies</Text>
         </View>
@@ -376,10 +376,10 @@ export default function HoodiesScreen() {
             onPress={goToPreviousProduct}
             style={styles.headerButton}
           >
-            <ArrowLeft size={24} color="#000" />
+            <Ionicons name="arrow-back" size={24} color="#000" />
           </Pressable>
           <Pressable style={styles.headerButton}>
-            <List size={24} color="#000" />
+            <Ionicons name="list" size={24} color="#000" />
           </Pressable>
         </View>
       </View>
@@ -397,7 +397,7 @@ export default function HoodiesScreen() {
             accessibilityRole="button"
             accessibilityLabel="Close preview"
           >
-            <ArrowLeft size={32} color="#fff" />
+            <Ionicons name="arrow-back" size={32} color="#fff" />
           </Pressable>
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <Pressable

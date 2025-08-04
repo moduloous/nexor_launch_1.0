@@ -17,6 +17,8 @@
     "@react-navigation/bottom-tabs": "^7.2.0",
     "@react-navigation/native": "^7.0.14",
     "@react-navigation/native-stack": "^7.2.0",
+    "@react-three/drei": "^10.6.1",
+    "@react-three/fiber": "^9.3.0",
     "@supabase/mcp-server-supabase": "^0.4.1",
     "@supabase/supabase-js": "^2.49.4",
     "axios": "^1.6.7",
@@ -32,10 +34,10 @@
     "expo-router": "~5.0.5",
     "expo-splash-screen": "~0.30.8",
     "expo-status-bar": "~2.2.3",
+    "expo-updates": "~0.28.17",
     "framer-motion": "^12.6.5",
     "haversine-distance": "^1.2.3",
     "jwt-decode": "^4.0.0",
-    "lucide-react-native": "^0.487.0",
     "metro": "^0.82.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -54,6 +56,7 @@
     "react-native-svg": "^15.11.2",
     "react-native-web": "^0.20.0",
     "rn-swipe-button": "^3.0.1",
+    "three": "^0.178.0",
     "zustand": "^5.0.5"
   },
   "devDependencies": {

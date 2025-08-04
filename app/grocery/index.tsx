@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, Dimensions, StatusBar, Modal } from 'react-native';
-import { ChevronLeft, Search } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -110,11 +110,11 @@ export default function GroceryScreen() {
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()} style={styles.headerButton}>
-          <ChevronLeft size={24} color="#fff" />
+          <Ionicons name="chevron-back" size={24} color="#fff" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>All Categories</Text>
         <TouchableOpacity style={styles.headerButton}>
-          <Search size={24} color="#fff" />
+          <Ionicons name="search" size={24} color="#fff" />
         </TouchableOpacity>
       </View>
 
@@ -273,7 +273,7 @@ export default function GroceryScreen() {
                   setIsModalVisible(false);
                   setSelectedCategory(null);
                 }} style={{ marginRight: 12 }}>
-                  <ChevronLeft size={28} color="#333" />
+                  <Ionicons name="chevron-back" size={28} color="#333" />
                 </TouchableOpacity>
                 <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#333' }}>{selectedCategory?.name}</Text>
               </View>

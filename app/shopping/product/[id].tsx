@@ -10,7 +10,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
-import { ArrowLeft, Heart, ShoppingBag, Share2 } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 const { width } = Dimensions.get('window');
 
@@ -151,20 +151,20 @@ export default function ProductDetailScreen() {
       <View style={styles.topNavBar}>
         <View style={styles.leftSection}>
           <Pressable onPress={() => router.back()} style={styles.iconButton}>
-            <ArrowLeft size={24} color="#000" />
+            <Ionicons name="arrow-back" size={24} color="#000" />
           </Pressable>
           <Text style={styles.navTitle}>Summer Collection</Text>
         </View>
         <View style={styles.headerRight}>
           <Pressable style={styles.iconButton} onPress={() => setIsLiked(!isLiked)}>
-            <Heart 
+            <Ionicons name="heart" 
               size={24} 
               color={isLiked ? '#000' : '#000'}
               fill={isLiked ? '#000' : 'none'}
             />
           </Pressable>
           <Pressable style={styles.iconButton}>
-            <Share2 size={24} color="#000" />
+            <Ionicons name="share-social" size={24} color="#000" />
           </Pressable>
         </View>
       </View>
@@ -427,7 +427,7 @@ export default function ProductDetailScreen() {
       {/* Bottom Action Bar */}
       <View style={styles.bottomBar}>
         <Pressable style={styles.addToCartButton}>
-          <ShoppingBag size={20} color="#fff" />
+          <Ionicons name="cart" size={20} color="#fff" />
           <Text style={styles.addToCartText}>Add to bag</Text>
         </Pressable>
       </View>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, SafeAreaView, Platform, StatusBar } from 'react-native';
 import { useRouter } from 'expo-router';
-import { ArrowLeft, CreditCard, Wallet, Banknote, QrCode, ChevronDown, ChevronUp } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { useCart } from './context/CartContext';
 
 type PaymentMethod = {
@@ -21,25 +21,25 @@ export default function PaymentScreen() {
     {
       id: 'upi',
       name: 'UPI Payment',
-      icon: <QrCode size={24} color="#2ecc71" />,
+      icon: <Ionicons name="qr-code" size={24} color="#2ecc71" />,
       description: 'Pay using Google Pay, PhonePe, Paytm, or other UPI apps',
     },
     {
       id: 'card',
       name: 'Credit/Debit Card',
-      icon: <CreditCard size={24} color="#3498db" />,
+      icon: <Ionicons name="card" size={24} color="#3498db" />,
       description: 'Pay using Visa, MasterCard, or RuPay cards',
     },
     {
       id: 'nexor',
       name: 'Nexor Pay',
-      icon: <Wallet size={24} color="#9b59b6" />,
+      icon: <Ionicons name="wallet" size={24} color="#9b59b6" />,
       description: 'Fast and secure payment with Nexor Pay',
     },
     {
       id: 'cod',
       name: 'Cash on Delivery',
-      icon: <Banknote size={24} color="#e67e22" />,
+      icon: <Ionicons name="cash" size={24} color="#e67e22" />,
       description: 'Pay with cash when your order arrives',
     },
   ];
@@ -65,7 +65,7 @@ export default function PaymentScreen() {
       <View style={styles.container}>
         <View style={styles.header}>
           <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-            <ArrowLeft size={24} color="#000" />
+            <Ionicons name="arrow-back" size={24} color="#000" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Payment</Text>
         </View>
@@ -79,9 +79,9 @@ export default function PaymentScreen() {
             >
               <Text style={styles.summaryTitle}>Order Summary</Text>
               {isOrderSummaryExpanded ? (
-                <ChevronUp size={20} color="#000" />
+                <Ionicons name="chevron-up" size={20} color="#000" />
               ) : (
-                <ChevronDown size={20} color="#000" />
+                <Ionicons name="chevron-down" size={20} color="#000" />
               )}
             </TouchableOpacity>
             

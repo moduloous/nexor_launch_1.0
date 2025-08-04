@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { ShoppingCart } from 'lucide-react-native';
 import { useCart } from '../../../food-delivery/context/CartContext';
 import BurgersSection from './BurgersSection';
 
@@ -20,7 +19,7 @@ export default function BurgersScreen() {
         <Text style={styles.title}>Burgers</Text>
         <TouchableOpacity onPress={() => router.push('/food-delivery/cart')}>
           <View style={styles.cartIcon}>
-            <ShoppingCart size={24} color="#000" />
+            <Ionicons name="cart" size={24} color="#000" />
             {items.length > 0 && (
               <View style={styles.cartBadge}>
                 <Text style={styles.cartBadgeText}>{items.length}</Text>

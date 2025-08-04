@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Heart, ArrowLeft, ShoppingBag, List } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
@@ -327,7 +327,7 @@ export default function DressesScreen() {
                 ))}
               {/* Add to Bag Button */}
               <Pressable style={styles.addToBagButton} onPress={() => {}}>
-                <ShoppingBag size={24} color="#fff" />
+                <Ionicons name="cart" size={24} color="#fff" />
                 <Text style={styles.addToBagText}>Add to Bag</Text>
               </Pressable>
               <View style={{ height: 32 }} />
@@ -412,7 +412,7 @@ export default function DressesScreen() {
               ))}
             {/* Add to Bag Button */}
             <Pressable style={styles.addToBagButton} onPress={() => {}}>
-              <ShoppingBag size={24} color="#fff" />
+              <Ionicons name="cart" size={24} color="#fff" />
               <Text style={styles.addToBagText}>Add to Bag</Text>
             </Pressable>
             <View style={{ height: 32 }} />
@@ -428,7 +428,7 @@ export default function DressesScreen() {
       <View style={styles.header}>
         <View style={styles.headerLeft}>
           <Pressable onPress={() => router.back()} style={styles.headerButton}>
-            <ArrowLeft size={24} color="#000" />
+            <Ionicons name="arrow-back" size={24} color="#000" />
           </Pressable>
           <Text style={styles.headerTitle}>Dresses</Text>
         </View>
@@ -437,10 +437,10 @@ export default function DressesScreen() {
             onPress={goToPreviousProduct}
             style={styles.headerButton}
           >
-            <ArrowLeft size={24} color="#000" />
+            <Ionicons name="arrow-back" size={24} color="#000" />
           </Pressable>
           <Pressable style={styles.headerButton}>
-            <List size={24} color="#000" />
+            <Ionicons name="list" size={24} color="#000" />
           </Pressable>
         </View>
       </View>

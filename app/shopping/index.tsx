@@ -13,7 +13,6 @@ import {
   Modal,
 } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
-import { Search, Heart, ShoppingBag, ChevronLeft, Filter } from 'lucide-react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -321,7 +320,7 @@ export default function ShoppingScreen() {
       {/* Header */}
       <View style={styles.header}>
         <Pressable onPress={() => router.back()} style={styles.backButton}>
-          <ChevronLeft size={24} color="#fff" />
+          <Ionicons name="chevron-back" size={24} color="#fff" />
         </Pressable>
         <Text style={styles.headerTitle}>Shopping</Text>
         <View style={styles.headerRight}>
@@ -493,7 +492,7 @@ export default function ShoppingScreen() {
               }}
               autoFocus
             />
-            <Search size={22} color="#fff" />
+            <Ionicons name="search" size={22} color="#fff" />
           </View>
           <ScrollView contentContainerStyle={{ paddingHorizontal: 16 }}>
             <Text style={{
