@@ -59,9 +59,9 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="food-delivery/(app)/(app)/burgers"
+        name="food-delivery"
         options={{
-          title: 'Burgers',
+          title: 'Food',
           tabBarIcon: ({ color }) => <Ionicons name="fast-food" size={24} color={color} />,
         }}
       />

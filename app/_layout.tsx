@@ -75,6 +75,7 @@ export default function RootLayout() {
           <Stack.Screen name="stays" options={{ headerShown: false }} />
           <Stack.Screen name="travel" options={{ headerShown: false }} />
           <Stack.Screen name="shopping" options={{ headerShown: false }} />
+          <Stack.Screen name="events" options={{ headerShown: false }} />
           <Stack.Screen 
             name="shopping/topwear" 
             options={{ 

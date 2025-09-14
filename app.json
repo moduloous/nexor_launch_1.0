@@ -5,6 +5,11 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
+    "splash": {
+      "image": "./assets/images/splash-background.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "ios": {
@@ -12,10 +17,14 @@
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "This app needs access to your location to show nearby rides.",
         "NSLocationAlwaysUsageDescription": "This app needs access to your location to show nearby rides.",
+        "UIBackgroundMapsUsageDescription": "This app uses Google Maps to show your location and nearby places.",
         "UIBackgroundModes": [
           "location",
           "location"
         ]
+      },
+      "config": {
+        "googleMapsApiKey": "AIzaSyDFG5Gp5LPJTGNLvtoNxwAqsZ5r2aTxhOw"
       },
       "runtimeVersion": {
         "policy": "appVersion"
@@ -34,7 +43,7 @@
       ],
       "config": {
         "googleMaps": {
-          "apiKey": "YOUR_GOOGLE_MAPS_API_KEY"
+          "apiKey": "AIzaSyDFG5Gp5LPJTGNLvtoNxwAqsZ5r2aTxhOw"
         }
       },
       "package": "com.cheezzz.boltexponativewind",
@@ -47,6 +56,13 @@
     },
     "plugins": [
       "expo-router",
+      "expo-splash-screen",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera to scan QR codes."
+        }
+      ],
       [
         "expo-location",
         {

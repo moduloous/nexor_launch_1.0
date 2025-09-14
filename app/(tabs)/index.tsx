@@ -18,6 +18,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useTheme } from '../contexts/ThemeContext';
 import { Svg, Defs, RadialGradient, Rect, Stop } from 'react-native-svg';
 import { useWindowDimensions } from 'react-native';
+import QRScanner from '../components/QRScanner';
 import BeamsBackground from '../components/BeamsBackground';
 
 interface Service {
@@ -64,7 +65,7 @@ const services: Service[] = [
     id: '4', 
     name: 'Rides', 
     icon: 'custom',
-    image: require('../assets/images/Car-removebg-preview2.png'),
+    image: { uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/icons/ride.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpY29ucy9yaWRlLnBuZyIsImlhdCI6MTc1NzA1MzgxNywiZXhwIjoxNzg4NTg5ODE3fQ.lx3Z9gDcsS-JNj5AwuDZfiUQQpT4sZ_ucpz7PKtnCKs' },
     href: '/rides' 
   },
   { 
@@ -193,6 +194,7 @@ const TextMarquee = ({ textColor = '#000', backgroundColor = 'transparent' }) =>
 export default function HomeScreen() {
   const router = useRouter();
   const [activeSlide, setActiveSlide] = React.useState(0);
+  const [showQRScanner, setShowQRScanner] = React.useState(false);
   const { isDark, theme, toggleTheme } = useTheme();
   const { width } = useWindowDimensions();
   const gradientHeight = 350;
@@ -370,8 +372,8 @@ export default function HomeScreen() {
           <Text style={[styles.locationText, { color: theme.text }]}>Bengaluru</Text>
         </TouchableOpacity>
         <View style={styles.headerRight}>
-          <TouchableOpacity style={styles.iconButton}>
-            <Ionicons name="notifications-outline" size={24} color={theme.text} />
+          <TouchableOpacity style={styles.iconButton} onPress={() => setShowQRScanner(true)}>
+            <Ionicons name="qr-code-outline" size={24} color={theme.text} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.iconButton} onPress={toggleTheme}>
             <Ionicons name="moon-outline" size={24} color={theme.text} />
@@ -493,6 +495,16 @@ export default function HomeScreen() {
         <View style={styles.bottomPadding} />
       </ScrollView>
       </SafeAreaView>
+      
+      {/* QR Scanner Modal */}
+      <QRScanner
+        visible={showQRScanner}
+        onClose={() => setShowQRScanner(false)}
+        onScan={(data) => {
+          console.log('QR Code scanned:', data);
+          // Handle the scanned QR code data here
+        }}
+      />
     </View>
   );
 }
