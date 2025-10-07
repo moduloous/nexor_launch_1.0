@@ -8,6 +8,7 @@ import {
   Dimensions,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { BlurView } from 'expo-blur';
 import { Movie } from '../data/movies';
 
 interface SimpleMovieCardProps {
@@ -25,8 +26,9 @@ export default function SimpleMovieCard({ movie, onPress }: SimpleMovieCardProps
       onPress={() => onPress(movie)}
       activeOpacity={0.8}
     >
-      <Image source={{ uri: movie.poster }} style={styles.posterImage} />
-      <View style={styles.cardContent}>
+      <BlurView intensity={35} tint="light" style={styles.glassCard}>
+        <Image source={{ uri: movie.poster }} style={styles.posterImage} />
+        <View style={styles.cardContent}>
         <Text style={styles.movieTitle} numberOfLines={2}>
           {movie.title}
         </Text>
@@ -45,7 +47,8 @@ export default function SimpleMovieCard({ movie, onPress }: SimpleMovieCardProps
             ₹{movie.price.min} - ₹{movie.price.max}
           </Text>
         </View>
-      </View>
+        </View>
+      </BlurView>
     </TouchableOpacity>
   );
 }
@@ -54,7 +57,7 @@ const styles = StyleSheet.create({
   card: {
     width: cardWidth,
     borderRadius: 12,
-    backgroundColor: '#fff',
+    backgroundColor: 'transparent',
     marginBottom: 16,
     elevation: 3,
     shadowColor: '#000',
@@ -62,6 +65,14 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     overflow: 'hidden',
+  },
+  glassCard: {
+    flex: 1,
+    borderRadius: 12,
+    overflow: 'hidden',
+    backgroundColor: 'rgba(255,255,255,0.08)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.2)'
   },
   posterImage: {
     width: '100%',

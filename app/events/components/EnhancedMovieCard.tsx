@@ -114,13 +114,14 @@ export default function EnhancedMovieCard({
         },
       ]}
     >
-      <TouchableOpacity
-        style={styles.cardTouchable}
-        onPress={() => onPress(movie)}
-        onPressIn={handlePressIn}
-        onPressOut={handlePressOut}
-        activeOpacity={1}
-      >
+      <BlurView intensity={40} tint="light" style={styles.glassCard}>
+        <TouchableOpacity
+          style={styles.cardTouchable}
+          onPress={() => onPress(movie)}
+          onPressIn={handlePressIn}
+          onPressOut={handlePressOut}
+          activeOpacity={1}
+        >
         <Image source={{ uri: movie.poster }} style={styles.featuredImage} />
         <LinearGradient
           colors={['transparent', 'rgba(0,0,0,0.8)']}
@@ -163,7 +164,8 @@ export default function EnhancedMovieCard({
             </View>
           </View>
         </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </BlurView>
     </Animated.View>
   );
 
@@ -179,13 +181,14 @@ export default function EnhancedMovieCard({
         },
       ]}
     >
-      <TouchableOpacity
-        style={styles.cardTouchable}
-        onPress={() => onPress(movie)}
-        onPressIn={handlePressIn}
-        onPressOut={handlePressOut}
-        activeOpacity={1}
-      >
+      <BlurView intensity={40} tint="light" style={styles.glassCard}>
+        <TouchableOpacity
+          style={styles.cardTouchable}
+          onPress={() => onPress(movie)}
+          onPressIn={handlePressIn}
+          onPressOut={handlePressOut}
+          activeOpacity={1}
+        >
         <View style={styles.imageContainer}>
           <Image source={{ uri: movie.poster }} style={styles.posterImage} />
           <View style={[styles.ratingBadge, { backgroundColor: getRatingColor(movie.rating) }]}>
@@ -247,7 +250,8 @@ export default function EnhancedMovieCard({
             )}
           </View>
         </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </BlurView>
     </Animated.View>
   );
 
@@ -265,7 +269,7 @@ const styles = StyleSheet.create({
   defaultCard: {
     borderRadius: 12,
     overflow: 'hidden',
-    backgroundColor: '#2D2D2D',
+    backgroundColor: 'transparent',
     marginBottom: 16,
     elevation: 4,
     shadowColor: '#000',
@@ -276,7 +280,7 @@ const styles = StyleSheet.create({
   featuredCard: {
     borderRadius: 12,
     overflow: 'hidden',
-    backgroundColor: '#2D2D2D',
+    backgroundColor: 'transparent',
     marginHorizontal: 16,
     marginBottom: 16,
     elevation: 6,
@@ -284,6 +288,14 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.2,
     shadowRadius: 12,
+  },
+  glassCard: {
+    flex: 1,
+    borderRadius: 12,
+    overflow: 'hidden',
+    backgroundColor: 'rgba(255,255,255,0.08)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.2)'
   },
   imageContainer: {
     position: 'relative',

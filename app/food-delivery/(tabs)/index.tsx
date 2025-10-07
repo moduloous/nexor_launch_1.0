@@ -32,8 +32,11 @@ export default function HomeScreen() {
             contentContainerStyle={styles.categoriesContainer}
           >
             <TouchableOpacity style={styles.categoryItem}>
-              <View style={styles.categoryIconContainer}>
-                <Ionicons name="cart" size={24} color="#FF6B6B" />
+              <View style={[styles.categoryIconContainer, { backgroundColor: 'transparent' }]}>
+                <Image 
+                  source={{ uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/foodicons/offers-removebg-preview.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb29kaWNvbnMvb2ZmZXJzLXJlbW92ZWJnLXByZXZpZXcucG5nIiwiaWF0IjoxNzU5MDcxMTI2LCJleHAiOjE3OTA2MDcxMjZ9.gWDyDhrJHRnv3lThJ6G3Wep2nOK9dEfmIis_TN6Z4C4' }}
+                  style={{ width: 40, height: 40, resizeMode: 'contain' }}
+                />
               </View>
               <Text style={styles.categoryText}>Offers</Text>
             </TouchableOpacity>
@@ -42,8 +45,11 @@ export default function HomeScreen() {
               style={styles.categoryItem}
               onPress={() => router.push('/(tabs)/meals')}
             >
-              <View style={[styles.categoryIconContainer, { backgroundColor: '#2ecc71' }]}>
-                <Ionicons name="restaurant" size={24} color="white" />
+              <View style={[styles.categoryIconContainer, { backgroundColor: 'transparent' }]}>
+                <Image 
+                  source={{ uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/foodicons/meals.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb29kaWNvbnMvbWVhbHMucG5nIiwiaWF0IjoxNzU5MDQ2MjY5LCJleHAiOjE3OTA1ODIyNjl9.js0Ww_PXrFfXlD2UeFl9yJcJLKaxFdXt1m0oNEJQ7gQ' }}
+                  style={{ width: 52, height: 52, resizeMode: 'contain' }}
+                />
               </View>
               <Text style={styles.categoryText}>Meals</Text>
             </TouchableOpacity>
@@ -52,15 +58,21 @@ export default function HomeScreen() {
               style={styles.categoryItem}
               onPress={() => router.push('/(tabs)/burgers')}
             >
-              <View style={[styles.categoryIconContainer, { backgroundColor: '#FF9F43' }]}>
-                <Ionicons name="fast-food" size={24} color="white" />
+              <View style={[styles.categoryIconContainer, { backgroundColor: 'transparent' }]}>
+                <Image 
+                  source={{ uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/foodicons/bug.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb29kaWNvbnMvYnVnLnBuZyIsImlhdCI6MTc1OTA0NDkzNiwiZXhwIjoxNzkwNTgwOTM2fQ.-b6p4Nc88f09lk4jeeei28w7DeOK9NsVPcLIq6cPCH0' }}
+                  style={{ width: 40, height: 40, resizeMode: 'contain' }}
+                />
               </View>
               <Text style={styles.categoryText}>Burgers</Text>
             </TouchableOpacity>
             
             <TouchableOpacity style={styles.categoryItem}>
-              <View style={[styles.categoryIconContainer, { backgroundColor: '#54A0FF' }]}>
-                <Ionicons name="pizza" size={24} color="white" />
+              <View style={[styles.categoryIconContainer, { backgroundColor: 'transparent' }]}>
+                <Image 
+                  source={{ uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/foodicons/piz-removebg-preview.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb29kaWNvbnMvcGl6LXJlbW92ZWJnLXByZXZpZXcucG5nIiwiaWF0IjoxNzU5MDQ1MzIyLCJleHAiOjE3OTA1ODEzMjJ9.a-jsIvxxLDnydjXryy4lqGeDGp2tP1YdeEDhk6QthIE' }}
+                  style={{ width: 48, height: 48, resizeMode: 'contain' }}
+                />
               </View>
               <Text style={styles.categoryText}>Pizza</Text>
             </TouchableOpacity>
@@ -83,22 +95,31 @@ export default function HomeScreen() {
             contentContainerStyle={styles.categoriesContainer}
           >
             <TouchableOpacity style={styles.popularItem}>
-              <View style={[styles.popularIconContainer, { backgroundColor: '#FF9F43' }]}>
-                <Ionicons name="trophy" size={32} color="white" />
+              <View style={[styles.popularIconContainer, { backgroundColor: 'transparent' }]}>
+                <Image 
+                  source={{ uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/foodicons/best.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb29kaWNvbnMvYmVzdC5wbmciLCJpYXQiOjE3NTkwODEyOTIsImV4cCI6MTc5MDYxNzI5Mn0.Ib6esOrQJj7VZbYuE1G2we9tLYnUDfC2iwmK7Y6EyGc' }}
+                  style={{ width: 56, height: 56, resizeMode: 'contain' }}
+                />
               </View>
               <Text style={styles.popularText}>Bestsellers</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.popularItem}>
-              <View style={[styles.popularIconContainer, { backgroundColor: '#2ecc71' }]}>
-                <Ionicons name="checkmark-circle" size={32} color="white" />
+              <View style={[styles.popularIconContainer, { backgroundColor: 'transparent' }]}>
+                <Image 
+                  source={{ uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/foodicons/newlylaunch.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb29kaWNvbnMvbmV3bHlsYXVuY2gucG5nIiwiaWF0IjoxNzU5MDgyMjcyLCJleHAiOjE3OTA2MTgyNzJ9.IVI59O_eD8kSP7CHe4cxhrPdp7bROkhHpTrxmgX7VHk' }}
+                  style={{ width: 70, height: 70, resizeMode: 'contain' }}
+                />
               </View>
               <Text style={styles.popularText}>Newly Launched</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.popularItem}>
-              <View style={[styles.popularIconContainer, { backgroundColor: '#54A0FF' }]}>
-                <Ionicons name="trending-up" size={32} color="white" />
+              <View style={[styles.popularIconContainer, { backgroundColor: 'transparent' }]}>
+                <Image 
+                  source={{ uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/foodicons/Tiramisu-removebg-preview.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb29kaWNvbnMvVGlyYW1pc3UtcmVtb3ZlYmctcHJldmlldy5wbmciLCJpYXQiOjE3NTkwODIwODAsImV4cCI6MTc5MDYxODA4MH0.8Rb6p-frEjkgj-SZJvowK2v6FSzt9Mt0OSt50IC-BgI' }}
+                  style={{ width: 72, height: 72, resizeMode: 'contain' }}
+                />
               </View>
               <Text style={styles.popularText}>Trending Now</Text>
             </TouchableOpacity>

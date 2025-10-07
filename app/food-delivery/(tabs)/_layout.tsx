@@ -1,6 +1,7 @@
 import React from 'react';
 import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { Image } from 'react-native';
 
 export default function TabsLayout() {
   return (
@@ -32,7 +33,10 @@ export default function TabsLayout() {
           title: 'Burgers',
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="fast-food" size={size} color={color} />
+            <Image 
+              source={{ uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/foodicons/bug.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb29kaWNvbnMvYnVnLnBuZyIsImlhdCI6MTc1OTA0NDkzNiwiZXhwIjoxNzkwNTgwOTM2fQ.-b6p4Nc88f09lk4jeeei28w7DeOK9NsVPcLIq6cPCH0' }}
+              style={{ width: 28, height: 28, resizeMode: 'contain' }}
+            />
           ),
         }}
       />

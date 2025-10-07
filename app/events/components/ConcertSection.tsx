@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -11,6 +11,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import ConcertCard from './ConcertCard';
 import { Concert } from '../data/concerts';
+import { fetchStubhubEventByUrl } from '../api/stubhub';
+import Constants from 'expo-constants';
 
 interface ConcertSectionProps {
   concerts: Concert[];
@@ -26,6 +28,37 @@ export default function ConcertSection({
   showViewAll = true 
 }: ConcertSectionProps) {
   const router = useRouter();
+  const [augmentedConcerts, setAugmentedConcerts] = useState<Concert[]>(concerts);
+
+  useEffect(() => {
+    let mounted = true;
+    async function enrich() {
+      try {
+        const extra = (Constants?.expoConfig?.extra || {}) as Record<string, any>;
+        const eventUrl =
+          process.env.EXPO_PUBLIC_STUBHUB_TRAVIS_URL ||
+          extra.EXPO_PUBLIC_STUBHUB_TRAVIS_URL ||
+          extra.STUBHUB_TRAVIS_URL;
+        if (!eventUrl) {
+          if (mounted) setAugmentedConcerts(concerts);
+          return;
+        }
+        const live = await fetchStubhubEventByUrl(eventUrl);
+        if (mounted) {
+          if (live) {
+            const exists = concerts.some(c => c.title === live.title || c.id === live.id);
+            setAugmentedConcerts(exists ? concerts : [live, ...concerts]);
+          } else {
+            setAugmentedConcerts(concerts);
+          }
+        }
+      } catch {
+        if (mounted) setAugmentedConcerts(concerts);
+      }
+    }
+    enrich();
+    return () => { mounted = false; };
+  }, [concerts]);
 
   const handleConcertPress = (concert: Concert) => {
     router.push(`/events/concert/${concert.id}`);
@@ -39,7 +72,7 @@ export default function ConcertSection({
     <ConcertCard concert={item} onPress={handleConcertPress} />
   );
 
-  if (concerts.length === 0) {
+  if (augmentedConcerts.length === 0) {
     return null;
   }
 
@@ -61,7 +94,7 @@ export default function ConcertSection({
 
       {/* Concerts List */}
       <FlatList
-        data={concerts}
+        data={augmentedConcerts}
         renderItem={renderConcert}
         keyExtractor={(item) => item.id}
         horizontal

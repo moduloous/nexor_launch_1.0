@@ -1,5 +1,4 @@
 import { View, Text, StyleSheet, ScrollView, Pressable, Image, TextInput, Animated, Dimensions, TouchableOpacity, StatusBar, AppState, Platform, NativeModules } from 'react-native';
-import { ChevronLeft, Search, MapPin, Clock, Star, Filter, ShoppingCart, ChevronDown } from 'lucide-react-native';
 import { router } from 'expo-router';
 import React, { useState, useRef, useEffect } from 'react';
 import { useCart } from '../contexts/CartContext';
@@ -16,37 +15,37 @@ const foodCategories = [
   {
     id: 1,
     name: 'Offers',
-    image: require('../assets/icons/offers-modified.png'),
+    image: { uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/foodicons/offers-removebg-preview.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb29kaWNvbnMvb2ZmZXJzLXJlbW92ZWJnLXByZXZpZXcucG5nIiwiaWF0IjoxNzU5MDcxMTI2LCJleHAiOjE3OTA2MDcxMjZ9.gWDyDhrJHRnv3lThJ6G3Wep2nOK9dEfmIis_TN6Z4C4' },
     gradient: ['#FF6B6B', '#FF8E8E'] as const
   },
   {
     id: 2,
     name: 'Meals',
-    image: require('../assets/icons/mealsicon.png'),
+    image: { uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/foodicons/meals.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb29kaWNvbnMvbWVhbHMucG5nIiwiaWF0IjoxNzU5MDQ2MjY5LCJleHAiOjE3OTA1ODIyNjl9.js0Ww_PXrFfXlD2UeFl9yJcJLKaxFdXt1m0oNEJQ7gQ' },
     gradient: ['#4CAF50', '#81C784'] as const
   },
   {
     id: 3,
     name: 'Burgers',
-    image: require('../assets/icons/burgers-modified.png'),
+    image: { uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/foodicons/bug.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb29kaWNvbnMvYnVnLnBuZyIsImlhdCI6MTc1OTA0NDkzNiwiZXhwIjoxNzkwNTgwOTM2fQ.-b6p4Nc88f09lk4jeeei28w7DeOK9NsVPcLIq6cPCH0' },
     gradient: ['#FF6B6B', '#FF8E8E'] as const
   },
   {
     id: 4,
     name: 'Pizza',
-    image: require('../assets/icons/pizza.png'),
+    image: { uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/foodicons/piz-removebg-preview.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb29kaWNvbnMvcGl6LXJlbW92ZWJnLXByZXZpZXcucG5nIiwiaWF0IjoxNzU5MDQ1MzIyLCJleHAiOjE3OTA1ODEzMjJ9.a-jsIvxxLDnydjXryy4lqGeDGp2tP1YdeEDhk6QthIE' },
     gradient: ['#2196F3', '#64B5F6'] as const
   },
   {
     id: 5,
     name: 'Biryani',
-    image: require('../assets/icons/biriyani.png'),
+    image: { uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/foodicons/Indian_Traditional_Biryani_Plate_on_Transparent_Background-removebg-preview.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb29kaWNvbnMvSW5kaWFuX1RyYWRpdGlvbmFsX0JpcnlhbmlfUGxhdGVfb25fVHJhbnNwYXJlbnRfQmFja2dyb3VuZC1yZW1vdmViZy1wcmV2aWV3LnBuZyIsImlhdCI6MTc1OTA0NTk0MiwiZXhwIjoxNzkwNTgxOTQyfQ.080xe5r5pmLKzrrkV8oi5ZptpByCs3joGMn8b14Clpk' },
     gradient: ['#FF6B6B', '#FF8E8E'] as const
   },
   {
     id: 6,
     name: 'Chinese',
-    image: require('../assets/icons/chinesec-modified.png'),
+    image: { uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/foodicons/chinese-removebg-preview.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb29kaWNvbnMvY2hpbmVzZS1yZW1vdmViZy1wcmV2aWV3LnBuZyIsImlhdCI6MTc1OTA1MjMzNSwiZXhwIjoxNzkwNTg4MzM1fQ.58A3JLAdB38UVR5PegLFrpZLxvHklYOwbihUKtjmBBA' },
     gradient: ['#2196F3', '#64B5F6'] as const
   }
 ];
@@ -279,19 +278,19 @@ const popularCategories = [
   {
     id: 1,
     name: 'Bestsellers',
-    image: require('../assets/icons/best sellers-modified.png'),
+    image: { uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/foodicons/best.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb29kaWNvbnMvYmVzdC5wbmciLCJpYXQiOjE3NTkwODEyOTIsImV4cCI6MTc5MDYxNzI5Mn0.Ib6esOrQJj7VZbYuE1G2we9tLYnUDfC2iwmK7Y6EyGc' },
     gradient: colors.categories.offers
   },
   {
     id: 2,
     name: 'Newly Launched',
-    image: require('../assets/icons/newly launches-modified.png'),
+    image: { uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/foodicons/newlylaunch.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb29kaWNvbnMvbmV3bHlsYXVuY2gucG5nIiwiaWF0IjoxNzU5MDgyMjcyLCJleHAiOjE3OTA2MTgyNzJ9.IVI59O_eD8kSP7CHe4cxhrPdp7bROkhHpTrxmgX7VHk' },
     gradient: colors.categories.cuisines
   },
   {
     id: 3,
     name: 'Trending Now',
-    image: require('../assets/icons/trending now-modified.png'),
+    image: { uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/foodicons/Tiramisu-removebg-preview.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb29kaWNvbnMvVGlyYW1pc3UtcmVtb3ZlYmctcHJldmlldy5wbmciLCJpYXQiOjE3NTkwODIwODAsImV4cCI6MTc5MDYxODA4MH0.8Rb6p-frEjkgj-SZJvowK2v6FSzt9Mt0OSt50IC-BgI' },
     gradient: colors.categories.offers
   }
 ];
@@ -300,13 +299,13 @@ const cuisines = [
   {
     id: 1,
     name: 'Indian',
-    image: require('../assets/icons/indian-modified.png'),
+    image: { uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/foodicons/indian.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb29kaWNvbnMvaW5kaWFuLnBuZyIsImlhdCI6MTc1OTA4Mjk0NiwiZXhwIjoxNzkwNjE4OTQ2fQ.Ry3HgPU5HYjWyLkdYJw2s1Gy5OR4_JhhdHKiTmszsK0' },
     gradient: colors.categories.cuisines
   },
   {
     id: 2,
     name: 'Chinese',
-    image: require('../assets/icons/chinesec-modified.png'),
+    image: { uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/foodicons/chinese-removebg-preview.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb29kaWNvbnMvY2hpbmVzZS1yZW1vdmViZy1wcmV2aWV3LnBuZyIsImlhdCI6MTc1OTA1MjMzNSwiZXhwIjoxNzkwNTg4MzM1fQ.58A3JLAdB38UVR5PegLFrpZLxvHklYOwbihUKtjmBBA' },
     gradient: colors.categories.cuisines
   },
   {
@@ -417,7 +416,7 @@ const specialMenus = [
   {
     id: 1,
     name: 'Biryani Specials',
-    image: require('../assets/icons/bs-modified.png'),
+    image: { uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/foodicons/Indian_Traditional_Biryani_Plate_on_Transparent_Background-removebg-preview.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb29kaWNvbnMvSW5kaWFuX1RyYWRpdGlvbmFsX0JpcnlhbmlfUGxhdGVfb25fVHJhbnNwYXJlbnRfQmFja2dyb3VuZC1yZW1vdmViZy1wcmV2aWV3LnBuZyIsImlhdCI6MTc1OTA0NTk0MiwiZXhwIjoxNzkwNTgxOTQyfQ.080xe5r5pmLKzrrkV8oi5ZptpByCs3joGMn8b14Clpk' },
     gradient: colors.categories.offers
   },
   {
@@ -449,27 +448,9 @@ const renderCategoryIcon = (category: Category) => {
 };
 
 export default function FoodDeliveryScreen() {
-  const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [isFilterPressed, setIsFilterPressed] = useState(false);
-  const filterScale = useRef(new Animated.Value(1)).current;
   const insets = useSafeAreaInsets();
 
-  const handleFilterPress = () => {
-    setIsFilterPressed(true);
-    Animated.sequence([
-      Animated.timing(filterScale, {
-        toValue: 0.95,
-        duration: 100,
-        useNativeDriver: true,
-      }),
-      Animated.timing(filterScale, {
-        toValue: 1,
-        duration: 100,
-        useNativeDriver: true,
-      }),
-    ]).start(() => setIsFilterPressed(false));
-  };
 
   const handleCategoryPress = (categoryName: string) => {
     if (categoryName === 'Meals') {
@@ -487,64 +468,76 @@ export default function FoodDeliveryScreen() {
       style={styles.categoryItem}
       onPress={() => handleCategoryPress(category.name)}
     >
-      <LinearGradient
-        colors={category.gradient}
-        style={styles.categoryGradient}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-      >
-        <Image source={category.image} style={styles.categoryIcon} />
-      </LinearGradient>
+      {category.name === 'Offers' ? (
+        // Render offers icon without background
+        <View style={styles.categoryIconContainer}>
+          <Image source={category.image} style={styles.categoryIconNoBg} />
+        </View>
+      ) : category.name === 'Meals' ? (
+        // Render meals icon without background (extra large size)
+        <View style={styles.categoryIconContainer}>
+          <Image source={category.image} style={styles.categoryIconNoBgXLarge} />
+        </View>
+      ) : category.name === 'Burgers' ? (
+        // Render burger icon without background
+        <View style={styles.categoryIconContainer}>
+          <Image source={category.image} style={styles.categoryIconNoBg} />
+        </View>
+      ) : category.name === 'Pizza' ? (
+        // Render pizza icon without background (larger size)
+        <View style={styles.categoryIconContainer}>
+          <Image source={category.image} style={styles.categoryIconNoBgLarge} />
+        </View>
+      ) : category.name === 'Biryani' || category.name === 'Biryani Specials' ? (
+        // Render biryani icons without background (large size)
+        <View style={styles.categoryIconContainer}>
+          <Image source={category.image} style={styles.categoryIconNoBgLarge} />
+        </View>
+      ) : category.name === 'Chinese' ? (
+        // Render Chinese icon without background (large size)
+        <View style={styles.categoryIconContainer}>
+          <Image source={category.image} style={styles.categoryIconNoBgLarge} />
+        </View>
+      ) : category.name === 'Indian' ? (
+        // Render Indian icon without background (extra extra large size)
+        <View style={styles.categoryIconContainer}>
+          <Image source={category.image} style={styles.categoryIconNoBgXXLarge} />
+        </View>
+      ) : (
+        // Render other icons with gradient background
+        <LinearGradient
+          colors={category.gradient}
+          style={styles.categoryGradient}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+        >
+          <Image source={category.image} style={styles.categoryIcon} />
+        </LinearGradient>
+      )}
       <Text style={styles.categoryText}>{category.name}</Text>
     </Pressable>
   );
 
   return (
-    <SafeAreaView style={styles.container} edges={['right', 'left']}>
-      <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent />
+    <View style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
       
-      {/* Custom Header */}
-      <View style={[styles.header, { paddingTop: insets.top }]}>
+      {/* Fixed Header */}
+      <View style={[styles.fixedHeader, { paddingTop: insets.top + 10 }]}>
         <TouchableOpacity 
           style={styles.backButton} 
           onPress={() => router.back()}
         >
-          <Ionicons name="arrow-back" size={24} color="#000" />
+          <Ionicons name="arrow-back" size={24} color="#fff" />
         </TouchableOpacity>
         <View style={styles.titleContainer}>
-          <Text style={styles.titleText}>Food Delivery</Text>
+          <Text style={[styles.titleText, { color: '#fff' }]}>Food Delivery</Text>
         </View>
         <TouchableOpacity 
           style={styles.cartButton}
           onPress={() => router.push('/(tabs)/Cart')}
         >
-          <Ionicons name="cart-outline" size={24} color="#000" />
-        </TouchableOpacity>
-      </View>
-
-      {/* Delivery Location (Compact) */}
-      <View style={styles.deliveryLocationContainer}>
-        <View style={styles.deliveryInfoContainer}>
-          <Text style={styles.deliveryLabel}>DELIVERY TO</Text>
-          <View style={styles.locationRow}>
-            <Text style={styles.locationText}>Home - 123 Main St, City</Text>
-            <Ionicons name="chevron-down" size={18} color="#fff" />
-          </View>
-        </View>
-      </View>
-
-      {/* Search Bar */}
-      <View style={styles.searchContainer}>
-        <Ionicons name="search-outline" size={20} color="gray" />
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Craving something delicious?"
-          placeholderTextColor="gray"
-          value={searchQuery}
-          onChangeText={setSearchQuery}
-        />
-        <TouchableOpacity onPress={handleFilterPress} style={styles.filterButton}>
-          <Ionicons name="options-outline" size={20} color="#333" />
+          <Ionicons name="cart-outline" size={24} color="#fff" />
         </TouchableOpacity>
       </View>
 
@@ -552,6 +545,31 @@ export default function FoodDeliveryScreen() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollViewContent}
       >
+        {/* Black Space at Top */}
+        <View style={styles.blackSpaceTop}>
+          <View style={styles.searchBarContainer}>
+            <View style={styles.searchBar}>
+              <Ionicons name="search-outline" size={20} color="gray" />
+              <TextInput
+                style={styles.searchInput}
+                placeholder="Restaurant name or a dish..."
+                placeholderTextColor="gray"
+              />
+              <TouchableOpacity>
+                <Ionicons name="mic" size={20} color="#FF6B6B" />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+        
+        {/* Scrollable Banner */}
+        <View style={styles.scrollableBannerSection}>
+          <Image 
+            source={{ uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/foodicons/Untitled%20(2).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb29kaWNvbnMvVW50aXRsZWQgKDIpLnBuZyIsImlhdCI6MTc1OTA3MzA3OSwiZXhwIjoxNzkwNjA5MDc5fQ.T6297EQ9pfcA_fV7lATds7sK0JR0xPjvT_RP2r08RcY' }}
+            style={styles.scrollableBanner}
+            resizeMode="cover"
+          />
+        </View>
       
         {/* Food Categories */}
         <View style={styles.categoriesContainer}>
@@ -571,14 +589,32 @@ export default function FoodDeliveryScreen() {
             <View style={styles.popularCategoryRow}>
               {popularCategories.map((category) => (
                 <TouchableOpacity key={category.id} style={styles.popularCategory}>
-                  <LinearGradient
-                    colors={category.gradient}
-                    style={styles.popularCategoryIcon}
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 1 }}
-                  >
-                    <Image source={category.image} style={styles.popularCategoryImage} />
-                  </LinearGradient>
+                  {category.name === 'Bestsellers' ? (
+                    // Render bestsellers icon without background
+                    <View style={styles.popularCategoryIconNoBg}>
+                      <Image source={category.image} style={styles.popularCategoryImageNoBg} />
+                    </View>
+                  ) : category.name === 'Newly Launched' ? (
+                    // Render newly launched icon without background (larger size)
+                    <View style={styles.popularCategoryIconNoBg}>
+                      <Image source={category.image} style={styles.popularCategoryImageNoBgLarge} />
+                    </View>
+                  ) : category.name === 'Trending Now' ? (
+                    // Render trending now icon without background (extra large size)
+                    <View style={styles.popularCategoryIconNoBg}>
+                      <Image source={category.image} style={styles.popularCategoryImageNoBgXLarge} />
+                    </View>
+                  ) : (
+                    // Render other icons with gradient background
+                    <LinearGradient
+                      colors={category.gradient}
+                      style={styles.popularCategoryIcon}
+                      start={{ x: 0, y: 0 }}
+                      end={{ x: 1, y: 1 }}
+                    >
+                      <Image source={category.image} style={styles.popularCategoryImage} />
+                    </LinearGradient>
+                  )}
                   <Text style={styles.popularCategoryText}>{category.name}</Text>
                 </TouchableOpacity>
               ))}
@@ -586,37 +622,18 @@ export default function FoodDeliveryScreen() {
           </View>
         </View>
 
-        {/* Promotion Banner */}
+        {/* Food Banner */}
         <View style={styles.promotionContainer}>
-          <LinearGradient
-            colors={['#FFA726', '#FF7043']}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-            style={styles.promotionBanner}
+          <TouchableOpacity 
+            style={styles.bannerContainer}
+            onPress={() => router.push('/(tabs)')}
           >
-            <View style={styles.promotionContent}>
-              <View>
-                <Text style={styles.promotionTitle}>Feast Without Limits</Text>
-                <Text style={styles.promotionDescription}>Discover, Order, Devour</Text>
-              </View>
-              <TouchableOpacity 
-                style={styles.promotionButton}
-                onPress={() => router.push('/(tabs)')}
-              >
-                <Text style={styles.promotionButtonText}>Explore Delicious Deals</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.promotionImageContainer}>
-              <Image 
-                source={{ uri: 'https://cdn-icons-png.flaticon.com/512/3595/3595455.png' }} 
-                style={styles.promotionImage}
-              />
-              <Image 
-                source={{ uri: 'https://cdn-icons-png.flaticon.com/512/877/877951.png' }} 
-                style={[styles.promotionImage, styles.burgerImage]}
-              />
-            </View>
-          </LinearGradient>
+            <Image 
+              source={{ uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/foodicons/foodbanner1.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb29kaWNvbnMvZm9vZGJhbm5lcjEucG5nIiwiaWF0IjoxNzU5MDQ3MDg3LCJleHAiOjE3OTA1ODMwODd9.Re_732cvqj1zNUChuXwPmHD5o97vEI9RvJhTz3JIHgg' }}
+              style={styles.foodBanner}
+              resizeMode="cover"
+            />
+          </TouchableOpacity>
         </View>
 
         {/* Cuisines */}
@@ -733,7 +750,7 @@ export default function FoodDeliveryScreen() {
           ))}
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -762,53 +779,69 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 18,
     fontWeight: 'bold',
+    fontFamily: 'Urbanist',
   },
   cartButton: {
     padding: 8,
   },
-  deliveryLocationContainer: {
-    backgroundColor: '#4CAF50',
-    paddingVertical: 8,
+  fixedHeader: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingHorizontal: 16,
-    marginBottom: 10,
+    paddingVertical: 12,
+    zIndex: 1000,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
   },
-  deliveryInfoContainer: {
-    flexDirection: 'column',
-  },
-  deliveryLabel: {
-    fontSize: 12,
-    color: 'rgba(255, 255, 255, 0.8)',
-    marginBottom: 2,
-  },
-  locationRow: {
-    flexDirection: 'row',
+  blackSpaceTop: {
+    height: 80,
+    backgroundColor: '#000',
+    justifyContent: 'flex-end',
     alignItems: 'center',
   },
-  locationText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
-    marginRight: 4,
+  searchBarContainer: {
+    paddingHorizontal: 20,
+    width: '100%',
+    marginBottom: -140,
   },
-  searchContainer: {
+  searchBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#F5F5F5',
+    backgroundColor: 'white',
     paddingHorizontal: 12,
     paddingVertical: 8,
-    borderRadius: 8,
-    marginHorizontal: 16,
-    marginBottom: 16,
+    borderRadius: 20,
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+    zIndex: 100,
   },
   searchInput: {
     flex: 1,
-    fontSize: 16,
-    marginLeft: 8,
+    fontSize: 14,
+    marginLeft: 6,
+    marginRight: 6,
+    fontFamily: 'Urbanist',
+  },
+  scrollableBannerSection: {
+    height: 320,
+    marginBottom: 16,
+  },
+  scrollableBanner: {
+    width: '100%',
+    height: '100%',
   },
   filterButton: {
     padding: 4,
   },
   scrollViewContent: {
+    marginTop: -50,
     paddingBottom: 20,
   },
   categoriesContainer: {
@@ -837,11 +870,41 @@ const styles = StyleSheet.create({
     height: '100%',
     resizeMode: 'cover',
   },
+  categoryIconContainer: {
+    width: 68,
+    height: 68,
+    borderRadius: 34,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 4,
+    backgroundColor: 'transparent',
+  },
+  categoryIconNoBg: {
+    width: 60,
+    height: 60,
+    resizeMode: 'contain',
+  },
+  categoryIconNoBgLarge: {
+    width: 72,
+    height: 72,
+    resizeMode: 'contain',
+  },
+  categoryIconNoBgXLarge: {
+    width: 80,
+    height: 80,
+    resizeMode: 'contain',
+  },
+  categoryIconNoBgXXLarge: {
+    width: 125,
+    height: 125,
+    resizeMode: 'contain',
+  },
   categoryText: {
     fontSize: 12,
     color: '#333',
     textAlign: 'center',
     marginTop: 4,
+    fontFamily: 'Urbanist',
   },
   sectionContainer: {
     marginTop: 16,
@@ -851,6 +914,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 12,
+    fontFamily: 'Urbanist',
   },
   popularCategoriesContainer: {
     marginBottom: 16,
@@ -871,13 +935,46 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 8,
   },
+  popularCategoryIconNoBg: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 8,
+    backgroundColor: 'transparent',
+  },
+  popularCategoryImageNoBg: {
+    width: 80,
+    height: 80,
+    resizeMode: 'contain',
+  },
+  popularCategoryImageNoBgLarge: {
+    width: 95,
+    height: 95,
+    resizeMode: 'contain',
+  },
+  popularCategoryImageNoBgXLarge: {
+    width: 100,
+    height: 100,
+    resizeMode: 'contain',
+  },
   popularCategoryText: {
     fontSize: 14,
     textAlign: 'center',
+    fontFamily: 'Urbanist',
   },
   promotionContainer: {
     paddingHorizontal: 16,
     marginVertical: 16,
+  },
+  bannerContainer: {
+    borderRadius: 16,
+    overflow: 'hidden',
+  },
+  foodBanner: {
+    width: '100%',
+    height: 120,
   },
   promotionBanner: {
     borderRadius: 16,
@@ -964,6 +1061,7 @@ const styles = StyleSheet.create({
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 3,
+    fontFamily: 'Urbanist',
   },
   cuisineText: {
     fontSize: 16,
@@ -972,6 +1070,7 @@ const styles = StyleSheet.create({
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 3,
+    fontFamily: 'Urbanist',
   },
   restaurantMeta: {
     flexDirection: 'row',
@@ -996,15 +1095,18 @@ const styles = StyleSheet.create({
   metaText: {
     color: '#fff',
     fontSize: 14,
+    fontFamily: 'Urbanist',
   },
   ratingText: {
     color: '#fff',
     fontSize: 14,
     fontWeight: '600',
+    fontFamily: 'Urbanist',
   },
   priceText: {
     color: '#fff',
     fontSize: 14,
+    fontFamily: 'Urbanist',
   },
   offerContainer: {
     backgroundColor: '#FFD700',
@@ -1017,6 +1119,7 @@ const styles = StyleSheet.create({
     color: '#000',
     fontSize: 14,
     fontWeight: '600',
+    fontFamily: 'Urbanist',
   },
   popularCategoryImage: {
     width: '100%',

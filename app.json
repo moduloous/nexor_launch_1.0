@@ -36,10 +36,8 @@
         "ACCESS_FINE_LOCATION",
         "android.permission.ACCESS_COARSE_LOCATION",
         "android.permission.ACCESS_FINE_LOCATION",
-        "ACCESS_COARSE_LOCATION",
-        "ACCESS_FINE_LOCATION",
-        "android.permission.ACCESS_COARSE_LOCATION",
-        "android.permission.ACCESS_FINE_LOCATION"
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
       ],
       "config": {
         "googleMaps": {
@@ -73,14 +71,15 @@
     "experiments": {
       "typedRoutes": true
     },
+    "updates": {
+      "url": "https://u.expo.dev/6faa7e4b-24c7-4782-b70c-de372b88144b"
+    },
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "6faa7e4b-24c7-4782-b70c-de372b88144b"
+        "projectId": "f97b5ff8-61c7-487f-896d-cc82ad419f00"
       }
     },
-    "updates": {
-      "url": "https://u.expo.dev/6faa7e4b-24c7-4782-b70c-de372b88144b"
-    }
+    "owner": "chicks22"
   }
 }

@@ -130,7 +130,9 @@ export default function FeaturedEventsCarousel({
               {/* Price and Rating */}
               <View style={styles.bottomRow}>
                 <View style={styles.priceContainer}>
-                  <Text style={styles.price}>{item.price}</Text>
+                  <BlurView intensity={20} tint="light" style={styles.glassPill}>
+                    <Text style={styles.price}>{item.price}</Text>
+                  </BlurView>
                   {item.originalPrice && (
                     <Text style={styles.originalPrice}>{item.originalPrice}</Text>
                   )}
@@ -260,6 +262,14 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.15,
     shadowRadius: 12,
+  },
+  glassPill: {
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 12,
+    backgroundColor: 'rgba(255,255,255,0.18)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.3)'
   },
   backgroundImage: {
     width: '100%',
