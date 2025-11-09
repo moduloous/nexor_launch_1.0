@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { View, Animated, StyleSheet, Dimensions } from 'react-native';
+import { View, Animated, StyleSheet, useWindowDimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 interface BeamsBackgroundProps {
@@ -26,7 +26,7 @@ const BeamsBackground: React.FC<BeamsBackgroundProps> = ({
   style
 }) => {
   const animatedValues = useRef<Animated.Value[]>([]);
-  const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+  const { width: screenWidth, height: screenHeight } = useWindowDimensions();
 
   // Initialize animated values for each beam
   useEffect(() => {
@@ -66,7 +66,7 @@ const BeamsBackground: React.FC<BeamsBackgroundProps> = ({
 
     const translateY = animatedValue.interpolate({
       inputRange: [0, 1],
-      outputRange: [-screenHeight, screenHeight + beamHeight],
+      outputRange: [-screenHeight || 800, (screenHeight || 800) + beamHeight],
     });
 
     const opacity = animatedValue.interpolate({

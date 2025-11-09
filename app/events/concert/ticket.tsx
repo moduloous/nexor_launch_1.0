@@ -16,9 +16,9 @@ export default function TicketPurchaseScreen() {
   const [selectedTicketType, setSelectedTicketType] = useState('general');
 
   const ticketTypes = [
-    { id: 'general', name: 'General Admission', price: '$100', description: 'Standard concert access' },
-    { id: 'vip', name: 'VIP', price: '$200', description: 'Premium seating + meet & greet' },
-    { id: 'premium', name: 'Premium', price: '$150', description: 'Better seating + merchandise' },
+    { id: 'general', name: 'General Admission', price: '₹8,300', description: 'Standard concert access' },
+    { id: 'vip', name: 'VIP', price: '₹16,600', description: 'Premium seating + meet & greet' },
+    { id: 'premium', name: 'Premium', price: '₹12,450', description: 'Better seating + merchandise' },
   ];
 
   const handlePurchase = () => {

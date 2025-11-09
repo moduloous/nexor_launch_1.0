@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "bolt-expo-nativewind",
+    "name": "Nexor",
     "slug": "bolt-expo-nativewind",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -8,12 +8,19 @@
     "splash": {
       "image": "./assets/images/splash-background.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#000000"
     },
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "ios": {
       "supportsTablet": true,
+      "icon": "./assets/images/icon.png",
+      "splash": {
+        "image": "./assets/images/splash-background.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#000000",
+        "tabletImage": "./assets/images/splash-background.png"
+      },
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "This app needs access to your location to show nearby rides.",
         "NSLocationAlwaysUsageDescription": "This app needs access to your location to show nearby rides.",
@@ -31,6 +38,16 @@
       }
     },
     "android": {
+      "icon": "./assets/images/icon.png",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/icon.png",
+        "backgroundColor": "#000000"
+      },
+      "splash": {
+        "image": "./assets/images/splash-background.png",
+        "resizeMode": "cover",
+        "backgroundColor": "#1a365d"
+      },
       "permissions": [
         "ACCESS_COARSE_LOCATION",
         "ACCESS_FINE_LOCATION",

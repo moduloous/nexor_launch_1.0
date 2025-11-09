@@ -11,7 +11,7 @@ interface StubhubProxyResponse {
   location?: string; // City
   venue?: string;
   image?: string;
-  price?: string; // formatted like ₹2999 onwards or $100
+  price?: string; // formatted like ₹2999 onwards or ₹8,300
 }
 
 function toConcert(resp: StubhubProxyResponse): Concert | null {
@@ -29,7 +29,7 @@ function toConcert(resp: StubhubProxyResponse): Concert | null {
     image:
       resp.image ||
       'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1200&q=80',
-    price: resp.price || '$100',
+    price: resp.price || '₹8,300',
     rating: 4.8,
     reviews: 1000,
     attendees: 1000,

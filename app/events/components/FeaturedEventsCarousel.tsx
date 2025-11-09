@@ -355,6 +355,9 @@ const styles = StyleSheet.create({
   priceContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    flex: 1,
+    flexShrink: 1,
+    marginRight: 12,
   },
   price: {
     fontSize: 16,
@@ -364,6 +367,7 @@ const styles = StyleSheet.create({
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 2,
     fontFamily: 'Urbanist',
+    flexShrink: 1,
   },
   originalPrice: {
     fontSize: 12,
@@ -374,6 +378,7 @@ const styles = StyleSheet.create({
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 2,
     fontFamily: 'Urbanist',
+    flexShrink: 1,
   },
   ratingContainer: {
     flexDirection: 'row',

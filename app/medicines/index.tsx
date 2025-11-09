@@ -151,7 +151,7 @@ const categorySections = [
       {
         id: 'diabetes-care',
         name: 'Diabetes Care',
-        image: { uri: 'https://images.unsplash.com/photo-1586015555751-5f321b510a69?w=500&h=500&fit=crop' },
+        image: { uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/medicines_icons/diabetes%20care.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJtZWRpY2luZXNfaWNvbnMvZGlhYmV0ZXMgY2FyZS5wbmciLCJpYXQiOjE3NjIxODg0ODgsImV4cCI6MTc5MzcyNDQ4OH0.IEpY1MsQkENIjHwlXdKOab9cSz4M27FIIrPqTFEuhR8' },
         products: [
           'OneTouch Test Strips',
           'Sugar Free Gold',
@@ -178,7 +178,7 @@ const categorySections = [
       {
         id: 'vitamins',
         name: 'Vitamins & Supplements',
-        image: { uri: 'https://images.unsplash.com/photo-1577401239170-897942555fb3?w=500&h=500&fit=crop' },
+        image: { uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/medicines_icons/vitaminsandsup.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJtZWRpY2luZXNfaWNvbnMvdml0YW1pbnNhbmRzdXAucG5nIiwiaWF0IjoxNzYyMTg4NjY2LCJleHAiOjE3OTM3MjQ2NjZ9.guoiXTEfwC1MikQM3LyjsOI9lcwq_e7sMQ7yvFcMydI' },
         products: [
           'Centrum Adults',
           'Revital H',
@@ -215,8 +215,12 @@ const categorySections = [
 export default function MedicineScreen() {
   const nav = useRouter();
   const handleServicePress = (serviceId: string) => {
-    // For now, we'll just log the service press until we create the service screens
-    console.log('Service pressed:', serviceId);
+    if (serviceId === 'pharmacy') {
+      nav.push('/medicines/pharmacy');
+    } else {
+      // For other services, we'll just log until we create the service screens
+      console.log('Service pressed:', serviceId);
+    }
   };
 
   const handleCategoryPress = (categoryId: string) => {
@@ -248,7 +252,7 @@ export default function MedicineScreen() {
             <Ionicons name="location-outline" size={20} color="#ff6b6b" />
             <View style={styles.locationInfo}>
               <Text style={styles.locationLabel}>DELIVERY TO</Text>
-              <Text style={styles.locationText}>Home - Bangalore</Text>
+              <Text style={styles.locationText}>Home - Bengaluru, Karnataka</Text>
             </View>
             <Ionicons name="chevron-forward-outline" size={20} color="#333" />
           </View>
@@ -257,7 +261,7 @@ export default function MedicineScreen() {
             <View style={styles.searchBar}>
               <Ionicons name="search-outline" size={20} color="#666" />
               <TextInput 
-                placeholder="Search medicines & health products"
+                placeholder="Search medicines, ayurvedic & health products"
                 style={styles.searchInput}
               />
             </View>
@@ -270,15 +274,47 @@ export default function MedicineScreen() {
                 style={styles.serviceCard}
                 onPress={() => handleServicePress(service.id)}
               >
-                <View style={[styles.serviceIcon, { backgroundColor: service.color + '15' }]}>
-                  <Ionicons name={service.icon} size={24} color={service.color} />
-                  {service.badge && (
-                    <View style={styles.serviceBadge}>
-                      <Ionicons name="time-outline" size={12} color="#fff" />
-                      <Text style={styles.serviceBadgeText}>{service.badge}</Text>
-                    </View>
-                  )}
-                </View>
+                {service.id === 'lab' ? (
+                  <View style={styles.labTestContainer}>
+                    <Image 
+                      source={{ 
+                        uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/medicines_icons/labtest.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJtZWRpY2luZXNfaWNvbnMvbGFidGVzdC5wbmciLCJpYXQiOjE3NjA4NjQyNTQsImV4cCI6MTc5MjQwMDI1NH0.HMZxEND6ZukaeF0km1v-_mNzEBo8sVwN0khQVepWRaU'
+                      }} 
+                      style={styles.labTestImage}
+                      resizeMode="contain"
+                    />
+                  </View>
+                ) : service.id === 'pharmacy' ? (
+                  <View style={styles.labTestContainer}>
+                    <Image 
+                      source={{ 
+                        uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/medicines_icons/pharmacy.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJtZWRpY2luZXNfaWNvbnMvcGhhcm1hY3kucG5nIiwiaWF0IjoxNzYxMTM5ODc2LCJleHAiOjE3OTI2NzU4NzZ9.flyFjByzmTkK1qkJHXfDTYk4OEuisE3_yFFQlptNDzk'
+                      }} 
+                      style={styles.labTestImage}
+                      resizeMode="contain"
+                    />
+                  </View>
+                ) : service.id === 'doctor' ? (
+                  <View style={styles.labTestContainer}>
+                    <Image 
+                      source={{ 
+                        uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/medicines_icons/consult%20donctor.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJtZWRpY2luZXNfaWNvbnMvY29uc3VsdCBkb25jdG9yLnBuZyIsImlhdCI6MTc2MTE0MDEzMiwiZXhwIjoxNzkyNjc2MTMyfQ.WYjxqyq9Dhw5Cul5XmqjPQgGZwKoB8-VD-XUrHuqlK4'
+                      }} 
+                      style={styles.labTestImage}
+                      resizeMode="contain"
+                    />
+                  </View>
+                ) : (
+                  <View style={[styles.serviceIcon, { backgroundColor: service.color + '15' }]}>
+                    <Ionicons name={service.icon} size={24} color={service.color} />
+                    {service.badge && (
+                      <View style={styles.serviceBadge}>
+                        <Ionicons name="time-outline" size={12} color="#fff" />
+                        <Text style={styles.serviceBadgeText}>{service.badge}</Text>
+                      </View>
+                    )}
+                  </View>
+                )}
                 <Text style={styles.serviceName}>{service.name}</Text>
                 <Text style={styles.serviceDescription}>{service.description}</Text>
                 {service.offer && (
@@ -290,18 +326,15 @@ export default function MedicineScreen() {
             ))}
           </View>
 
-          <Pressable style={styles.prescriptionCard}>
-            <View style={styles.prescriptionLeft}>
-              <Ionicons name="document-text-outline" size={24} color="#ff6b6b" />
-              <View>
-                <Text style={styles.prescriptionTitle}>Order with Prescription</Text>
-                <Text style={styles.prescriptionDescription}>Upload prescription & order medicines</Text>
-              </View>
-            </View>
-            <Pressable style={styles.uploadButton}>
-              <Ionicons name="camera-outline" size={20} color="#ff6b6b" />
-              <Text style={styles.uploadButtonText}>Upload</Text>
-            </Pressable>
+          {/* Pharmacy Banner */}
+          <Pressable style={styles.bannerCard}>
+            <Image 
+              source={{ 
+                uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/banners/pharma%20banner.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJiYW5uZXJzL3BoYXJtYSBiYW5uZXIucG5nIiwiaWF0IjoxNzYwODU4ODkxLCJleHAiOjE3OTIzOTQ4OTF9.WWOZx31VZ0FEi5VxItTQhzBMIZERXPEBf4VHWljRQNY'
+              }} 
+              style={styles.bannerImage}
+              resizeMode="cover"
+            />
           </Pressable>
 
           <ScrollView 
@@ -325,6 +358,27 @@ export default function MedicineScreen() {
               </Pressable>
             ))}
           </ScrollView>
+
+          {/* Quick Meds Section */}
+          <View style={styles.quickMedsSection}>
+            <Text style={styles.quickMedsTitle}>Quick Meds</Text>
+            <View style={styles.quickMedsContainer}>
+              <Image 
+                source={{ 
+                  uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/medicines_icons/cold&cough.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJtZWRpY2luZXNfaWNvbnMvY29sZCZjb3VnaC5wbmciLCJpYXQiOjE3NjA4NjAwNDUsImV4cCI6MTc5MjM5NjA0NX0.fh0dSXDAl4jUj9NyPiOx4VIl2-pdu4Gk7DKQtemUKvg'
+                }} 
+                style={styles.quickMedImage}
+                resizeMode="cover"
+              />
+              <Image 
+                source={{ 
+                  uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/medicines_icons/headace.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJtZWRpY2luZXNfaWNvbnMvaGVhZGFjZS5wbmciLCJpYXQiOjE3NjA4NjI2NDksImV4cCI6MTc5MjM5ODY0OX0.jY58JgCREB4Rnt2Vq7oIY4qg6cPpkvRaXO8oLMomnco'
+                }} 
+                style={styles.quickMedImage}
+                resizeMode="cover"
+              />
+            </View>
+          </View>
 
           {categorySections.map((section) => (
             <View key={section.title} style={styles.categorySection}>
@@ -428,6 +482,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 8,
   },
+  serviceImage: {
+    width: 28,
+    height: 28,
+  },
+  labTestContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 8,
+  },
+  labTestImage: {
+    width: 80,
+    height: 80,
+  },
   serviceBadge: {
     position: 'absolute',
     top: -6,
@@ -466,52 +533,14 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontFamily: 'Urbanist-Bold',
   },
-  prescriptionCard: {
+  bannerCard: {
     margin: 12,
-    padding: 12,
-    backgroundColor: '#fff',
     borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#eee',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    overflow: 'hidden',
   },
-  prescriptionLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
-    flex: 1,
-  },
-  prescriptionTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
-    marginBottom: 4,
-    fontFamily: 'Urbanist-Bold',
-  },
-  prescriptionDescription: {
-    fontSize: 13,
-    color: '#666',
-    fontFamily: 'Urbanist-Regular',
-  },
-  uploadButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    backgroundColor: '#fff',
-    borderWidth: 1,
-    borderColor: '#ff6b6b',
-    borderRadius: 6,
-    marginLeft: 8,
-  },
-  uploadButtonText: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#ff6b6b',
-    fontFamily: 'Urbanist-Bold',
+  bannerImage: {
+    width: '100%',
+    height: 100,
   },
   adsContainer: {
     paddingHorizontal: 12,
@@ -622,5 +651,25 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     textAlign: 'center',
     fontFamily: 'Urbanist-SemiBold',
+  },
+  quickMedsSection: {
+    paddingHorizontal: 16,
+    paddingTop: 24,
+  },
+  quickMedsTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#333',
+    marginBottom: 16,
+    fontFamily: 'Urbanist-Bold',
+  },
+  quickMedsContainer: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  quickMedImage: {
+    width: 160,
+    height: 160,
+    borderRadius: 16,
   },
 }); 

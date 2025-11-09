@@ -283,6 +283,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 8,
   },
+  priceContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+    flexShrink: 1,
+    marginRight: 12,
+  },
 
   // Vertical Card Styles
   verticalCard: {
@@ -383,10 +390,6 @@ const styles = StyleSheet.create({
   dateTimeText: {
     fontSize: 11,
     marginLeft: 4,
-  },
-  priceContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
   },
   priceText: {
     fontSize: 14,

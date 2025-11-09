@@ -1,12 +1,14 @@
 import React, { useRef, useEffect } from 'react';
-import { View, TouchableOpacity, StyleSheet, Platform, Dimensions, Text, Animated } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Platform, useWindowDimensions, Text, Animated } from 'react-native';
 import { BlurView } from 'expo-blur';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../contexts/ThemeContext';
+import XOLogo from './XOLogo';
 
 const TABS = [
   { name: 'index', icon: 'home', label: 'Home' },
   { name: 'flash', icon: 'flash', label: 'Flash' },
+  { name: 'grid', icon: 'xo', label: 'Grid' },
   { name: 'orders', icon: 'list', label: 'Orders' },
   { name: 'profile', icon: 'person', label: 'Profile' },
 ];
@@ -18,7 +20,7 @@ const BORDER_RADIUS = 24;
 
 export default function CustomTabBar({ state, descriptors, navigation }: any) {
   const { isDark } = useTheme();
-  const { width } = Dimensions.get('window');
+  const { width } = useWindowDimensions();
   const iconColor = isDark ? '#fff' : '#000';
   const labelColor = isDark ? '#fff' : '#000';
 
@@ -108,12 +110,16 @@ function AnimatedTabItem({ isFocused, onPress, icon, label, isDark }: any) {
         activeOpacity={0.8}
         style={{ alignItems: 'center', justifyContent: 'center', width: 44, height: 44, borderRadius: 22 }}
       >
-        <Ionicons
-          name={icon as any}
-          size={TAB_ICON_SIZE}
-          color={iconColor}
-          style={{ alignSelf: 'center' }}
-        />
+        {icon === 'xo' ? (
+          <XOLogo size={TAB_ICON_SIZE} color="#000" />
+        ) : (
+          <Ionicons
+            name={icon as any}
+            size={TAB_ICON_SIZE}
+            color={iconColor}
+            style={{ alignSelf: 'center' }}
+          />
+        )}
         <Text
           style={[
             styles.tabLabel,

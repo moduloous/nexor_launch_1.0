@@ -319,7 +319,7 @@ export default function ShoppingScreen() {
       
       {/* Header */}
       <View style={styles.header}>
-        <Pressable onPress={() => router.back()} style={styles.backButton}>
+        <Pressable onPress={() => router.push('/')} style={styles.backButton}>
           <Ionicons name="chevron-back" size={24} color="#fff" />
         </Pressable>
         <Text style={styles.headerTitle}>Shopping</Text>

@@ -427,7 +427,7 @@ export default function DressesScreen() {
       <Stack.Screen options={{ headerShown: false }} />
       <View style={styles.header}>
         <View style={styles.headerLeft}>
-          <Pressable onPress={() => router.back()} style={styles.headerButton}>
+          <Pressable onPress={() => router.push('/')} style={styles.headerButton}>
             <Ionicons name="arrow-back" size={24} color="#000" />
           </Pressable>
           <Text style={styles.headerTitle}>Dresses</Text>

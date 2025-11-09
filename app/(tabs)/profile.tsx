@@ -1,12 +1,11 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, useWindowDimensions, Platform } from 'react-native';
+import { View, Text, StyleSheet, useWindowDimensions, Platform } from 'react-native';
 
 const MOCK_PROFILE = {
   name: 'Arya',
   dob: '12.07.2005',
   place: 'Jaipur',
   issueDate: '06.25.2021',
-  profileImage: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/banners/model.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJiYW5uZXJzL21vZGVsLmpwZyIsImlhdCI6MTc1Mjg2MjQwNCwiZXhwIjoxNzg0Mzk4NDA0fQ.jxKOj31s5l8uym_spofM3kkYtQ4odYWQv_C5Xu0mcP0', // Updated to Supabase image
 };
 
 export default function ProfileScreen() {
@@ -41,13 +40,7 @@ export default function ProfileScreen() {
           ))}
         </View>
         <View style={[styles.contentRow, { zIndex: 2 }]}> {/* ensure content is above the stars */}
-          <Image
-            source={{ uri: MOCK_PROFILE.profileImage }}
-            style={[styles.profileImage, { width: 120, height: 200, marginRight: 2 }]}
-            resizeMode="cover"
-            accessibilityLabel="Profile photo"
-          />
-          <View style={[styles.details, { paddingLeft: 12, alignItems: 'flex-start', flex: 1 }]}> {/* left align and padding */}
+          <View style={[styles.details, { alignItems: 'flex-start', flex: 1 }]}> {/* left align */}
             <Text style={[styles.labelText, { fontFamily, fontWeight: 'bold' }]}>PERMANENT LICENCE ACCESS TO NEXOR</Text>
             <View style={styles.field}><Text style={[styles.fieldLabel, { fontFamily, fontWeight: '300' }]}>Issued to:</Text><Text style={[styles.fieldValue, { fontFamily, fontWeight: '300' }]}>{MOCK_PROFILE.name}</Text></View>
             <View style={styles.field}><Text style={[styles.fieldLabel, { fontFamily, fontWeight: '300' }]}>Date of birth:</Text><Text style={[styles.fieldValue, { fontFamily, fontWeight: '300' }]}>{MOCK_PROFILE.dob}</Text></View>
@@ -130,10 +123,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
-  },
-  profileImage: {
-    borderRadius: 18,
-    backgroundColor: '#eee',
   },
   details: {
     flex: 1,

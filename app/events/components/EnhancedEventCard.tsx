@@ -389,12 +389,16 @@ const styles = StyleSheet.create({
   priceContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    flex: 1,
+    flexShrink: 1,
+    marginRight: 12,
   },
   price: {
     fontSize: 18,
     fontWeight: '700',
     color: '#1a1a1a',
     fontFamily: 'Urbanist',
+    flexShrink: 1,
   },
   originalPrice: {
     fontSize: 14,
@@ -402,12 +406,14 @@ const styles = StyleSheet.create({
     textDecorationLine: 'line-through',
     marginLeft: 8,
     fontFamily: 'Urbanist',
+    flexShrink: 1,
   },
   bookButton: {
     backgroundColor: '#FF6B6B',
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 20,
+    flexShrink: 0,
   },
   bookButtonText: {
     color: '#fff',

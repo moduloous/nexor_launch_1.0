@@ -4,6 +4,7 @@ import { useTheme } from '../contexts/ThemeContext';
 import { BlurView } from 'expo-blur';
 import { Platform, View } from 'react-native';
 import CustomTabBar from '../components/CustomTabBar';
+import XOLogo from '../components/XOLogo';
 
 export default function TabLayout() {
   const { isDark } = useTheme();
@@ -56,6 +57,13 @@ export default function TabLayout() {
         options={{
           title: 'Flash',
           tabBarIcon: ({ color }) => <Ionicons name="flash" size={24} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="grid"
+        options={{
+          title: 'Grid',
+          tabBarIcon: ({ color }) => <XOLogo size={24} color="#000" />,
         }}
       />
       <Tabs.Screen

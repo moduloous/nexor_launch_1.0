@@ -570,7 +570,7 @@ export default function BottomwearScreen() {
         <View style={styles.headerLeft}>
           <Pressable 
             style={styles.headerButton}
-            onPress={() => router.back()}
+            onPress={() => router.push('/')}
           >
             <Ionicons name="arrow-back" size={24} color="#000" />
           </Pressable>

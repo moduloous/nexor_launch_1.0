@@ -444,16 +444,13 @@ export default function HomeScreen() {
           {products.map(renderProductCard)}
         </ScrollView>
 
-        {/* Resort Banner */}
+        {/* Banner */}
         <View style={styles.resortBannerContainer}>
           <Image 
-            source={require('../shopping/assets/Deskresortdreams.webp')}
+            source={{ uri: 'https://ajfonpzetlpmenxemofe.supabase.co/storage/v1/object/sign/banners/banner.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjQ3ZWJkYy1kYmRiLTQyYTgtOGRkOS1mMjliZWM0ZTU5NzEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJiYW5uZXJzL2Jhbm5lci5qcGciLCJpYXQiOjE3NjIxNzY5ODcsImV4cCI6MTc5MzcxMjk4N30.g6nm6M4B1ExELy96IViqS38iPvYjpXwI62nHPi3HWho' }}
             style={styles.resortBanner}
             resizeMode="cover"
           />
-          <View style={styles.bannerOverlay}>
-            <Text style={styles.bannerSubtitle}>SHOP RESORT DREAMS</Text>
-          </View>
         </View>
 
         {/* Split Fashion Banner */}
@@ -776,7 +773,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     marginTop: 8,
     marginBottom: 16,
-    height: 210,
+    height: 150,
   },
   resortBanner: {
     width: '100%',
@@ -869,5 +866,5 @@ const styles = StyleSheet.create({
     height: '100%',
     borderRadius: 8,
     alignSelf: 'flex-start',
-  }
+  },
 }); 
