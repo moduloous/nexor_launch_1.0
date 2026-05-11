@@ -1,7 +1,7 @@
 import { Stack } from 'expo-router';
 import { View, Text, Pressable } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 
 export default function MedicinesLayout() {
   const router = useRouter();

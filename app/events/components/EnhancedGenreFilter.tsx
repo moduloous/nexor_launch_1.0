@@ -7,7 +7,7 @@ import {
   ScrollView,
   Animated,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { movieGenres, MovieGenre } from '../data/movies';
 import { useDesignSystem, useThemeStyles } from '../../contexts/DesignSystemContext';
 import { genres } from '../../constants/designTokens';

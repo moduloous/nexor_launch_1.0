@@ -1,4 +1,4 @@
-const { getDefaultConfig } = require('expo/metro-config');
+const { getDefaultConfig } = require('@react-native/metro-config');
 const path = require('path');
 const fs = require('fs');
 
@@ -11,7 +11,6 @@ module.exports = (() => {
   config.transformer = {
     ...transformer,
     babelTransformerPath: require.resolve('react-native-svg-transformer'),
-    assetPlugins: ['expo-asset/tools/hashAssetFiles'],
   };
   
   config.resolver = {

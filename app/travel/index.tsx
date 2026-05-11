@@ -11,8 +11,8 @@ import {
   StatusBar,
   Pressable,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { router, useRouter } from 'expo-router';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface TravelType {

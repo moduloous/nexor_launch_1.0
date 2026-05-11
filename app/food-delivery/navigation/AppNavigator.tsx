@@ -8,7 +8,7 @@ import FoodDetailsScreen from '../screens/FoodDetailsScreen';
 import HomeScreen from '../screens/HomeScreen';
 import CartScreen from '../screens/CartScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-import { Ionicons } from '@expo/vector-icons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export type RootStackParamList = {
   MainTabs: undefined;
