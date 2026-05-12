@@ -7,8 +7,8 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 import ConcertCard from './ConcertCard';
 import { Concert } from '../data/concerts';
 import { fetchStubhubEventByUrl } from '../api/stubhub';

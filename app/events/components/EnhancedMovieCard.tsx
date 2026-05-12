@@ -9,7 +9,7 @@ import {
   Animated,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Ionicons } from '@expo/vector-icons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Movie } from '../data/movies';
 import { useDesignSystem, useThemeStyles } from '../../contexts/DesignSystemContext';
 import { genres, formats, ratings } from '../../constants/designTokens';

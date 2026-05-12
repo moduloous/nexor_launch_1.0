@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, ScrollView, Pressable, Image, TextInput } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { router, useRouter } from 'expo-router';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 

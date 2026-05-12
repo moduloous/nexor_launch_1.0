@@ -12,7 +12,7 @@ import {
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { FoodItem } from '../data/types';
 import { useCart } from '../context/CartContext';
-import { Ionicons } from '@expo/vector-icons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 type FoodDetailsRouteParams = {
   item: FoodItem;

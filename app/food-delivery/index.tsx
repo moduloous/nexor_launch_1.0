@@ -1,11 +1,11 @@
 import { View, Text, StyleSheet, ScrollView, Pressable, Image, TextInput, Animated, Dimensions, TouchableOpacity, StatusBar, AppState, Platform, NativeModules } from 'react-native';
-import { router } from 'expo-router';
+import { useNavigation } from '@react-navigation/native';
 import React, { useState, useRef, useEffect } from 'react';
 import { useCart } from '../contexts/CartContext';
 import { colors } from '../constants/colors';
 import { LinearGradient } from 'expo-linear-gradient';
 import { FoodBanner } from '../components/FoodBanner';
-import { Ionicons } from '@expo/vector-icons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { categories, Category } from '../data/categories';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
